@@ -11,6 +11,13 @@
         <item name ="android:layout_height">match_parent</item>
     </style>
 
+    <style name="MatchWidth" parent="Wrap">
+        <item name ="android:layout_width">match_parent</item>
+    </style>
+
     <style name="CalculatorNumberButton" parent="Wrap">
+    </style>
+
+    <style name="ResultDisplay" parent="MatchWidth">
     </style>
 </resources>

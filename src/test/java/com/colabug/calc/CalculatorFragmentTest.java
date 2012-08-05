@@ -33,6 +33,8 @@ public class CalculatorFragmentTest
     private View key0;
     private View clear;
     private View equal;
+    private View display;
+
 
     @Before
     public void setUp() throws Exception
@@ -41,7 +43,10 @@ public class CalculatorFragmentTest
         calculatorFragment = new CalculatorFragment();
         startFragment( calculatorFragment );
 
-        // Number keys
+        // Result display
+        display = calculatorFragment.getView().findViewById( R.id.display );
+
+        // Number, clear, & equal keys
         key1 = calculatorFragment.getView().findViewById( R.id.key1 );
         key2 = calculatorFragment.getView().findViewById( R.id.key2 );
         key3 = calculatorFragment.getView().findViewById( R.id.key3 );
@@ -60,6 +65,12 @@ public class CalculatorFragmentTest
     public void shouldNotBeNull() throws Exception
     {
         assertNotNull( calculatorFragment );
+    }
+
+    @Test
+    public void shouldHaveResultDisplay() throws Exception
+    {
+        assertViewIsVisible( display );
     }
 
     @Test

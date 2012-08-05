@@ -68,16 +68,40 @@
         android:text="@string/key0"
         style="@style/CalculatorNumberButton"/>
 
-    <!--Clear-->
+    <!--Plus-->
     <Button
-        android:id="@+id/clear"
-        android:text="@string/clear"
+        android:id="@+id/plus"
+        android:text="@string/plus"
+        style="@style/CalculatorNumberButton"/>
+
+    <!--Minus-->
+    <Button
+        android:id="@+id/minus"
+        android:text="@string/minus"
+        style="@style/CalculatorNumberButton"/>
+
+    <!--Multiply-->
+    <Button
+        android:id="@+id/multiply"
+        android:text="@string/multiply"
+        style="@style/CalculatorNumberButton"/>
+
+    <!--Divide-->
+    <Button
+        android:id="@+id/divide"
+        android:text="@string/divide"
         style="@style/CalculatorNumberButton"/>
 
     <!--Equal-->
     <Button
         android:id="@+id/equal"
         android:text="@string/equal"
+        style="@style/CalculatorNumberButton"/>
+
+    <!--Clear-->
+    <Button
+        android:id="@+id/clear"
+        android:text="@string/clear"
         style="@style/CalculatorNumberButton"/>
 </RelativeLayout>
 

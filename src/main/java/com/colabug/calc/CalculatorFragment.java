@@ -26,8 +26,12 @@ public class CalculatorFragment extends Fragment
 
         configureDisplay();
         configureNumberKeys();
-        configureClearKey();
+        configurePlusKey();
+        configureMinusKey();
+        configureMultiplyKey();
+        configureDivideKey();
         configureEqualsKey();
+        configureClearKey();
 
         return layout;
     }
@@ -36,6 +40,54 @@ public class CalculatorFragment extends Fragment
     {
         display = (TextView) layout.findViewById( R.id.display );
         display.setText( "" );
+    }
+
+    private void configurePlusKey()
+    {
+        View plus = layout.findViewById( R.id.plus );
+        plus.setOnClickListener( new View.OnClickListener()
+        {
+            @Override
+            public void onClick( View view )
+            {
+            }
+        } );
+    }
+
+    private void configureMinusKey()
+    {
+        View minus = layout.findViewById( R.id.minus );
+        minus.setOnClickListener( new View.OnClickListener()
+        {
+            @Override
+            public void onClick( View view )
+            {
+            }
+        } );
+    }
+
+    private void configureMultiplyKey()
+    {
+        View multiply = layout.findViewById( R.id.multiply );
+        multiply.setOnClickListener( new View.OnClickListener()
+        {
+            @Override
+            public void onClick( View view )
+            {
+            }
+        } );
+    }
+
+    private void configureDivideKey()
+    {
+        View divide = layout.findViewById( R.id.divide );
+        divide.setOnClickListener( new View.OnClickListener()
+        {
+            @Override
+            public void onClick( View view )
+            {
+            }
+        } );
     }
 
     private void configureEqualsKey()

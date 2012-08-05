@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Calculator</string>
+
+    <!--Keys-->
     <string name="key1">1</string>
     <string name="key2">2</string>
     <string name="key3">3</string>
@@ -11,6 +13,12 @@
     <string name="key8">8</string>
     <string name="key9">9</string>
     <string name="key0">0</string>
-    <string name="clear">C</string>
+
+    <!--Operations-->
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="multiply">*</string>
+    <string name="divide">/</string>
     <string name="equal">=</string>
+    <string name="clear">C</string>
 </resources>

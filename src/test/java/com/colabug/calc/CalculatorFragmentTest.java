@@ -39,8 +39,14 @@ public class CalculatorFragmentTest
     private Button key8;
     private Button key9;
     private Button key0;
-    private Button clear;
+
+    // Operations
+    private Button plus;
+    private Button minus;
+    private Button multiply;
+    private Button divide;
     private Button equal;
+    private Button clear;
 
     private TextView display;
 
@@ -55,7 +61,7 @@ public class CalculatorFragmentTest
         display = (TextView) getViewById( R.id.display );
         display.setText( STARTING_VALUE );
 
-        // Number, clear, & equal keys
+        // Number keys
         key1 = (Button) getViewById( R.id.key1 );
         key2 = (Button) getViewById( R.id.key2 );
         key3 = (Button) getViewById( R.id.key3 );
@@ -66,8 +72,14 @@ public class CalculatorFragmentTest
         key8 = (Button) getViewById( R.id.key8 );
         key9 = (Button) getViewById( R.id.key9 );
         key0 = (Button) getViewById( R.id.key0 );
-        clear = (Button) getViewById( R.id.clear );
+
+        // Opeartions
+        plus = (Button) getViewById( R.id.plus );
+        minus = (Button) getViewById( R.id.minus );
+        multiply = (Button) getViewById( R.id.multiply );
+        divide = (Button) getViewById( R.id.divide );
         equal = (Button) getViewById( R.id.equal );
+        clear = (Button) getViewById( R.id.clear );
     }
 
     @Test
@@ -295,16 +307,64 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void shouldHaveEqualKey() throws Exception
-    {
-        assertViewIsVisible( equal );
-    }
-
-    @Test
     public void clearShouldClearDisplay() throws Exception
     {
         clear.performClick();
         assertThat( display.getText().toString(), equalTo( "" ));
+    }
+
+    @Test
+    public void shouldHavePlusKey() throws Exception
+    {
+        assertViewIsVisible( plus );
+    }
+
+    @Test
+    public void plusShouldHaveClickListener() throws Exception
+    {
+        assertNotNull( getViewOnClickListener( plus ) );
+    }
+
+    @Test
+    public void shouldHaveMinusKey() throws Exception
+    {
+        assertViewIsVisible( minus );
+    }
+
+    @Test
+    public void minusShouldHaveClickListener() throws Exception
+    {
+        assertNotNull( getViewOnClickListener( minus ) );
+    }
+
+    @Test
+    public void shouldHaveDivideKey() throws Exception
+    {
+        assertViewIsVisible( divide );
+    }
+
+    @Test
+    public void divideShouldHaveClickListener() throws Exception
+    {
+        assertNotNull( getViewOnClickListener( divide ) );
+    }
+
+    @Test
+    public void shouldHaveMultiplyKey() throws Exception
+    {
+        assertViewIsVisible( multiply );
+    }
+
+    @Test
+    public void multiplyShouldHaveClickListener() throws Exception
+    {
+        assertNotNull( getViewOnClickListener( multiply ) );
+    }
+
+    @Test
+    public void shouldHaveEqualKey() throws Exception
+    {
+        assertViewIsVisible( equal );
     }
 
     @Test

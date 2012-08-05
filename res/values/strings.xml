@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Calculator</string>
+    <string name="key1">1</string>
+    <string name="key2">2</string>
+    <string name="key3">3</string>
+    <string name="key4">4</string>
+    <string name="key5">5</string>
+    <string name="key6">6</string>
+    <string name="key7">7</string>
+    <string name="key8">8</string>
+    <string name="key9">9</string>
+    <string name="key0">0</string>
+    <string name="clear">C</string>
+    <string name="equal">=</string>
 </resources>

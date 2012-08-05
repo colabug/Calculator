@@ -6,14 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class CalculatorFragment extends Fragment {
+public class CalculatorFragment extends Fragment
+{
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container,
-                             Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
+    public View onCreateView( LayoutInflater inflater,
+                              ViewGroup container,
+                              Bundle savedInstanceState )
+    {
+        super.onCreateView( inflater, container, savedInstanceState );
 
-        View layout = inflater.inflate(R.layout.calculator, container, false);
+        View layout = inflater.inflate( R.layout.calculator, container, false );
 
         return layout;
     }

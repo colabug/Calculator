@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 
 public class CalculatorFragment extends Fragment
 {
+
+    private View layout;
+
     @Override
     public View onCreateView( LayoutInflater inflater,
                               ViewGroup container,
@@ -15,8 +18,80 @@ public class CalculatorFragment extends Fragment
     {
         super.onCreateView( inflater, container, savedInstanceState );
 
-        View layout = inflater.inflate( R.layout.calculator, container, false );
+        layout = inflater.inflate( R.layout.calculator, container, false );
+
+        configureNumberKeys();
+        configureClearKey();
+        configureEqualsKey();
 
         return layout;
+    }
+
+    private void configureEqualsKey()
+    {
+        View equal = layout.findViewById( R.id.equal );
+        equal.setOnClickListener( new View.OnClickListener()
+        {
+            @Override
+            public void onClick( View view )
+            {
+            }
+        } );
+    }
+
+    private void configureClearKey()
+    {
+        View clear = layout.findViewById( R.id.clear );
+        clear.setOnClickListener( new View.OnClickListener()
+        {
+            @Override
+            public void onClick( View view )
+            {
+            }
+        } );
+    }
+
+    private void configureNumberKeys()
+    {
+        View key1 = layout.findViewById( R.id.key1 );
+        key1.setOnClickListener( createNumberOnClickListener() );
+
+        View key2 = layout.findViewById( R.id.key2 );
+        key2.setOnClickListener( createNumberOnClickListener() );
+
+        View key3 = layout.findViewById( R.id.key3 );
+        key3.setOnClickListener( createNumberOnClickListener() );
+
+        View key4 = layout.findViewById( R.id.key4 );
+        key4.setOnClickListener( createNumberOnClickListener() );
+
+        View key5 = layout.findViewById( R.id.key5 );
+        key5.setOnClickListener( createNumberOnClickListener() );
+
+        View key6 = layout.findViewById( R.id.key6 );
+        key6.setOnClickListener( createNumberOnClickListener() );
+
+        View key7 = layout.findViewById( R.id.key7 );
+        key7.setOnClickListener( createNumberOnClickListener() );
+
+        View key8 = layout.findViewById( R.id.key8 );
+        key8.setOnClickListener( createNumberOnClickListener() );
+
+        View key9 = layout.findViewById( R.id.key9 );
+        key9.setOnClickListener( createNumberOnClickListener() );
+
+        View key0 = layout.findViewById( R.id.key0 );
+        key0.setOnClickListener( createNumberOnClickListener() );
+    }
+
+    private View.OnClickListener createNumberOnClickListener()
+    {
+        return new View.OnClickListener()
+        {
+            @Override
+            public void onClick( View view )
+            {
+            }
+        };
     }
 }

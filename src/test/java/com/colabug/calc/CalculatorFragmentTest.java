@@ -2,6 +2,8 @@ package com.colabug.calc;
 
 import android.view.View;
 import com.colabug.calc.support.CalculatorTestRunner;
+import com.xtremelabs.robolectric.Robolectric;
+import com.xtremelabs.robolectric.shadows.ShadowView;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +36,6 @@ public class CalculatorFragmentTest
     private View clear;
     private View equal;
     private View display;
-
 
     @Before
     public void setUp() throws Exception
@@ -80,9 +81,21 @@ public class CalculatorFragmentTest
     }
 
     @Test
+    public void oneShouldHaveClickListener() throws Exception
+    {
+        assertNotNull( getViewOnClickListener( key1 ) );
+    }
+
+    @Test
     public void shouldHave2Key() throws Exception
     {
         assertViewIsVisible( key2 );
+    }
+
+    @Test
+    public void twoShouldHaveClickListener() throws Exception
+    {
+        assertNotNull( getViewOnClickListener( key2 ) );
     }
 
     @Test
@@ -92,9 +105,21 @@ public class CalculatorFragmentTest
     }
 
     @Test
+    public void threeShouldHaveClickListener() throws Exception
+    {
+        assertNotNull( getViewOnClickListener( key3 ) );
+    }
+
+    @Test
     public void shouldHave4Key() throws Exception
     {
         assertViewIsVisible( key4 );
+    }
+
+    @Test
+    public void fourShouldHaveClickListener() throws Exception
+    {
+        assertNotNull( getViewOnClickListener( key4 ) );
     }
 
     @Test
@@ -104,9 +129,21 @@ public class CalculatorFragmentTest
     }
 
     @Test
+    public void fiveShouldHaveClickListener() throws Exception
+    {
+        assertNotNull( getViewOnClickListener( key5 ) );
+    }
+
+    @Test
     public void shouldHave6Key() throws Exception
     {
         assertViewIsVisible( key6 );
+    }
+
+    @Test
+    public void sixShouldHaveClickListener() throws Exception
+    {
+        assertNotNull( getViewOnClickListener( key6 ) );
     }
 
     @Test
@@ -116,9 +153,21 @@ public class CalculatorFragmentTest
     }
 
     @Test
+    public void sevenShouldHaveClickListener() throws Exception
+    {
+        assertNotNull( getViewOnClickListener( key7 ) );
+    }
+
+    @Test
     public void shouldHave8Key() throws Exception
     {
         assertViewIsVisible( key8 );
+    }
+
+    @Test
+    public void eightShouldHaveClickListener() throws Exception
+    {
+        assertNotNull( getViewOnClickListener( key8 ) );
     }
 
     @Test
@@ -128,9 +177,21 @@ public class CalculatorFragmentTest
     }
 
     @Test
+    public void nineShouldHaveClickListener() throws Exception
+    {
+        assertNotNull( getViewOnClickListener( key9 ) );
+    }
+
+    @Test
     public void shouldHave0Key() throws Exception
     {
         assertViewIsVisible( key0 );
+    }
+
+    @Test
+    public void zeroShouldHaveClickListener() throws Exception
+    {
+        assertNotNull( getViewOnClickListener( key0 ) );
     }
 
     @Test
@@ -140,8 +201,26 @@ public class CalculatorFragmentTest
     }
 
     @Test
+    public void clearShouldHaveClickListener() throws Exception
+    {
+        assertNotNull( getViewOnClickListener( clear ) );
+    }
+
+    @Test
     public void shouldHaveEqualKey() throws Exception
     {
         assertViewIsVisible( equal );
+    }
+
+    @Test
+    public void equalShouldHaveClickListener() throws Exception
+    {
+        assertNotNull( getViewOnClickListener( equal ) );
+    }
+
+    private View.OnClickListener getViewOnClickListener( View view )
+    {
+        ShadowView shadowView = Robolectric.shadowOf( view );
+        return shadowView.getOnClickListener();
     }
 }

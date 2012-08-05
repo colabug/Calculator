@@ -58,6 +58,7 @@ public class CalculatorFragment extends Fragment
             @Override
             public void onClick( View view )
             {
+                display.setText( "" );
             }
         } );
     }

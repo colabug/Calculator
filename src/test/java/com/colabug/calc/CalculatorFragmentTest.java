@@ -301,6 +301,13 @@ public class CalculatorFragmentTest
     }
 
     @Test
+    public void clearShouldClearDisplay() throws Exception
+    {
+        clear.performClick();
+        assertThat( display.getText().toString(), equalTo( "" ));
+    }
+
+    @Test
     public void equalShouldHaveClickListener() throws Exception
     {
         assertNotNull( getViewOnClickListener( equal ) );

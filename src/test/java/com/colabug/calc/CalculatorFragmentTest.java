@@ -52,22 +52,22 @@ public class CalculatorFragmentTest
         startFragment( calculatorFragment );
 
         // Result display
-        display = (TextView) calculatorFragment.getView().findViewById( R.id.display );
+        display = (TextView) getViewById( R.id.display );
         display.setText( STARTING_VALUE );
 
         // Number, clear, & equal keys
-        key1 = (Button) calculatorFragment.getView().findViewById( R.id.key1 );
-        key2 = (Button) calculatorFragment.getView().findViewById( R.id.key2 );
-        key3 = (Button) calculatorFragment.getView().findViewById( R.id.key3 );
-        key4 = (Button) calculatorFragment.getView().findViewById( R.id.key4 );
-        key5 = (Button) calculatorFragment.getView().findViewById( R.id.key5 );
-        key6 = (Button) calculatorFragment.getView().findViewById( R.id.key6 );
-        key7 = (Button) calculatorFragment.getView().findViewById( R.id.key7 );
-        key8 = (Button) calculatorFragment.getView().findViewById( R.id.key8 );
-        key9 = (Button) calculatorFragment.getView().findViewById( R.id.key9 );
-        key0 = (Button) calculatorFragment.getView().findViewById( R.id.key0 );
-        clear = (Button) calculatorFragment.getView().findViewById( R.id.clear );
-        equal = (Button) calculatorFragment.getView().findViewById( R.id.equal );
+        key1 = (Button) getViewById( R.id.key1 );
+        key2 = (Button) getViewById( R.id.key2 );
+        key3 = (Button) getViewById( R.id.key3 );
+        key4 = (Button) getViewById( R.id.key4 );
+        key5 = (Button) getViewById( R.id.key5 );
+        key6 = (Button) getViewById( R.id.key6 );
+        key7 = (Button) getViewById( R.id.key7 );
+        key8 = (Button) getViewById( R.id.key8 );
+        key9 = (Button) getViewById( R.id.key9 );
+        key0 = (Button) getViewById( R.id.key0 );
+        clear = (Button) getViewById( R.id.clear );
+        equal = (Button) getViewById( R.id.equal );
     }
 
     @Test
@@ -304,6 +304,11 @@ public class CalculatorFragmentTest
     public void equalShouldHaveClickListener() throws Exception
     {
         assertNotNull( getViewOnClickListener( equal ) );
+    }
+
+    private View getViewById( int id )
+    {
+        return calculatorFragment.getView().findViewById( id );
     }
 
     private View.OnClickListener getViewOnClickListener( View view )

@@ -5,11 +5,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class CalculatorFragment extends Fragment
 {
 
     private View layout;
+
+    private TextView display;
 
     @Override
     public View onCreateView( LayoutInflater inflater,
@@ -20,11 +24,18 @@ public class CalculatorFragment extends Fragment
 
         layout = inflater.inflate( R.layout.calculator, container, false );
 
+        configureDisplay();
         configureNumberKeys();
         configureClearKey();
         configureEqualsKey();
 
         return layout;
+    }
+
+    private void configureDisplay()
+    {
+        display = (TextView) layout.findViewById( R.id.display );
+        display.setText( "" );
     }
 
     private void configureEqualsKey()
@@ -91,6 +102,8 @@ public class CalculatorFragment extends Fragment
             @Override
             public void onClick( View view )
             {
+                String updatedText = display.getText().toString() + ( (Button) view ).getText();
+                display.setText( updatedText );
             }
         };
     }

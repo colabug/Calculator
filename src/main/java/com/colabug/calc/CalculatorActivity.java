@@ -1,9 +1,9 @@
 package com.colabug.calc;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 
-public class CalculatorActivity extends Activity {
+public class CalculatorActivity extends FragmentActivity {
     /**
      * Called when the activity is first created.
      */

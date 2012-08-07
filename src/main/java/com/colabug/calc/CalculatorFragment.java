@@ -44,6 +44,39 @@ public class CalculatorFragment extends Fragment
         display.setText( "" );
     }
 
+    private void configureNumberKeys()
+    {
+        View key1 = layout.findViewById( R.id.key1 );
+        key1.setOnClickListener( createNumberOnClickListener() );
+
+        View key2 = layout.findViewById( R.id.key2 );
+        key2.setOnClickListener( createNumberOnClickListener() );
+
+        View key3 = layout.findViewById( R.id.key3 );
+        key3.setOnClickListener( createNumberOnClickListener() );
+
+        View key4 = layout.findViewById( R.id.key4 );
+        key4.setOnClickListener( createNumberOnClickListener() );
+
+        View key5 = layout.findViewById( R.id.key5 );
+        key5.setOnClickListener( createNumberOnClickListener() );
+
+        View key6 = layout.findViewById( R.id.key6 );
+        key6.setOnClickListener( createNumberOnClickListener() );
+
+        View key7 = layout.findViewById( R.id.key7 );
+        key7.setOnClickListener( createNumberOnClickListener() );
+
+        View key8 = layout.findViewById( R.id.key8 );
+        key8.setOnClickListener( createNumberOnClickListener() );
+
+        View key9 = layout.findViewById( R.id.key9 );
+        key9.setOnClickListener( createNumberOnClickListener() );
+
+        View key0 = layout.findViewById( R.id.key0 );
+        key0.setOnClickListener( createNumberOnClickListener() );
+    }
+
     private void configurePlusKey()
     {
         View plus = layout.findViewById( R.id.plus );
@@ -56,11 +89,6 @@ public class CalculatorFragment extends Fragment
                 operation = Operation.PLUS;
             }
         } );
-    }
-
-    private void storeDisplayedValue()
-    {
-        storedValue = Integer.parseInt( display.getText().toString() );
     }
 
     private void configureMinusKey()
@@ -105,6 +133,11 @@ public class CalculatorFragment extends Fragment
         } );
     }
 
+    private void storeDisplayedValue()
+    {
+        storedValue = Integer.parseInt( display.getText().toString() );
+    }
+
     private void configureEqualsKey()
     {
         View equal = layout.findViewById( R.id.equal );
@@ -129,39 +162,6 @@ public class CalculatorFragment extends Fragment
                 storedValue = 0;
             }
         } );
-    }
-
-    private void configureNumberKeys()
-    {
-        View key1 = layout.findViewById( R.id.key1 );
-        key1.setOnClickListener( createNumberOnClickListener() );
-
-        View key2 = layout.findViewById( R.id.key2 );
-        key2.setOnClickListener( createNumberOnClickListener() );
-
-        View key3 = layout.findViewById( R.id.key3 );
-        key3.setOnClickListener( createNumberOnClickListener() );
-
-        View key4 = layout.findViewById( R.id.key4 );
-        key4.setOnClickListener( createNumberOnClickListener() );
-
-        View key5 = layout.findViewById( R.id.key5 );
-        key5.setOnClickListener( createNumberOnClickListener() );
-
-        View key6 = layout.findViewById( R.id.key6 );
-        key6.setOnClickListener( createNumberOnClickListener() );
-
-        View key7 = layout.findViewById( R.id.key7 );
-        key7.setOnClickListener( createNumberOnClickListener() );
-
-        View key8 = layout.findViewById( R.id.key8 );
-        key8.setOnClickListener( createNumberOnClickListener() );
-
-        View key9 = layout.findViewById( R.id.key9 );
-        key9.setOnClickListener( createNumberOnClickListener() );
-
-        View key0 = layout.findViewById( R.id.key0 );
-        key0.setOnClickListener( createNumberOnClickListener() );
     }
 
     private View.OnClickListener createNumberOnClickListener()

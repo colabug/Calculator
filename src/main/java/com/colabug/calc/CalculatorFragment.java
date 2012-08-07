@@ -51,9 +51,14 @@ public class CalculatorFragment extends Fragment
             @Override
             public void onClick( View view )
             {
-                storedValue = Integer.parseInt( display.getText().toString() );
+                storeDisplayedValue();
             }
         } );
+    }
+
+    private void storeDisplayedValue()
+    {
+        storedValue = Integer.parseInt( display.getText().toString() );
     }
 
     private void configureMinusKey()
@@ -64,6 +69,7 @@ public class CalculatorFragment extends Fragment
             @Override
             public void onClick( View view )
             {
+                storeDisplayedValue();
             }
         } );
     }
@@ -76,6 +82,7 @@ public class CalculatorFragment extends Fragment
             @Override
             public void onClick( View view )
             {
+                storeDisplayedValue();
             }
         } );
     }
@@ -88,6 +95,7 @@ public class CalculatorFragment extends Fragment
             @Override
             public void onClick( View view )
             {
+                storeDisplayedValue();
             }
         } );
     }

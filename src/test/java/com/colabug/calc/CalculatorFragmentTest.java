@@ -346,6 +346,14 @@ public class CalculatorFragmentTest
     }
 
     @Test
+    public void minusShouldStoreTheDisplayedValue() throws Exception
+    {
+        minus.performClick();
+        assertThat( calculatorFragment.getStoredValue(),
+                    equalTo( STARTING_VALUE ) );
+    }
+
+    @Test
     public void shouldHaveDivideKey() throws Exception
     {
         assertViewIsVisible( divide );
@@ -358,6 +366,14 @@ public class CalculatorFragmentTest
     }
 
     @Test
+    public void divideShouldStoreTheDisplayedValue() throws Exception
+    {
+        divide.performClick();
+        assertThat( calculatorFragment.getStoredValue(),
+                    equalTo( STARTING_VALUE ) );
+    }
+
+    @Test
     public void shouldHaveMultiplyKey() throws Exception
     {
         assertViewIsVisible( multiply );
@@ -367,6 +383,14 @@ public class CalculatorFragmentTest
     public void multiplyShouldHaveClickListener() throws Exception
     {
         assertNotNull( getViewOnClickListener( multiply ) );
+    }
+
+    @Test
+    public void multiplyShouldStoreTheDisplayedValue() throws Exception
+    {
+        multiply.performClick();
+        assertThat( calculatorFragment.getStoredValue(),
+                    equalTo( STARTING_VALUE ) );
     }
 
     @Test

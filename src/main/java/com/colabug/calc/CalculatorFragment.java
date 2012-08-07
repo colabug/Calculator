@@ -14,6 +14,7 @@ public class CalculatorFragment extends Fragment
 
     private TextView display;
 
+    protected Operation operation;
     protected int storedValue;
 
     @Override
@@ -52,6 +53,7 @@ public class CalculatorFragment extends Fragment
             public void onClick( View view )
             {
                 storeDisplayedValue();
+                operation = Operation.PLUS;
             }
         } );
     }

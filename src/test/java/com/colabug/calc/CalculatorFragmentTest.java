@@ -334,6 +334,14 @@ public class CalculatorFragmentTest
     }
 
     @Test
+    public void plusShouldStoreOperationType() throws Exception
+    {
+        plus.performClick();
+        assertThat( calculatorFragment.getOperation(),
+                    equalTo( Operation.PLUS ) );
+    }
+
+    @Test
     public void shouldHaveMinusKey() throws Exception
     {
         assertViewIsVisible( minus );
@@ -419,6 +427,11 @@ public class CalculatorFragmentTest
     class TestCalculatorFragment extends CalculatorFragment {
         public String getStoredValue() {
             return String.valueOf( storedValue );
+        }
+
+        public Operation getOperation()
+        {
+            return operation;
         }
     }
 }

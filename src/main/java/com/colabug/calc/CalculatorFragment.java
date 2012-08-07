@@ -2,14 +2,19 @@ package com.colabug.calc;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import static com.colabug.calc.OperationString.getOperationString;
+
 public class CalculatorFragment extends Fragment
 {
+    private static final String TAG = ClassFormatError.class.getSimpleName();
+
     private View layout;
 
     private TextView display;
@@ -81,10 +86,29 @@ public class CalculatorFragment extends Fragment
             @Override
             public void onClick( View view )
             {
-                String updatedText = display.getText().toString() + ( (Button) view ).getText();
-                display.setText( updatedText );
+                String number = ((Button) view).getText().toString();
+
+                if ( displayingOperation() ) {
+                    display.setText( number );
+                } else {
+                    appendNumber( number );
+                }
             }
         };
+    }
+
+    private boolean displayingOperation()
+    {
+        String currentDisplay = display.getText().toString();
+        return currentDisplay.equals( OperationString.PLUS ) ||
+               currentDisplay.equals( OperationString.MINUS ) ||
+               currentDisplay.equals( OperationString.MULTIPLY ) ||
+               currentDisplay.equals( OperationString.DIVIDE );
+    }
+
+    private void appendNumber( String number )
+    {
+        display.setText( display.getText().toString() + number );
     }
 
     private void configureMathOperationKeys()
@@ -128,6 +152,7 @@ public class CalculatorFragment extends Fragment
             {
                 storeDisplayedValue();
                 operation = op;
+                display.setText( getOperationString( operation ) );
             }
         };
     }
@@ -145,8 +170,26 @@ public class CalculatorFragment extends Fragment
             @Override
             public void onClick( View view )
             {
+                performCalculation( Integer.parseInt( display.getText().toString() ) );
             }
         } );
+    }
+
+    private void performCalculation( int value )
+    {
+        int result = 0;
+        switch ( operation )
+        {
+            case MULTIPLY:
+                result = storedValue * value;
+                break;
+
+            default:
+                Log.d( TAG, "Unknown operation" );
+                break;
+        }
+
+        display.setText( String.valueOf( result ) );
     }
 
     private void configureClearKey()

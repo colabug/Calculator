@@ -323,6 +323,14 @@ public class CalculatorFragmentTest
     }
 
     @Test
+    public void plusShouldUpdateDisplayCharacter() throws Exception
+    {
+        plus.performClick();
+        assertThat( display.getText().toString(),
+                    equalTo( OperationString.PLUS ) );
+    }
+
+    @Test
     public void shouldHaveMinusKey() throws Exception
     {
         assertViewIsVisible( minus );
@@ -348,6 +356,14 @@ public class CalculatorFragmentTest
         minus.performClick();
         assertThat( calculatorFragment.getOperation(),
                     equalTo( Operation.MINUS ) );
+    }
+
+    @Test
+    public void minusShouldUpdateDisplayCharacter() throws Exception
+    {
+        minus.performClick();
+        assertThat( display.getText().toString(),
+                    equalTo( OperationString.MINUS ) );
     }
 
     @Test
@@ -379,6 +395,14 @@ public class CalculatorFragmentTest
     }
 
     @Test
+    public void divideShouldUpdateDisplayCharacter() throws Exception
+    {
+        divide.performClick();
+        assertThat( display.getText().toString(),
+                    equalTo( OperationString.DIVIDE ) );
+    }
+
+    @Test
     public void shouldHaveMultiplyKey() throws Exception
     {
         assertViewIsVisible( multiply );
@@ -407,6 +431,14 @@ public class CalculatorFragmentTest
     }
 
     @Test
+    public void multiplyShouldUpdateDisplayCharacter() throws Exception
+    {
+        multiply.performClick();
+        assertThat( display.getText().toString(),
+                    equalTo( OperationString.MULTIPLY ) );
+    }
+
+    @Test
     public void shouldHaveEqualKey() throws Exception
     {
         assertViewIsVisible( equal );
@@ -416,6 +448,17 @@ public class CalculatorFragmentTest
     public void equalShouldHaveClickListener() throws Exception
     {
         assertNotNull( getViewOnClickListener( equal ) );
+    }
+
+    @Test
+    public void equalGiveCorrectResultUsingMultiplication() throws Exception
+    {
+        display.setText( "12345679" );
+        multiply.performClick();
+        key8.performClick();
+        equal.performClick();
+        assertThat( display.getText().toString(),
+                    equalTo( "98765432" ) );
     }
 
     @Test

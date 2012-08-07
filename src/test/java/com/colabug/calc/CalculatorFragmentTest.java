@@ -295,33 +295,6 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void shouldHaveClearKey() throws Exception
-    {
-        assertViewIsVisible( clear );
-    }
-
-    @Test
-    public void clearShouldHaveClickListener() throws Exception
-    {
-        assertNotNull( getViewOnClickListener( clear ) );
-    }
-
-    @Test
-    public void clearShouldClearDisplay() throws Exception
-    {
-        clear.performClick();
-        assertThat( display.getText().toString(), equalTo( "" ) );
-    }
-
-    @Test
-    public void clearShouldClearStoredValue() throws Exception
-    {
-        calculatorFragment.setStoredValue( 123 );
-        clear.performClick();
-        assertThat( calculatorFragment.getStoredValue(), equalTo( "0" ) );
-    }
-
-    @Test
     public void shouldHavePlusKey() throws Exception
     {
         assertViewIsVisible( plus );
@@ -443,6 +416,33 @@ public class CalculatorFragmentTest
     public void equalShouldHaveClickListener() throws Exception
     {
         assertNotNull( getViewOnClickListener( equal ) );
+    }
+
+    @Test
+    public void shouldHaveClearKey() throws Exception
+    {
+        assertViewIsVisible( clear );
+    }
+
+    @Test
+    public void clearShouldHaveClickListener() throws Exception
+    {
+        assertNotNull( getViewOnClickListener( clear ) );
+    }
+
+    @Test
+    public void clearShouldClearDisplay() throws Exception
+    {
+        clear.performClick();
+        assertThat( display.getText().toString(), equalTo( "" ) );
+    }
+
+    @Test
+    public void clearShouldClearStoredValue() throws Exception
+    {
+        calculatorFragment.setStoredValue( 123 );
+        clear.performClick();
+        assertThat( calculatorFragment.getStoredValue(), equalTo( "0" ) );
     }
 
     private View getViewById( int id )

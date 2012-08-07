@@ -77,6 +77,19 @@ public class CalculatorFragment extends Fragment
         key0.setOnClickListener( createNumberOnClickListener() );
     }
 
+    private View.OnClickListener createNumberOnClickListener()
+    {
+        return new View.OnClickListener()
+        {
+            @Override
+            public void onClick( View view )
+            {
+                String updatedText = display.getText().toString() + ( (Button) view ).getText();
+                display.setText( updatedText );
+            }
+        };
+    }
+
     private void configurePlusKey()
     {
         View plus = layout.findViewById( R.id.plus );
@@ -162,18 +175,5 @@ public class CalculatorFragment extends Fragment
                 storedValue = 0;
             }
         } );
-    }
-
-    private View.OnClickListener createNumberOnClickListener()
-    {
-        return new View.OnClickListener()
-        {
-            @Override
-            public void onClick( View view )
-            {
-                String updatedText = display.getText().toString() + ( (Button) view ).getText();
-                display.setText( updatedText );
-            }
-        };
     }
 }

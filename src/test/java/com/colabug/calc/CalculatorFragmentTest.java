@@ -25,7 +25,11 @@ import static org.junit.Assert.assertThat;
 
 public class CalculatorFragmentTest
 {
-    private static final String STARTING_VALUE = "123";
+    private static final String STARTING_VALUE             = "123";
+    private static final String ADDITION_FINAL_VALUE       = "131";
+    private static final String SUBTRACTION_FINAL_VALUE    = "115";
+    private static final String MULTIPLICATION_FINAL_VALUE = "984";
+    private static final String DIVISION_FINAL_VALUE       = "15.375";
 
     private TestCalculatorFragment calculatorFragment;
 
@@ -451,14 +455,43 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void equalGiveCorrectResultUsingMultiplication() throws Exception
+    public void equalShouldGiveCorrectResultWhenAdding() throws Exception
     {
-        display.setText( "12345679" );
+        plus.performClick();
+        key8.performClick();
+        equal.performClick();
+        assertThat( display.getText().toString(),
+                    equalTo( ADDITION_FINAL_VALUE ) );
+    }
+
+    @Test
+    public void equalShouldGiveCorrectResultWhenSubtracting() throws Exception
+    {
+        minus.performClick();
+        key8.performClick();
+        equal.performClick();
+        assertThat( display.getText().toString(),
+                    equalTo( SUBTRACTION_FINAL_VALUE ) );
+    }
+
+    @Test
+    public void equalShouldGiveCorrectResultWhenMultiplying() throws Exception
+    {
         multiply.performClick();
         key8.performClick();
         equal.performClick();
         assertThat( display.getText().toString(),
-                    equalTo( "98765432" ) );
+                    equalTo( MULTIPLICATION_FINAL_VALUE ) );
+    }
+
+    @Test
+    public void equalShouldGiveCorrectResultWhenDividing() throws Exception
+    {
+        divide.performClick();
+        key8.performClick();
+        equal.performClick();
+        assertThat( display.getText().toString(),
+                    equalTo( DIVISION_FINAL_VALUE ) );
     }
 
     @Test
@@ -499,8 +532,10 @@ public class CalculatorFragmentTest
         return shadowView.getOnClickListener();
     }
 
-    class TestCalculatorFragment extends CalculatorFragment {
-        public String getStoredValue() {
+    class TestCalculatorFragment extends CalculatorFragment
+    {
+        public String getStoredValue()
+        {
             return String.valueOf( storedValue );
         }
 

@@ -43,7 +43,7 @@ public class CalculatorFragment extends Fragment
     private void configureDisplay()
     {
         display = (TextView) layout.findViewById( R.id.display );
-        display.setText( "" );
+        setDisplay( "" );
     }
 
     private void configureNumberKeys()
@@ -89,7 +89,7 @@ public class CalculatorFragment extends Fragment
                 String number = ((Button) view).getText().toString();
 
                 if ( displayingOperation() ) {
-                    display.setText( number );
+                    setDisplay( number );
                 } else {
                     appendNumber( number );
                 }
@@ -108,7 +108,7 @@ public class CalculatorFragment extends Fragment
 
     private void appendNumber( String number )
     {
-        display.setText( display.getText().toString() + number );
+        setDisplay( display.getText().toString() + number );
     }
 
     private void configureMathOperationKeys()
@@ -152,7 +152,7 @@ public class CalculatorFragment extends Fragment
             {
                 storeDisplayedValue();
                 operation = op;
-                display.setText( getOperationString( operation ) );
+                setDisplay( getOperationString( operation ) );
             }
         };
     }
@@ -177,11 +177,22 @@ public class CalculatorFragment extends Fragment
 
     private void performCalculation( int value )
     {
-        int result = 0;
         switch ( operation )
         {
+            case PLUS:
+                setDisplay( storedValue + value );
+                break;
+
+            case MINUS:
+                setDisplay( storedValue - value );
+                break;
+
             case MULTIPLY:
-                result = storedValue * value;
+                setDisplay( storedValue * value );
+                break;
+
+            case DIVIDE:
+                setDisplay( storedValue / (float)value );
                 break;
 
             default:
@@ -189,7 +200,11 @@ public class CalculatorFragment extends Fragment
                 break;
         }
 
-        display.setText( String.valueOf( result ) );
+    }
+
+    private void setDisplay( Object result )
+    {
+        display.setText( String.valueOf( result  ) );
     }
 
     private void configureClearKey()
@@ -200,7 +215,7 @@ public class CalculatorFragment extends Fragment
             @Override
             public void onClick( View view )
             {
-                display.setText( "" );
+                setDisplay( "" );
                 storedValue = 0;
             }
         } );

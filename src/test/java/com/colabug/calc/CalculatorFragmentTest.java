@@ -29,7 +29,7 @@ public class CalculatorFragmentTest
     private static final String ADDITION_FINAL_VALUE       = "131";
     private static final String SUBTRACTION_FINAL_VALUE    = "115";
     private static final String MULTIPLICATION_FINAL_VALUE = "984";
-    private static final String DIVISION_FINAL_VALUE       = "15.375";
+    private static final String DIVISION_FINAL_VALUE       = "15";
 
     private TestCalculatorFragment calculatorFragment;
 
@@ -452,6 +452,17 @@ public class CalculatorFragmentTest
     public void equalShouldHaveClickListener() throws Exception
     {
         assertNotNull( getViewOnClickListener( equal ) );
+    }
+
+    @Test
+    public void equalShouldShowCurrentlyDisplayedValue() throws Exception
+    {
+        equal.performClick();
+        equal.performClick();
+        equal.performClick();
+        equal.performClick();
+        assertThat( display.getText().toString(),
+                    equalTo( STARTING_VALUE ) );
     }
 
     @Test

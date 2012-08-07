@@ -13,12 +13,12 @@ public class CalculatorFragment extends Fragment
 {
     private static final String TAG = ClassFormatError.class.getSimpleName();
 
-    private View layout;
-
+    private View     layout;
     private TextView display;
 
-    protected int       storedValue;
-    protected Operation operation;
+    protected int storedValue = 0;
+
+    protected Operation operation = Operation.NONE;
 
     @Override
     public View onCreateView( LayoutInflater inflater,
@@ -89,11 +89,14 @@ public class CalculatorFragment extends Fragment
             @Override
             public void onClick( View view )
             {
-                String number = ((Button) view).getText().toString();
+                String number = ( (Button) view ).getText().toString();
 
-                if ( isDisplayingOperation() ) {
+                if ( isDisplayingOperation() )
+                {
                     setDisplay( number );
-                } else {
+                }
+                else
+                {
                     appendNumber( number );
                 }
             }
@@ -178,13 +181,14 @@ public class CalculatorFragment extends Fragment
             @Override
             public void onClick( View view )
             {
-                performCalculation( Integer.parseInt( getCurrentDisplayString() ) );
+                performCalculation();
             }
         } );
     }
 
-    private void performCalculation( int value )
+    private void performCalculation()
     {
+        int value = Integer.parseInt( getCurrentDisplayString() );
         switch ( operation )
         {
             case PLUS:
@@ -200,18 +204,21 @@ public class CalculatorFragment extends Fragment
                 break;
 
             case DIVIDE:
-                setDisplay( storedValue / (float)value );
+                setDisplay( storedValue / value );
                 break;
 
             default:
                 Log.d( TAG, "Unknown operation" );
                 break;
         }
+
+        storedValue = 0;
+        operation = Operation.NONE;
     }
 
     private void setDisplay( Object result )
     {
-        display.setText( String.valueOf( result  ) );
+        display.setText( String.valueOf( result ) );
     }
 
     private void configureClearKey()
@@ -224,6 +231,7 @@ public class CalculatorFragment extends Fragment
             {
                 clearDisplayedValue();
                 storedValue = 0;
+                operation = Operation.NONE;
             }
         } );
     }

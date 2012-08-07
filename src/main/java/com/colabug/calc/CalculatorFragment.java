@@ -161,7 +161,11 @@ public class CalculatorFragment extends Fragment
             @Override
             public void onClick( View view )
             {
-                storeDisplayedValue();
+                if ( !isDisplayingOperation() )
+                {
+                    storeDisplayedValue();
+                }
+
                 operation = op;
                 setDisplay( ( (Button) view ).getText() );
             }

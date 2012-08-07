@@ -443,6 +443,17 @@ public class CalculatorFragmentTest
     }
 
     @Test
+    public void multipleOperationPressesShouldUpdateOperationTypeToLastType() throws Exception
+    {
+        divide.performClick();
+        multiply.performClick();
+        divide.performClick();
+        plus.performClick();
+        assertThat( calculatorFragment.getOperation(),
+                    equalTo( Operation.PLUS ) );
+    }
+
+    @Test
     public void shouldHaveEqualKey() throws Exception
     {
         assertViewIsVisible( equal );

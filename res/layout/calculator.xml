@@ -11,54 +11,69 @@
     <!--1-->
     <Button
         android:id="@+id/key1"
+        android:layout_below="@id/display"
         android:text="@string/key1"
         style="@style/CalculatorNumberButton"/>
 
     <!--2-->
     <Button
         android:id="@+id/key2"
+        android:layout_toRightOf="@id/key1"
+        android:layout_alignBaseline="@id/key1"
         android:text="@string/key2"
         style="@style/CalculatorNumberButton"/>
 
     <!--3-->
     <Button
         android:id="@+id/key3"
+        android:layout_toRightOf="@id/key2"
+        android:layout_alignBaseline="@id/key2"
         android:text="@string/key3"
         style="@style/CalculatorNumberButton"/>
 
     <!--4-->
     <Button
         android:id="@+id/key4"
+        android:layout_below="@id/key1"
         android:text="@string/key4"
         style="@style/CalculatorNumberButton"/>
 
     <!--5-->
     <Button
         android:id="@+id/key5"
+        android:layout_toRightOf="@id/key4"
+        android:layout_alignBaseline="@id/key4"
         android:text="@string/key5"
         style="@style/CalculatorNumberButton"/>
 
     <!--6-->
     <Button
         android:id="@+id/key6"
+        android:layout_toRightOf="@id/key5"
+        android:layout_alignBaseline="@id/key5"
         android:text="@string/key6"
         style="@style/CalculatorNumberButton"/>
 
     <!--7-->
     <Button
         android:id="@+id/key7"
+        android:layout_below="@id/key4"
         android:text="@string/key7"
         style="@style/CalculatorNumberButton"/>
 
     <!--8-->
     <Button
         android:id="@+id/key8"
+        android:layout_toRightOf="@id/key7"
+        android:layout_alignBaseline="@id/key7"
         android:text="@string/key8"
         style="@style/CalculatorNumberButton"/>
 
     <!--9-->
     <Button
         android:id="@+id/key9"
+        android:layout_toRightOf="@id/key8"
+        android:layout_alignBaseline="@id/key8"
         android:text="@string/key9"
         style="@style/CalculatorNumberButton"/>
 
@@ -66,42 +81,55 @@
     <Button
         android:id="@+id/key0"
         android:text="@string/key0"
-        style="@style/CalculatorNumberButton"/>
-
-    <!--Plus-->
-    <Button
-        android:id="@+id/plus"
-        android:text="@string/plus"
-        style="@style/CalculatorNumberButton"/>
-
-    <!--Minus-->
-    <Button
-        android:id="@+id/minus"
-        android:text="@string/minus"
-        style="@style/CalculatorNumberButton"/>
-
-    <!--Multiply-->
-    <Button
-        android:id="@+id/multiply"
-        android:text="@string/multiply"
-        style="@style/CalculatorNumberButton"/>
-
-    <!--Divide-->
-    <Button
-        android:id="@+id/divide"
-        android:text="@string/divide"
-        style="@style/CalculatorNumberButton"/>
-
-    <!--Equal-->
-    <Button
-        android:id="@+id/equal"
-        android:text="@string/equal"
+        android:layout_below="@id/key7"
         style="@style/CalculatorNumberButton"/>
 
     <!--Clear-->
     <Button
         android:id="@+id/clear"
         android:text="@string/clear"
+        android:layout_toRightOf="@id/key0"
+        android:layout_alignBaseline="@id/key0"
+        style="@style/CalculatorNumberButton"/>
+
+    <!--Plus-->
+    <Button
+        android:id="@+id/plus"
+        android:layout_toRightOf="@id/key3"
+        android:layout_alignBaseline="@id/key3"
+        android:text="@string/plus"
+        style="@style/CalculatorNumberButton"/>
+
+    <!--Minus-->
+    <Button
+        android:id="@+id/minus"
+        android:layout_toRightOf="@id/key6"
+        android:layout_alignBaseline="@id/key6"
+        android:text="@string/minus"
+        style="@style/CalculatorNumberButton"/>
+
+    <!--Multiply-->
+    <Button
+        android:id="@+id/multiply"
+        android:layout_toRightOf="@id/key9"
+        android:layout_alignBaseline="@id/key9"
+        android:text="@string/multiply"
+        style="@style/CalculatorNumberButton"/>
+
+    <!--Equal-->
+    <Button
+        android:id="@+id/equal"
+        android:layout_toRightOf="@id/clear"
+        android:layout_alignBaseline="@id/clear"
+        android:text="@string/equal"
+        style="@style/CalculatorNumberButton"/>
+
+    <!--Divide-->
+    <Button
+        android:id="@+id/divide"
+        android:layout_toRightOf="@id/equal"
+        android:layout_alignBaseline="@id/equal"
+        android:text="@string/divide"
         style="@style/CalculatorNumberButton"/>
 </RelativeLayout>
 

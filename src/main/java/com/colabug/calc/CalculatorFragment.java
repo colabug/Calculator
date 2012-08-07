@@ -10,10 +10,11 @@ import android.widget.TextView;
 
 public class CalculatorFragment extends Fragment
 {
-
     private View layout;
 
     private TextView display;
+
+    protected int storedValue;
 
     @Override
     public View onCreateView( LayoutInflater inflater,
@@ -50,6 +51,7 @@ public class CalculatorFragment extends Fragment
             @Override
             public void onClick( View view )
             {
+                storedValue = Integer.parseInt( display.getText().toString() );
             }
         } );
     }

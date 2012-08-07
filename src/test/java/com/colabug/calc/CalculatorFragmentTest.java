@@ -27,7 +27,7 @@ public class CalculatorFragmentTest
 {
     private static final String STARTING_VALUE = "123";
 
-    private CalculatorFragment calculatorFragment;
+    private TestCalculatorFragment calculatorFragment;
 
     private Button key1;
     private Button key2;
@@ -54,7 +54,7 @@ public class CalculatorFragmentTest
     public void setUp() throws Exception
     {
         // Start fragment
-        calculatorFragment = new CalculatorFragment();
+        calculatorFragment = new TestCalculatorFragment();
         startFragment( calculatorFragment );
 
         // Result display
@@ -73,7 +73,7 @@ public class CalculatorFragmentTest
         key9 = (Button) getViewById( R.id.key9 );
         key0 = (Button) getViewById( R.id.key0 );
 
-        // Opeartions
+        // Operations
         plus = (Button) getViewById( R.id.plus );
         minus = (Button) getViewById( R.id.minus );
         multiply = (Button) getViewById( R.id.multiply );
@@ -310,7 +310,7 @@ public class CalculatorFragmentTest
     public void clearShouldClearDisplay() throws Exception
     {
         clear.performClick();
-        assertThat( display.getText().toString(), equalTo( "" ));
+        assertThat( display.getText().toString(), equalTo( "" ) );
     }
 
     @Test
@@ -323,6 +323,14 @@ public class CalculatorFragmentTest
     public void plusShouldHaveClickListener() throws Exception
     {
         assertNotNull( getViewOnClickListener( plus ) );
+    }
+
+    @Test
+    public void plusShouldStoreTheDisplayedValue() throws Exception
+    {
+        plus.performClick();
+        assertThat( calculatorFragment.getStoredValue(),
+                    equalTo( STARTING_VALUE ) );
     }
 
     @Test
@@ -382,5 +390,11 @@ public class CalculatorFragmentTest
     {
         ShadowView shadowView = Robolectric.shadowOf( view );
         return shadowView.getOnClickListener();
+    }
+
+    class TestCalculatorFragment extends CalculatorFragment {
+        public String getStoredValue() {
+            return String.valueOf( storedValue );
+        }
     }
 }

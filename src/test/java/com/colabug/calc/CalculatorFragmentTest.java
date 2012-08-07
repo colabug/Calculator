@@ -371,42 +371,6 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void shouldHaveDivideKey() throws Exception
-    {
-        assertViewIsVisible( divide );
-    }
-
-    @Test
-    public void divideShouldHaveClickListener() throws Exception
-    {
-        assertNotNull( getViewOnClickListener( divide ) );
-    }
-
-    @Test
-    public void divideShouldStoreTheDisplayedValue() throws Exception
-    {
-        divide.performClick();
-        assertThat( calculatorFragment.getStoredValue(),
-                    equalTo( STARTING_VALUE ) );
-    }
-
-    @Test
-    public void divideShouldStoreOperationType() throws Exception
-    {
-        divide.performClick();
-        assertThat( calculatorFragment.getOperation(),
-                    equalTo( Operation.DIVIDE ) );
-    }
-
-    @Test
-    public void divideShouldUpdateDisplayCharacter() throws Exception
-    {
-        divide.performClick();
-        assertThat( display.getText().toString(),
-                    equalTo( OperationString.DIVIDE ) );
-    }
-
-    @Test
     public void shouldHaveMultiplyKey() throws Exception
     {
         assertViewIsVisible( multiply );
@@ -440,6 +404,42 @@ public class CalculatorFragmentTest
         multiply.performClick();
         assertThat( display.getText().toString(),
                     equalTo( OperationString.MULTIPLY ) );
+    }
+
+    @Test
+    public void shouldHaveDivideKey() throws Exception
+    {
+        assertViewIsVisible( divide );
+    }
+
+    @Test
+    public void divideShouldHaveClickListener() throws Exception
+    {
+        assertNotNull( getViewOnClickListener( divide ) );
+    }
+
+    @Test
+    public void divideShouldStoreTheDisplayedValue() throws Exception
+    {
+        divide.performClick();
+        assertThat( calculatorFragment.getStoredValue(),
+                    equalTo( STARTING_VALUE ) );
+    }
+
+    @Test
+    public void divideShouldStoreOperationType() throws Exception
+    {
+        divide.performClick();
+        assertThat( calculatorFragment.getOperation(),
+                    equalTo( Operation.DIVIDE ) );
+    }
+
+    @Test
+    public void divideShouldUpdateDisplayCharacter() throws Exception
+    {
+        divide.performClick();
+        assertThat( display.getText().toString(),
+                    equalTo( OperationString.DIVIDE ) );
     }
 
     @Test

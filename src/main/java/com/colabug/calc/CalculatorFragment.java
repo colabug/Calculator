@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import static com.colabug.calc.OperationString.getOperationString;
-
 public class CalculatorFragment extends Fragment
 {
     private static final String TAG = ClassFormatError.class.getSimpleName();
@@ -43,7 +41,12 @@ public class CalculatorFragment extends Fragment
     private void configureDisplay()
     {
         display = (TextView) layout.findViewById( R.id.display );
-        setDisplay( "" );
+        clearDisplayedValue();
+    }
+
+    private void clearDisplayedValue()
+    {
+        setDisplay( getActivity().getResources().getString( R.string.EMPTY_STRING ) );
     }
 
     private void configureNumberKeys()
@@ -88,7 +91,7 @@ public class CalculatorFragment extends Fragment
             {
                 String number = ((Button) view).getText().toString();
 
-                if ( displayingOperation() ) {
+                if ( isDisplayingOperation() ) {
                     setDisplay( number );
                 } else {
                     appendNumber( number );
@@ -97,9 +100,9 @@ public class CalculatorFragment extends Fragment
         };
     }
 
-    private boolean displayingOperation()
+    private boolean isDisplayingOperation()
     {
-        String currentDisplay = display.getText().toString();
+        String currentDisplay = getCurrentDisplayString();
         return currentDisplay.equals( OperationString.PLUS ) ||
                currentDisplay.equals( OperationString.MINUS ) ||
                currentDisplay.equals( OperationString.MULTIPLY ) ||
@@ -108,7 +111,12 @@ public class CalculatorFragment extends Fragment
 
     private void appendNumber( String number )
     {
-        setDisplay( display.getText().toString() + number );
+        setDisplay( getCurrentDisplayString() + number );
+    }
+
+    private String getCurrentDisplayString()
+    {
+        return display.getText().toString();
     }
 
     private void configureMathOperationKeys()
@@ -152,14 +160,14 @@ public class CalculatorFragment extends Fragment
             {
                 storeDisplayedValue();
                 operation = op;
-                setDisplay( getOperationString( operation ) );
+                setDisplay( ( (Button) view ).getText() );
             }
         };
     }
 
     private void storeDisplayedValue()
     {
-        storedValue = Integer.parseInt( display.getText().toString() );
+        storedValue = Integer.parseInt( getCurrentDisplayString() );
     }
 
     private void configureEqualsKey()
@@ -170,7 +178,7 @@ public class CalculatorFragment extends Fragment
             @Override
             public void onClick( View view )
             {
-                performCalculation( Integer.parseInt( display.getText().toString() ) );
+                performCalculation( Integer.parseInt( getCurrentDisplayString() ) );
             }
         } );
     }
@@ -199,7 +207,6 @@ public class CalculatorFragment extends Fragment
                 Log.d( TAG, "Unknown operation" );
                 break;
         }
-
     }
 
     private void setDisplay( Object result )
@@ -215,7 +222,7 @@ public class CalculatorFragment extends Fragment
             @Override
             public void onClick( View view )
             {
-                setDisplay( "" );
+                clearDisplayedValue();
                 storedValue = 0;
             }
         } );

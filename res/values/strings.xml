@@ -21,4 +21,7 @@
     <string name="divide">/</string>
     <string name="equal">=</string>
     <string name="clear">C</string>
+
+    <!--Display-->
+    <string name="EMPTY_STRING"/>
 </resources>

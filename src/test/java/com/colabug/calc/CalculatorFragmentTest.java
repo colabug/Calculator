@@ -362,6 +362,14 @@ public class CalculatorFragmentTest
     }
 
     @Test
+    public void minusShouldStoreOperationType() throws Exception
+    {
+        minus.performClick();
+        assertThat( calculatorFragment.getOperation(),
+                    equalTo( Operation.MINUS ) );
+    }
+
+    @Test
     public void shouldHaveDivideKey() throws Exception
     {
         assertViewIsVisible( divide );
@@ -382,6 +390,14 @@ public class CalculatorFragmentTest
     }
 
     @Test
+    public void divideShouldStoreOperationType() throws Exception
+    {
+        divide.performClick();
+        assertThat( calculatorFragment.getOperation(),
+                    equalTo( Operation.DIVIDE ) );
+    }
+
+    @Test
     public void shouldHaveMultiplyKey() throws Exception
     {
         assertViewIsVisible( multiply );
@@ -399,6 +415,14 @@ public class CalculatorFragmentTest
         multiply.performClick();
         assertThat( calculatorFragment.getStoredValue(),
                     equalTo( STARTING_VALUE ) );
+    }
+
+    @Test
+    public void multiplyShouldStoreOperationType() throws Exception
+    {
+        multiply.performClick();
+        assertThat( calculatorFragment.getOperation(),
+                    equalTo( Operation.MULTIPLY ) );
     }
 
     @Test

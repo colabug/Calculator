@@ -72,6 +72,7 @@ public class CalculatorFragment extends Fragment
             public void onClick( View view )
             {
                 storeDisplayedValue();
+                operation = Operation.MINUS;
             }
         } );
     }
@@ -85,6 +86,7 @@ public class CalculatorFragment extends Fragment
             public void onClick( View view )
             {
                 storeDisplayedValue();
+                operation = Operation.MULTIPLY;
             }
         } );
     }
@@ -98,6 +100,7 @@ public class CalculatorFragment extends Fragment
             public void onClick( View view )
             {
                 storeDisplayedValue();
+                operation = Operation.DIVIDE;
             }
         } );
     }

@@ -314,6 +314,14 @@ public class CalculatorFragmentTest
     }
 
     @Test
+    public void clearShouldClearStoredValue() throws Exception
+    {
+        calculatorFragment.setStoredValue( 123 );
+        clear.performClick();
+        assertThat( calculatorFragment.getStoredValue(), equalTo( "0" ) );
+    }
+
+    @Test
     public void shouldHavePlusKey() throws Exception
     {
         assertViewIsVisible( plus );
@@ -456,6 +464,11 @@ public class CalculatorFragmentTest
         public Operation getOperation()
         {
             return operation;
+        }
+
+        public void setStoredValue( int storedValue )
+        {
+            this.storedValue = storedValue;
         }
     }
 }

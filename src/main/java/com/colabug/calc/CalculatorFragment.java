@@ -126,6 +126,7 @@ public class CalculatorFragment extends Fragment
             public void onClick( View view )
             {
                 display.setText( "" );
+                storedValue = 0;
             }
         } );
     }

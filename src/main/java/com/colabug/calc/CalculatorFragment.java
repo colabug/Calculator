@@ -14,8 +14,8 @@ public class CalculatorFragment extends Fragment
 
     private TextView display;
 
+    protected int       storedValue;
     protected Operation operation;
-    protected int storedValue;
 
     @Override
     public View onCreateView( LayoutInflater inflater,
@@ -28,10 +28,7 @@ public class CalculatorFragment extends Fragment
 
         configureDisplay();
         configureNumberKeys();
-        configurePlusKey();
-        configureMinusKey();
-        configureMultiplyKey();
-        configureDivideKey();
+        configureMathOperationKeys();
         configureEqualsKey();
         configureClearKey();
 
@@ -90,60 +87,49 @@ public class CalculatorFragment extends Fragment
         };
     }
 
+    private void configureMathOperationKeys()
+    {
+        configurePlusKey();
+        configureMinusKey();
+        configureMultiplyKey();
+        configureDivideKey();
+    }
+
     private void configurePlusKey()
     {
         View plus = layout.findViewById( R.id.plus );
-        plus.setOnClickListener( new View.OnClickListener()
-        {
-            @Override
-            public void onClick( View view )
-            {
-                storeDisplayedValue();
-                operation = Operation.PLUS;
-            }
-        } );
+        plus.setOnClickListener( createOperationClickListener( Operation.PLUS ) );
     }
 
     private void configureMinusKey()
     {
         View minus = layout.findViewById( R.id.minus );
-        minus.setOnClickListener( new View.OnClickListener()
-        {
-            @Override
-            public void onClick( View view )
-            {
-                storeDisplayedValue();
-                operation = Operation.MINUS;
-            }
-        } );
+        minus.setOnClickListener( createOperationClickListener( Operation.MINUS ) );
     }
 
     private void configureMultiplyKey()
     {
         View multiply = layout.findViewById( R.id.multiply );
-        multiply.setOnClickListener( new View.OnClickListener()
-        {
-            @Override
-            public void onClick( View view )
-            {
-                storeDisplayedValue();
-                operation = Operation.MULTIPLY;
-            }
-        } );
+        multiply.setOnClickListener( createOperationClickListener( Operation.MULTIPLY ) );
     }
 
     private void configureDivideKey()
     {
         View divide = layout.findViewById( R.id.divide );
-        divide.setOnClickListener( new View.OnClickListener()
+        divide.setOnClickListener( createOperationClickListener( Operation.DIVIDE ) );
+    }
+
+    private View.OnClickListener createOperationClickListener( final Operation op )
+    {
+        return new View.OnClickListener()
         {
             @Override
             public void onClick( View view )
             {
                 storeDisplayedValue();
-                operation = Operation.DIVIDE;
+                operation = op;
             }
-        } );
+        };
     }
 
     private void storeDisplayedValue()

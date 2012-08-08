@@ -19,6 +19,7 @@
     <string name="minus">-</string>
     <string name="multiply">*</string>
     <string name="divide">/</string>
+    <string name="modulo">%</string>
     <string name="equal">=</string>
     <string name="clear">C</string>
 

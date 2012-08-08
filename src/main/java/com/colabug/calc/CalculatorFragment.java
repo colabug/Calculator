@@ -111,10 +111,11 @@ public class CalculatorFragment extends Fragment
     private boolean isDisplayingOperation()
     {
         String currentDisplay = getCurrentDisplayString();
-        return currentDisplay.equals( OperationString.PLUS ) ||
-               currentDisplay.equals( OperationString.MINUS ) ||
+        return currentDisplay.equals( OperationString.PLUS )     ||
+               currentDisplay.equals( OperationString.MINUS )    ||
                currentDisplay.equals( OperationString.MULTIPLY ) ||
-               currentDisplay.equals( OperationString.DIVIDE );
+               currentDisplay.equals( OperationString.DIVIDE )   ||
+               currentDisplay.equals( OperationString.MODULO );
     }
 
     private void appendNumber( String number )
@@ -133,6 +134,7 @@ public class CalculatorFragment extends Fragment
         configureMinusKey();
         configureMultiplyKey();
         configureDivideKey();
+        configureModuloKey();
     }
 
     private void configurePlusKey()
@@ -157,6 +159,12 @@ public class CalculatorFragment extends Fragment
     {
         View divide = layout.findViewById( R.id.divide );
         divide.setOnClickListener( createOperationClickListener( Operation.DIVIDE ) );
+    }
+
+    private void configureModuloKey()
+    {
+        View modulo = layout.findViewById( R.id.modulo );
+        modulo.setOnClickListener( createOperationClickListener( Operation.MODULO ) );
     }
 
     private View.OnClickListener createOperationClickListener( final Operation op )
@@ -224,20 +232,42 @@ public class CalculatorFragment extends Fragment
                 break;
 
             case DIVIDE:
-                if ( value == 0 )
+                if ( willEquateToNan( value ) )
                 {
-                    setDisplay( getResources().getString( R.string.NAN ) );
-                    isInNanState = true;
+                    startNanState();
                 }
                 else
                 {
                     setDisplay( storedValue / value );
                 }
                 break;
+
+            case MODULO:
+                if ( willEquateToNan( value ) )
+                {
+                    startNanState();
+                }
+                else
+                {
+                    setDisplay( storedValue % value );
+                }
+
+                break;
         }
 
         storedValue = 0;
         operation = Operation.NONE;
+    }
+
+    private boolean willEquateToNan( int value )
+    {
+        return value == 0;
+    }
+
+    private void startNanState()
+    {
+        setDisplay( getResources().getString( R.string.NAN ) );
+        isInNanState = true;
     }
 
     private void setDisplay( Object result )

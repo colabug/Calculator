@@ -116,20 +116,27 @@
         android:text="@string/multiply"
         style="@style/CalculatorNumberButton"/>
 
-    <!--Equal-->
+    <!--Modulo-->
     <Button
-        android:id="@+id/equal"
+        android:id="@+id/modulo"
         android:layout_toRightOf="@id/clear"
         android:layout_alignBaseline="@id/clear"
-        android:text="@string/equal"
+        android:text="@string/modulo"
         style="@style/CalculatorNumberButton"/>
 
     <!--Divide-->
     <Button
         android:id="@+id/divide"
-        android:layout_toRightOf="@id/equal"
-        android:layout_alignBaseline="@id/equal"
+        android:layout_toRightOf="@id/modulo"
+        android:layout_alignBaseline="@id/modulo"
         android:text="@string/divide"
+        style="@style/CalculatorNumberButton"/>
+
+    <!--Equal-->
+    <Button
+        android:id="@+id/equal"
+        android:layout_below="@id/key0"
+        android:text="@string/equal"
         style="@style/CalculatorNumberButton"/>
 </RelativeLayout>
 

@@ -14,9 +14,7 @@ import static com.colabug.calc.support.CalculatorTestRunner.assertViewIsVisible;
 import static com.colabug.calc.support.CalculatorTestRunner.getResourceString;
 import static com.colabug.calc.support.CalculatorTestRunner.startFragment;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 /**
  * {@link CalculatorFragment} test suite.
@@ -32,6 +30,7 @@ public class CalculatorFragmentTest
     private static final String SUBTRACTION_FINAL_VALUE    = "115";
     private static final String MULTIPLICATION_FINAL_VALUE = "984";
     private static final String DIVISION_FINAL_VALUE       = "15";
+    private static final String MODULO_FINAL_VALUE         = "3";
 
     private TestCalculatorFragment calculatorFragment;
 
@@ -51,6 +50,7 @@ public class CalculatorFragmentTest
     private Button minus;
     private Button multiply;
     private Button divide;
+    private Button modulo;
     private Button equal;
     private Button clear;
 
@@ -84,6 +84,7 @@ public class CalculatorFragmentTest
         minus = (Button) getViewById( R.id.minus );
         multiply = (Button) getViewById( R.id.multiply );
         divide = (Button) getViewById( R.id.divide );
+        modulo = (Button) getViewById( R.id.modulo );
         equal = (Button) getViewById( R.id.equal );
         clear = (Button) getViewById( R.id.clear );
     }
@@ -445,6 +446,42 @@ public class CalculatorFragmentTest
     }
 
     @Test
+    public void shouldHaveModuloKey() throws Exception
+    {
+        assertViewIsVisible( modulo );
+    }
+
+    @Test
+    public void moduloShouldHaveClickListener() throws Exception
+    {
+        assertNotNull( getViewOnClickListener( modulo ) );
+    }
+
+    @Test
+    public void moduloShouldStoreTheDisplayedValue() throws Exception
+    {
+        modulo.performClick();
+        assertThat( calculatorFragment.getStoredValue(),
+                    equalTo( STARTING_VALUE ) );
+    }
+
+    @Test
+    public void moduloShouldStoreOperationType() throws Exception
+    {
+        modulo.performClick();
+        assertThat( calculatorFragment.getOperation(),
+                    equalTo( Operation.MODULO ) );
+    }
+
+    @Test
+    public void moduloShouldUpdateDisplayCharacter() throws Exception
+    {
+        modulo.performClick();
+        assertThat( display.getText().toString(),
+                    equalTo( OperationString.MODULO ) );
+    }
+
+    @Test
     public void multipleOperationPressesShouldUpdateOperationTypeToLastType() throws Exception
     {
         divide.performClick();
@@ -519,16 +556,55 @@ public class CalculatorFragmentTest
     }
 
     @Test
+    public void equalShouldGiveCorrectResultWhenUsingModulo() throws Exception
+    {
+        modulo.performClick();
+        key8.performClick();
+        equal.performClick();
+        assertThat( display.getText().toString(),
+                    equalTo( MODULO_FINAL_VALUE ) );
+    }
+
+    @Test
     public void whenDividingByZeroEqualShouldGiveNaNValue() throws Exception
     {
-        putInNanState();
+        divideByZero();
         assertThat( display.getText().toString(),
                     equalTo( getResourceString( R.string.NAN ) ) );
     }
 
-    private void putInNanState()
+    @Test
+    public void whenDividingByZeroEqualShouldStartNaNState() throws Exception
+    {
+        divideByZero();
+        assertTrue( calculatorFragment.isInNanState );
+    }
+
+    private void divideByZero()
     {
         divide.performClick();
+        key0.performClick();
+        equal.performClick();
+    }
+
+    @Test
+    public void whenModuloingByZeroEqualShouldGiveNaNValue() throws Exception
+    {
+        moduloByZero();
+        assertThat( display.getText().toString(),
+                    equalTo( getResourceString( R.string.NAN ) ) );
+    }
+
+    @Test
+    public void whenModuloingByZeroEqualShouldStartNanState() throws Exception
+    {
+        moduloByZero();
+        assertTrue( calculatorFragment.isInNanState );
+    }
+
+    private void moduloByZero()
+    {
+        modulo.performClick();
         key0.performClick();
         equal.performClick();
     }
@@ -563,7 +639,7 @@ public class CalculatorFragmentTest
     @Test
     public void clearShouldClearNanState() throws Exception
     {
-        putInNanState();
+        divideByZero();
         clear.performClick();
         assertFalse( calculatorFragment.getNanState() );
     }

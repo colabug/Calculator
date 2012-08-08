@@ -63,9 +63,8 @@ public class CalculatorFragmentTest
         calculatorFragment = new TestCalculatorFragment();
         startFragment( calculatorFragment );
 
-        // Result display
+        // Display
         display = (TextView) getViewById( R.id.display );
-        display.setText( STARTING_VALUE );
 
         // Number keys
         key1 = (Button) getViewById( R.id.key1 );
@@ -87,6 +86,15 @@ public class CalculatorFragmentTest
         modulo = (Button) getViewById( R.id.modulo );
         equal = (Button) getViewById( R.id.equal );
         clear = (Button) getViewById( R.id.clear );
+
+        enterDefaultValueWithKeys();
+    }
+
+    private void enterDefaultValueWithKeys()
+    {
+        key1.performClick();
+        key2.performClick();
+        key3.performClick();
     }
 
     @Test
@@ -99,6 +107,12 @@ public class CalculatorFragmentTest
     public void shouldHaveResultDisplay() throws Exception
     {
         assertViewIsVisible( display );
+    }
+
+    @Test
+    public void shouldShowDefaultDisplay() throws Exception
+    {
+        assertThat( getDisplayText(), equalTo( STARTING_VALUE ) );
     }
 
     @Test
@@ -118,7 +132,7 @@ public class CalculatorFragmentTest
     {
         key1.performClick();
         String expected = STARTING_VALUE + key1.getText();
-        assertThat( display.getText().toString(), equalTo( expected ) );
+        assertThat( getDisplayText(), equalTo( expected ) );
     }
 
     @Test
@@ -138,7 +152,7 @@ public class CalculatorFragmentTest
     {
         key2.performClick();
         String expected = STARTING_VALUE + key2.getText();
-        assertThat( display.getText().toString(), equalTo( expected ) );
+        assertThat( getDisplayText(), equalTo( expected ) );
     }
 
     @Test
@@ -158,7 +172,7 @@ public class CalculatorFragmentTest
     {
         key3.performClick();
         String expected = STARTING_VALUE + key3.getText();
-        assertThat( display.getText().toString(), equalTo( expected ) );
+        assertThat( getDisplayText(), equalTo( expected ) );
     }
 
     @Test
@@ -178,7 +192,7 @@ public class CalculatorFragmentTest
     {
         key4.performClick();
         String expected = STARTING_VALUE + key4.getText();
-        assertThat( display.getText().toString(), equalTo( expected ) );
+        assertThat( getDisplayText(), equalTo( expected ) );
     }
 
     @Test
@@ -198,7 +212,7 @@ public class CalculatorFragmentTest
     {
         key5.performClick();
         String expected = STARTING_VALUE + key5.getText();
-        assertThat( display.getText().toString(), equalTo( expected ) );
+        assertThat( getDisplayText(), equalTo( expected ) );
     }
 
     @Test
@@ -218,7 +232,7 @@ public class CalculatorFragmentTest
     {
         key6.performClick();
         String expected = STARTING_VALUE + key6.getText();
-        assertThat( display.getText().toString(), equalTo( expected ) );
+        assertThat( getDisplayText(), equalTo( expected ) );
     }
 
     @Test
@@ -238,7 +252,7 @@ public class CalculatorFragmentTest
     {
         key7.performClick();
         String expected = STARTING_VALUE + key7.getText();
-        assertThat( display.getText().toString(), equalTo( expected ) );
+        assertThat( getDisplayText(), equalTo( expected ) );
     }
 
     @Test
@@ -258,7 +272,7 @@ public class CalculatorFragmentTest
     {
         key8.performClick();
         String expected = STARTING_VALUE + key8.getText();
-        assertThat( display.getText().toString(), equalTo( expected ) );
+        assertThat( getDisplayText(), equalTo( expected ) );
     }
 
     @Test
@@ -278,7 +292,7 @@ public class CalculatorFragmentTest
     {
         key9.performClick();
         String expected = STARTING_VALUE + key9.getText();
-        assertThat( display.getText().toString(), equalTo( expected ) );
+        assertThat( getDisplayText(), equalTo( expected ) );
     }
 
     @Test
@@ -298,7 +312,7 @@ public class CalculatorFragmentTest
     {
         key0.performClick();
         String expected = STARTING_VALUE + key0.getText();
-        assertThat( display.getText().toString(), equalTo( expected ) );
+        assertThat( getDisplayText(), equalTo( expected ) );
     }
 
     @Test
@@ -333,8 +347,7 @@ public class CalculatorFragmentTest
     public void plusShouldUpdateDisplayCharacter() throws Exception
     {
         plus.performClick();
-        assertThat( display.getText().toString(),
-                    equalTo( OperationString.PLUS ) );
+        assertThat( getDisplayText(), equalTo( OperationString.PLUS ) );
     }
 
     @Test
@@ -369,8 +382,7 @@ public class CalculatorFragmentTest
     public void minusShouldUpdateDisplayCharacter() throws Exception
     {
         minus.performClick();
-        assertThat( display.getText().toString(),
-                    equalTo( OperationString.MINUS ) );
+        assertThat( getDisplayText(), equalTo( OperationString.MINUS ) );
     }
 
     @Test
@@ -405,8 +417,7 @@ public class CalculatorFragmentTest
     public void multiplyShouldUpdateDisplayCharacter() throws Exception
     {
         multiply.performClick();
-        assertThat( display.getText().toString(),
-                    equalTo( OperationString.MULTIPLY ) );
+        assertThat( getDisplayText(), equalTo( OperationString.MULTIPLY ) );
     }
 
     @Test
@@ -441,8 +452,7 @@ public class CalculatorFragmentTest
     public void divideShouldUpdateDisplayCharacter() throws Exception
     {
         divide.performClick();
-        assertThat( display.getText().toString(),
-                    equalTo( OperationString.DIVIDE ) );
+        assertThat( getDisplayText(), equalTo( OperationString.DIVIDE ) );
     }
 
     @Test
@@ -477,8 +487,7 @@ public class CalculatorFragmentTest
     public void moduloShouldUpdateDisplayCharacter() throws Exception
     {
         modulo.performClick();
-        assertThat( display.getText().toString(),
-                    equalTo( OperationString.MODULO ) );
+        assertThat( getDisplayText(), equalTo( OperationString.MODULO ) );
     }
 
     @Test
@@ -511,18 +520,21 @@ public class CalculatorFragmentTest
         equal.performClick();
         equal.performClick();
         equal.performClick();
-        assertThat( display.getText().toString(),
-                    equalTo( STARTING_VALUE ) );
+        assertThat( getDisplayText(), equalTo( STARTING_VALUE ) );
     }
 
     @Test
     public void equalShouldGiveCorrectResultWhenAdding() throws Exception
     {
+        addEightToStartingValue();
+        assertThat( getDisplayText(), equalTo( ADDITION_FINAL_VALUE ) );
+    }
+
+    private void addEightToStartingValue()
+    {
         plus.performClick();
         key8.performClick();
         equal.performClick();
-        assertThat( display.getText().toString(),
-                    equalTo( ADDITION_FINAL_VALUE ) );
     }
 
     @Test
@@ -531,8 +543,7 @@ public class CalculatorFragmentTest
         minus.performClick();
         key8.performClick();
         equal.performClick();
-        assertThat( display.getText().toString(),
-                    equalTo( SUBTRACTION_FINAL_VALUE ) );
+        assertThat( getDisplayText(), equalTo( SUBTRACTION_FINAL_VALUE ) );
     }
 
     @Test
@@ -541,8 +552,7 @@ public class CalculatorFragmentTest
         multiply.performClick();
         key8.performClick();
         equal.performClick();
-        assertThat( display.getText().toString(),
-                    equalTo( MULTIPLICATION_FINAL_VALUE ) );
+        assertThat( getDisplayText(), equalTo( MULTIPLICATION_FINAL_VALUE ) );
     }
 
     @Test
@@ -551,8 +561,7 @@ public class CalculatorFragmentTest
         divide.performClick();
         key8.performClick();
         equal.performClick();
-        assertThat( display.getText().toString(),
-                    equalTo( DIVISION_FINAL_VALUE ) );
+        assertThat( getDisplayText(), equalTo( DIVISION_FINAL_VALUE ) );
     }
 
     @Test
@@ -561,15 +570,14 @@ public class CalculatorFragmentTest
         modulo.performClick();
         key8.performClick();
         equal.performClick();
-        assertThat( display.getText().toString(),
-                    equalTo( MODULO_FINAL_VALUE ) );
+        assertThat( getDisplayText(), equalTo( MODULO_FINAL_VALUE ) );
     }
 
     @Test
     public void whenDividingByZeroEqualShouldGiveNaNValue() throws Exception
     {
         divideByZero();
-        assertThat( display.getText().toString(),
+        assertThat( getDisplayText(),
                     equalTo( getResourceString( R.string.NAN ) ) );
     }
 
@@ -591,7 +599,7 @@ public class CalculatorFragmentTest
     public void whenModuloingByZeroEqualShouldGiveNaNValue() throws Exception
     {
         moduloByZero();
-        assertThat( display.getText().toString(),
+        assertThat( getDisplayText(),
                     equalTo( getResourceString( R.string.NAN ) ) );
     }
 
@@ -610,6 +618,14 @@ public class CalculatorFragmentTest
     }
 
     @Test
+    public void postEqualsNewNumbersShouldClearDisplay() throws Exception
+    {
+        addEightToStartingValue();
+        key1.performClick();
+        assertThat( getDisplayText(), equalTo( key1.getText() ) );
+    }
+
+    @Test
     public void shouldHaveClearKey() throws Exception
     {
         assertViewIsVisible( clear );
@@ -625,7 +641,7 @@ public class CalculatorFragmentTest
     public void clearShouldClearDisplay() throws Exception
     {
         clear.performClick();
-        assertThat( display.getText().toString(), equalTo( "" ) );
+        assertThat( getDisplayText(), equalTo( "" ) );
     }
 
     @Test
@@ -647,6 +663,11 @@ public class CalculatorFragmentTest
     private View getViewById( int id )
     {
         return calculatorFragment.getView().findViewById( id );
+    }
+
+    private String getDisplayText()
+    {
+        return display.getText().toString();
     }
 
     private View.OnClickListener getViewOnClickListener( View view )

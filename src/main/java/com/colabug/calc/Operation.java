@@ -2,5 +2,5 @@ package com.colabug.calc;
 
 public enum Operation
 {
-    PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, NONE
+    NUMBER, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, NONE
 }

@@ -96,7 +96,12 @@ public class CalculatorFragment extends Fragment
                     isInNanState = false;
                 }
 
-                if ( isDisplayingOperation() )
+                if ( operation == Operation.NONE )
+                {
+                    setDisplay( number );
+                    operation = Operation.NUMBER;
+                }
+                else if ( isDisplayingOperation())
                 {
                     setDisplay( number );
                 }

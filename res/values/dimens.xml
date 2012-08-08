@@ -10,4 +10,8 @@
 
     <!--Operators-->
     <dimen name="equals_button_width">215dp</dimen>
+
+    <!--Display-->
+    <dimen name="display_height">65dp</dimen>
+    <dimen name="display_text_size">70sp</dimen>
 </resources>

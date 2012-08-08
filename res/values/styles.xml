@@ -21,7 +21,6 @@
     <!--Base text-->
     <style name="BaseText" parent="android:TextAppearance.Large">
         <item name="android:textSize">@dimen/key_text_size</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <!--Base button style-->
@@ -62,8 +61,9 @@
 
     <!--Result Display-->
     <style name="Result" parent="BaseText">
+        <item name="android:textStyle">bold</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">@dimen/display_height</item>
         <item name="android:layout_margin">@dimen/button_margin</item>
     </style>
 </resources>

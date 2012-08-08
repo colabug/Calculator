@@ -626,6 +626,63 @@ public class CalculatorFragmentTest
     }
 
     @Test
+    public void plusShouldNotClearNanState() throws Exception
+    {
+        divideByZero();
+        plus.performClick();
+        assertTrue( calculatorFragment.isInNanState );
+    }
+
+    @Test
+    public void minusShouldNotClearNanState() throws Exception
+    {
+        divideByZero();
+        minus.performClick();
+        assertTrue( calculatorFragment.isInNanState );
+    }
+
+    @Test
+    public void multiplyShouldNotClearNanState() throws Exception
+    {
+        divideByZero();
+        multiply.performClick();
+        assertTrue( calculatorFragment.isInNanState );
+    }
+
+    @Test
+    public void divideShouldNotClearNanState() throws Exception
+    {
+        divideByZero();
+        divide.performClick();
+        assertTrue( calculatorFragment.isInNanState );
+    }
+
+    @Test
+    public void moduloShouldNotClearNanState() throws Exception
+    {
+        divideByZero();
+        modulo.performClick();
+        assertTrue( calculatorFragment.isInNanState );
+    }
+
+    @Test
+    public void equalShouldNotClearNanState() throws Exception
+    {
+        divideByZero();
+        equal.performClick();
+        assertTrue( calculatorFragment.isInNanState );
+    }
+
+    @Test
+    public void numberShouldClearNanStateAndUpdateDisplay() throws Exception
+    {
+        divideByZero();
+        key1.performClick();
+        assertFalse( calculatorFragment.isInNanState );
+        assertThat( getDisplayText(), equalTo( key1.getText() ) );
+    }
+
+    @Test
     public void shouldHaveClearKey() throws Exception
     {
         assertViewIsVisible( clear );

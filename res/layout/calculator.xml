@@ -6,14 +6,14 @@
     <!--Display-->
     <TextView
         android:id="@+id/display"
-        style="@style/ResultDisplay"/>
+        style="@style/Result"/>
 
     <!--1-->
     <Button
         android:id="@+id/key1"
         android:layout_below="@id/display"
         android:text="@string/key1"
-        style="@style/CalculatorNumberButton"/>
+        style="@style/Number"/>
 
     <!--2-->
     <Button
@@ -21,7 +21,7 @@
         android:layout_toRightOf="@id/key1"
         android:layout_alignBaseline="@id/key1"
         android:text="@string/key2"
-        style="@style/CalculatorNumberButton"/>
+        style="@style/Number"/>
 
     <!--3-->
     <Button
@@ -29,14 +29,14 @@
         android:layout_toRightOf="@id/key2"
         android:layout_alignBaseline="@id/key2"
         android:text="@string/key3"
-        style="@style/CalculatorNumberButton"/>
+        style="@style/Number"/>
 
     <!--4-->
     <Button
         android:id="@+id/key4"
         android:layout_below="@id/key1"
         android:text="@string/key4"
-        style="@style/CalculatorNumberButton"/>
+        style="@style/Number"/>
 
     <!--5-->
     <Button
@@ -44,7 +44,7 @@
         android:layout_toRightOf="@id/key4"
         android:layout_alignBaseline="@id/key4"
         android:text="@string/key5"
-        style="@style/CalculatorNumberButton"/>
+        style="@style/Number"/>
 
     <!--6-->
     <Button
@@ -52,14 +52,14 @@
         android:layout_toRightOf="@id/key5"
         android:layout_alignBaseline="@id/key5"
         android:text="@string/key6"
-        style="@style/CalculatorNumberButton"/>
+        style="@style/Number"/>
 
     <!--7-->
     <Button
         android:id="@+id/key7"
         android:layout_below="@id/key4"
         android:text="@string/key7"
-        style="@style/CalculatorNumberButton"/>
+        style="@style/Number"/>
 
     <!--8-->
     <Button
@@ -67,7 +67,7 @@
         android:layout_toRightOf="@id/key7"
         android:layout_alignBaseline="@id/key7"
         android:text="@string/key8"
-        style="@style/CalculatorNumberButton"/>
+        style="@style/Number"/>
 
     <!--9-->
     <Button
@@ -75,22 +75,14 @@
         android:layout_toRightOf="@id/key8"
         android:layout_alignBaseline="@id/key8"
         android:text="@string/key9"
-        style="@style/CalculatorNumberButton"/>
+        style="@style/Number"/>
 
     <!--0-->
     <Button
         android:id="@+id/key0"
         android:text="@string/key0"
         android:layout_below="@id/key7"
-        style="@style/CalculatorNumberButton"/>
-
-    <!--Clear-->
-    <Button
-        android:id="@+id/clear"
-        android:text="@string/clear"
-        android:layout_toRightOf="@id/key0"
-        android:layout_alignBaseline="@id/key0"
-        style="@style/CalculatorNumberButton"/>
+        style="@style/ZeroKey"/>
 
     <!--Plus-->
     <Button
@@ -98,7 +90,7 @@
         android:layout_toRightOf="@id/key3"
         android:layout_alignBaseline="@id/key3"
         android:text="@string/plus"
-        style="@style/CalculatorNumberButton"/>
+        style="@style/Operator"/>
 
     <!--Minus-->
     <Button
@@ -106,7 +98,7 @@
         android:layout_toRightOf="@id/key6"
         android:layout_alignBaseline="@id/key6"
         android:text="@string/minus"
-        style="@style/CalculatorNumberButton"/>
+        style="@style/Operator"/>
 
     <!--Multiply-->
     <Button
@@ -114,15 +106,15 @@
         android:layout_toRightOf="@id/key9"
         android:layout_alignBaseline="@id/key9"
         android:text="@string/multiply"
-        style="@style/CalculatorNumberButton"/>
+        style="@style/Operator"/>
 
     <!--Modulo-->
     <Button
         android:id="@+id/modulo"
-        android:layout_toRightOf="@id/clear"
-        android:layout_alignBaseline="@id/clear"
+        android:layout_toRightOf="@id/key0"
+        android:layout_alignBaseline="@id/key0"
         android:text="@string/modulo"
-        style="@style/CalculatorNumberButton"/>
+        style="@style/Operator"/>
 
     <!--Divide-->
     <Button
@@ -130,13 +122,21 @@
         android:layout_toRightOf="@id/modulo"
         android:layout_alignBaseline="@id/modulo"
         android:text="@string/divide"
-        style="@style/CalculatorNumberButton"/>
+        style="@style/Operator"/>
+
+    <!--Clear-->
+    <Button
+        android:id="@+id/clear"
+        android:text="@string/clear"
+        android:layout_below="@id/key0"
+        style="@style/Clear"/>
 
     <!--Equal-->
     <Button
         android:id="@+id/equal"
-        android:layout_below="@id/key0"
+        android:layout_toRightOf="@id/clear"
+        android:layout_alignBaseline="@id/clear"
         android:text="@string/equal"
-        style="@style/CalculatorNumberButton"/>
+        style="@style/Equal"/>
 </RelativeLayout>
 

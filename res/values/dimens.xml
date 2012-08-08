@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <dimen name="number_button_padding">30dp</dimen>
+    <dimen name="button_margin">5dp</dimen>
+    <dimen name="button_dimensions">65dp</dimen>
+
+    <!--Number keys-->
+    <dimen name="key_text_size">50sp</dimen>
+    <dimen name="zero_key_width">140dp</dimen>
+
+    <!--Operators-->
+    <dimen name="equals_button_width">215dp</dimen>
 </resources>

@@ -1,26 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
+    <!--Wrap width & height-->
     <style name="Wrap">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <!--Match width & height-->
     <style name="Match">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
 
+    <!--Match width, wrap height-->
     <style name="MatchWidth" parent="Wrap">
         <item name="android:layout_width">match_parent</item>
     </style>
 
-    <style name="CalculatorNumberButton" parent="android:TextAppearance.Large">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">@dimen/number_button_padding</item>
+    <!--Base text-->
+    <style name="BaseText" parent="android:TextAppearance.Large">
+        <item name="android:textSize">@dimen/key_text_size</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="ResultDisplay" parent="MatchWidth">
+    <!--Base button style-->
+    <style name="BaseButton" parent="BaseText">
+        <item name="android:layout_width">@dimen/button_dimensions</item>
+        <item name="android:layout_height">@dimen/button_dimensions</item>
+        <item name="android:layout_margin">@dimen/button_margin</item>
+    </style>
+
+    <!--Number-->
+    <style name="Number" parent="BaseText">
+        <item name="android:layout_width">@dimen/button_dimensions</item>
+        <item name="android:layout_height">@dimen/button_dimensions</item>
+        <item name="android:layout_margin">@dimen/button_margin</item>
+        <item name="android:background">@color/brown</item>
+    </style>
+
+    <!--Zero-->
+    <style name="ZeroKey" parent="Number">
+        <item name="android:layout_width">@dimen/zero_key_width</item>
+    </style>
+
+    <!--Operator-->
+    <style name="Operator" parent="BaseButton">
+        <item name="android:background">@color/green</item>
+    </style>
+
+    <!--Equal button-->
+    <style name="Equal" parent="BaseButton">
+        <item name="android:layout_width">@dimen/equals_button_width</item>
+        <item name="android:background">@color/blue</item>
+    </style>
+
+    <!--Clear button-->
+    <style name="Clear" parent="BaseButton">
+        <item name="android:background">@color/red</item>
+    </style>
+
+    <!--Result Display-->
+    <style name="Result" parent="BaseText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/button_margin</item>
     </style>
 </resources>

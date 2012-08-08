@@ -11,8 +11,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static com.colabug.calc.support.CalculatorTestRunner.assertViewIsVisible;
+import static com.colabug.calc.support.CalculatorTestRunner.getResourceString;
 import static com.colabug.calc.support.CalculatorTestRunner.startFragment;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
@@ -517,6 +519,21 @@ public class CalculatorFragmentTest
     }
 
     @Test
+    public void whenDividingByZeroEqualShouldGiveNaNValue() throws Exception
+    {
+        putInNanState();
+        assertThat( display.getText().toString(),
+                    equalTo( getResourceString( R.string.NAN ) ) );
+    }
+
+    private void putInNanState()
+    {
+        divide.performClick();
+        key0.performClick();
+        equal.performClick();
+    }
+
+    @Test
     public void shouldHaveClearKey() throws Exception
     {
         assertViewIsVisible( clear );
@@ -541,6 +558,14 @@ public class CalculatorFragmentTest
         calculatorFragment.setStoredValue( 123 );
         clear.performClick();
         assertThat( calculatorFragment.getStoredValue(), equalTo( "0" ) );
+    }
+
+    @Test
+    public void clearShouldClearNanState() throws Exception
+    {
+        putInNanState();
+        clear.performClick();
+        assertFalse( calculatorFragment.getNanState() );
     }
 
     private View getViewById( int id )
@@ -569,6 +594,11 @@ public class CalculatorFragmentTest
         public void setStoredValue( int storedValue )
         {
             this.storedValue = storedValue;
+        }
+
+        public boolean getNanState()
+        {
+            return isInNanState;
         }
     }
 }

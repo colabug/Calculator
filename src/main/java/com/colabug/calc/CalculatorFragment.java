@@ -2,7 +2,6 @@ package com.colabug.calc;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +10,15 @@ import android.widget.TextView;
 
 public class CalculatorFragment extends Fragment
 {
-    private static final String TAG = ClassFormatError.class.getSimpleName();
-
     private View     layout;
     private TextView display;
 
-    protected int storedValue = 0;
+    // Calculations
+    protected int       storedValue = 0;
+    protected Operation operation   = Operation.NONE;
 
-    protected Operation operation = Operation.NONE;
+    // NaN state tracking
+    protected boolean isInNanState = false;
 
     @Override
     public View onCreateView( LayoutInflater inflater,
@@ -46,7 +46,7 @@ public class CalculatorFragment extends Fragment
 
     private void clearDisplayedValue()
     {
-        setDisplay( getActivity().getResources().getString( R.string.EMPTY_STRING ) );
+        setDisplay( getResources().getString( R.string.EMPTY_STRING ) );
     }
 
     private void configureNumberKeys()
@@ -90,6 +90,11 @@ public class CalculatorFragment extends Fragment
             public void onClick( View view )
             {
                 String number = ( (Button) view ).getText().toString();
+                if ( isInNanState )
+                {
+                    clearDisplayedValue();
+                    isInNanState = false;
+                }
 
                 if ( isDisplayingOperation() )
                 {
@@ -161,11 +166,19 @@ public class CalculatorFragment extends Fragment
             @Override
             public void onClick( View view )
             {
-                if ( !isDisplayingOperation() )
+                // Can't do operations on non-numbers
+                if ( isInNanState )
+                {
+                    return;
+                }
+
+                // If not swapping
+                if ( !isDisplayingOperation()  )
                 {
                     storeDisplayedValue();
                 }
 
+                // Store operation & update display
                 operation = op;
                 setDisplay( ( (Button) view ).getText() );
             }
@@ -185,7 +198,10 @@ public class CalculatorFragment extends Fragment
             @Override
             public void onClick( View view )
             {
-                performCalculation();
+                if ( !isInNanState )
+                {
+                    performCalculation();
+                }
             }
         } );
     }
@@ -208,11 +224,15 @@ public class CalculatorFragment extends Fragment
                 break;
 
             case DIVIDE:
-                setDisplay( storedValue / value );
-                break;
-
-            default:
-                Log.d( TAG, "Unknown operation" );
+                if ( value == 0 )
+                {
+                    setDisplay( getResources().getString( R.string.NAN ) );
+                    isInNanState = true;
+                }
+                else
+                {
+                    setDisplay( storedValue / value );
+                }
                 break;
         }
 
@@ -236,6 +256,7 @@ public class CalculatorFragment extends Fragment
                 clearDisplayedValue();
                 storedValue = 0;
                 operation = Operation.NONE;
+                isInNanState = false;
             }
         } );
     }

@@ -24,4 +24,5 @@
 
     <!--Display-->
     <string name="EMPTY_STRING"/>
+    <string name="NAN">NaN</string>
 </resources>

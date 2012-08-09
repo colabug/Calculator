@@ -1,0 +1,10 @@
+TODO
+    * Allow negative signs at the beginning of the number
+    * Set a state list drawable on the keys so it looks better when pressed
+    * Kill OperationString class since we can use resources
+    * Detect overflow better
+    * Add pretty animations when clearing or doing operations?
+
+Class
+    * Turn this into a case study
+    * Convert this into a series of labs

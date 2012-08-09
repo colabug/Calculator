@@ -193,7 +193,6 @@ public class CalculatorFragment extends Fragment
                 }
 
                 // Store value
-                // TODO: Allow negative signs
                 if ( !isDisplayingOperation() )
                 {
                     storeDisplayedValue();

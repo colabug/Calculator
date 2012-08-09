@@ -2,23 +2,27 @@ package com.colabug.calc;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 
 public class CalculatorFragment extends Fragment
 {
+    private static final String TAG = CalculatorFragment.class.getSimpleName();
+
     private View     layout;
-    private TextView display;
+    private EditText display;
 
     // Calculations
     protected int       storedValue = 0;
     protected Operation operation   = Operation.NONE;
 
-    // NaN state tracking
-    protected boolean isInNanState = false;
+    // Error state tracking
+    protected boolean isInErrorState = false;
 
     @Override
     public View onCreateView( LayoutInflater inflater,
@@ -40,7 +44,7 @@ public class CalculatorFragment extends Fragment
 
     private void configureDisplay()
     {
-        display = (TextView) layout.findViewById( R.id.display );
+        display = (EditText) layout.findViewById( R.id.display );
         clearDisplayedValue();
     }
 
@@ -90,18 +94,18 @@ public class CalculatorFragment extends Fragment
             public void onClick( View view )
             {
                 String number = ( (Button) view ).getText().toString();
-                if ( isInNanState )
+                if ( isInErrorState )
                 {
                     clearDisplayedValue();
-                    isInNanState = false;
+                    isInErrorState = false;
                 }
 
-                if ( operation == Operation.NONE )
+                if ( operation == Operation.NONE || operation == Operation.EQUAL )
                 {
                     setDisplay( number );
                     operation = Operation.NUMBER;
                 }
-                else if ( isDisplayingOperation())
+                else if ( isDisplayingOperation() )
                 {
                     setDisplay( number );
                 }
@@ -179,28 +183,55 @@ public class CalculatorFragment extends Fragment
             @Override
             public void onClick( View view )
             {
-                // Can't do operations on non-numbers
-                if ( isInNanState )
+                // Ignore clicks when in an error state, when no number
+                // entered, or when no operation has been set
+                if ( isInErrorState ||
+                     operation == Operation.NONE ||
+                     TextUtils.isEmpty( display.getText() ))
                 {
                     return;
                 }
 
-                // If not swapping
-                if ( !isDisplayingOperation()  )
+                // Store value
+                // TODO: Allow negative signs
+                if ( !isDisplayingOperation() )
                 {
                     storeDisplayedValue();
                 }
 
-                // Store operation & update display
-                operation = op;
-                setDisplay( ( (Button) view ).getText() );
+                // Store operation & update display. Having the operator
+                // update outside of the above condition means that
+                // the user can change their mind.
+                // NOTE: Can enter error state when storing the value
+                if (!isInErrorState) {
+                    operation = op;
+                    setDisplay( ( (Button) view ).getText() );
+                }
             }
         };
     }
 
     private void storeDisplayedValue()
     {
-        storedValue = Integer.parseInt( getCurrentDisplayString() );
+        try
+        {
+            storedValue = Integer.parseInt( getCurrentDisplayString() );
+        }
+        catch ( NumberFormatException e )
+        {
+            Log.d( TAG, "Can't format number = " + storedValue );
+            startErrorState( R.string.ERROR );
+            e.printStackTrace();
+        }
+    }
+
+    // NOTE: Robolectric doesn't currently support the fragment getString()
+    //       functionality. I submitted a pull request here:
+    //       https://github.com/pivotal/robolectric/pull/300
+    private void startErrorState( int stringId )
+    {
+        setDisplay( getActivity().getString( stringId ) );
+        isInErrorState = true;
     }
 
     private void configureEqualsKey()
@@ -211,7 +242,7 @@ public class CalculatorFragment extends Fragment
             @Override
             public void onClick( View view )
             {
-                if ( !isInNanState )
+                if ( !isInErrorState)
                 {
                     performCalculation();
                 }
@@ -261,7 +292,7 @@ public class CalculatorFragment extends Fragment
         }
 
         storedValue = 0;
-        operation = Operation.NONE;
+        operation = Operation.EQUAL;
     }
 
     private boolean willEquateToNan( int value )
@@ -271,8 +302,7 @@ public class CalculatorFragment extends Fragment
 
     private void startNanState()
     {
-        setDisplay( getResources().getString( R.string.NAN ) );
-        isInNanState = true;
+        startErrorState( R.string.NAN );
     }
 
     private void setDisplay( Object result )
@@ -291,7 +321,7 @@ public class CalculatorFragment extends Fragment
                 clearDisplayedValue();
                 storedValue = 0;
                 operation = Operation.NONE;
-                isInNanState = false;
+                isInErrorState = false;
             }
         } );
     }

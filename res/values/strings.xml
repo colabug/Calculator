@@ -26,4 +26,5 @@
     <!--Display-->
     <string name="EMPTY_STRING"/>
     <string name="NAN">NaN</string>
+    <string name="ERROR">Error</string>
 </resources>

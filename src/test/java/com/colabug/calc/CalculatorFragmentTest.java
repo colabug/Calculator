@@ -2,7 +2,7 @@ package com.colabug.calc;
 
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 import com.colabug.calc.support.CalculatorTestRunner;
 import com.xtremelabs.robolectric.Robolectric;
 import com.xtremelabs.robolectric.shadows.ShadowView;
@@ -25,12 +25,15 @@ import static org.junit.Assert.*;
 
 public class CalculatorFragmentTest
 {
+    private static final String EMPTY_STRING = "";
+
     private static final String STARTING_VALUE             = "123";
     private static final String ADDITION_FINAL_VALUE       = "131";
     private static final String SUBTRACTION_FINAL_VALUE    = "115";
     private static final String MULTIPLICATION_FINAL_VALUE = "984";
     private static final String DIVISION_FINAL_VALUE       = "15";
     private static final String MODULO_FINAL_VALUE         = "3";
+    private static final String MAX_INT_VALUE              = "2147483647";
 
     private TestCalculatorFragment calculatorFragment;
 
@@ -54,7 +57,7 @@ public class CalculatorFragmentTest
     private Button equal;
     private Button clear;
 
-    private TextView display;
+    private EditText display;
 
     @Before
     public void setUp() throws Exception
@@ -64,7 +67,7 @@ public class CalculatorFragmentTest
         startFragment( calculatorFragment );
 
         // Display
-        display = (TextView) getViewById( R.id.display );
+        display = (EditText) getViewById( R.id.display );
 
         // Number keys
         key1 = (Button) getViewById( R.id.key1 );
@@ -104,9 +107,32 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void shouldHaveResultDisplay() throws Exception
+    public void shouldHaveDisplay() throws Exception
     {
         assertViewIsVisible( display );
+    }
+
+    @Test
+    public void displayShouldLimitEntryTo10Characters() throws Exception
+    {
+        clear.performClick();
+        enterLargestInt();
+        key0.performClick();
+        assertThat( getDisplayText(), equalTo( MAX_INT_VALUE ) );
+    }
+
+    private void enterLargestInt()
+    {
+        key2.performClick();
+        key1.performClick();
+        key4.performClick();
+        key7.performClick();
+        key4.performClick();
+        key8.performClick();
+        key3.performClick();
+        key6.performClick();
+        key4.performClick();
+        key7.performClick();
     }
 
     @Test
@@ -316,6 +342,29 @@ public class CalculatorFragmentTest
     }
 
     @Test
+    public void enteringLargerThanGreatestIntShouldResultInErrorState() throws Exception
+    {
+        clear.performClick();
+        enterGreaterThanLargestInt();
+        multiply.performClick();
+        assertTrue( calculatorFragment.isInErrorState );
+    }
+
+    private void enterGreaterThanLargestInt()
+    {
+        key2.performClick();
+        key1.performClick();
+        key4.performClick();
+        key7.performClick();
+        key4.performClick();
+        key8.performClick();
+        key3.performClick();
+        key6.performClick();
+        key5.performClick();
+        key9.performClick();
+    }
+
+    @Test
     public void shouldHavePlusKey() throws Exception
     {
         assertViewIsVisible( plus );
@@ -348,6 +397,14 @@ public class CalculatorFragmentTest
     {
         plus.performClick();
         assertThat( getDisplayText(), equalTo( OperationString.PLUS ) );
+    }
+
+    @Test
+    public void addingBeforeANumberShouldNotUpdateDisplay() throws Exception
+    {
+        clear.performClick();
+        plus.performClick();
+        assertThat( getDisplayText(), equalTo( EMPTY_STRING ) );
     }
 
     @Test
@@ -386,6 +443,14 @@ public class CalculatorFragmentTest
     }
 
     @Test
+    public void subtractingBeforeANumberShouldNotUpdateDisplay() throws Exception
+    {
+        clear.performClick();
+        minus.performClick();
+        assertThat( getDisplayText(), equalTo( EMPTY_STRING ) );
+    }
+
+    @Test
     public void shouldHaveMultiplyKey() throws Exception
     {
         assertViewIsVisible( multiply );
@@ -421,6 +486,14 @@ public class CalculatorFragmentTest
     }
 
     @Test
+    public void multiplyingBeforeANumberShouldNotUpdateDisplay() throws Exception
+    {
+        clear.performClick();
+        multiply.performClick();
+        assertThat( getDisplayText(), equalTo( EMPTY_STRING ) );
+    }
+
+    @Test
     public void shouldHaveDivideKey() throws Exception
     {
         assertViewIsVisible( divide );
@@ -453,6 +526,14 @@ public class CalculatorFragmentTest
     {
         divide.performClick();
         assertThat( getDisplayText(), equalTo( OperationString.DIVIDE ) );
+    }
+
+    @Test
+    public void dividingBeforeANumberShouldNotUpdateDisplay() throws Exception
+    {
+        clear.performClick();
+        divide.performClick();
+        assertThat( getDisplayText(), equalTo( EMPTY_STRING ) );
     }
 
     @Test
@@ -585,7 +666,7 @@ public class CalculatorFragmentTest
     public void whenDividingByZeroEqualShouldStartNaNState() throws Exception
     {
         divideByZero();
-        assertTrue( calculatorFragment.isInNanState );
+        assertTrue( calculatorFragment.isInErrorState );
     }
 
     private void divideByZero()
@@ -607,7 +688,7 @@ public class CalculatorFragmentTest
     public void whenModuloingByZeroEqualShouldStartNanState() throws Exception
     {
         moduloByZero();
-        assertTrue( calculatorFragment.isInNanState );
+        assertTrue( calculatorFragment.isInErrorState );
     }
 
     private void moduloByZero()
@@ -618,7 +699,7 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void postEqualsNewNumbersShouldClearDisplay() throws Exception
+    public void postEqualsNewNumbersShouldUpdateDisplay() throws Exception
     {
         addEightToStartingValue();
         key1.performClick();
@@ -630,7 +711,7 @@ public class CalculatorFragmentTest
     {
         divideByZero();
         plus.performClick();
-        assertTrue( calculatorFragment.isInNanState );
+        assertTrue( calculatorFragment.isInErrorState );
     }
 
     @Test
@@ -638,7 +719,7 @@ public class CalculatorFragmentTest
     {
         divideByZero();
         minus.performClick();
-        assertTrue( calculatorFragment.isInNanState );
+        assertTrue( calculatorFragment.isInErrorState );
     }
 
     @Test
@@ -646,7 +727,7 @@ public class CalculatorFragmentTest
     {
         divideByZero();
         multiply.performClick();
-        assertTrue( calculatorFragment.isInNanState );
+        assertTrue( calculatorFragment.isInErrorState );
     }
 
     @Test
@@ -654,7 +735,7 @@ public class CalculatorFragmentTest
     {
         divideByZero();
         divide.performClick();
-        assertTrue( calculatorFragment.isInNanState );
+        assertTrue( calculatorFragment.isInErrorState );
     }
 
     @Test
@@ -662,7 +743,7 @@ public class CalculatorFragmentTest
     {
         divideByZero();
         modulo.performClick();
-        assertTrue( calculatorFragment.isInNanState );
+        assertTrue( calculatorFragment.isInErrorState );
     }
 
     @Test
@@ -670,7 +751,7 @@ public class CalculatorFragmentTest
     {
         divideByZero();
         equal.performClick();
-        assertTrue( calculatorFragment.isInNanState );
+        assertTrue( calculatorFragment.isInErrorState );
     }
 
     @Test
@@ -678,7 +759,7 @@ public class CalculatorFragmentTest
     {
         divideByZero();
         key1.performClick();
-        assertFalse( calculatorFragment.isInNanState );
+        assertFalse( calculatorFragment.isInErrorState );
         assertThat( getDisplayText(), equalTo( key1.getText() ) );
     }
 
@@ -698,7 +779,15 @@ public class CalculatorFragmentTest
     public void clearShouldClearDisplay() throws Exception
     {
         clear.performClick();
-        assertThat( getDisplayText(), equalTo( "" ) );
+        assertThat( getDisplayText(), equalTo( EMPTY_STRING ) );
+    }
+
+    @Test
+    public void postClearNewNumbersShouldUpdateDisplay() throws Exception
+    {
+        clear.performClick();
+        key1.performClick();
+        assertThat( getDisplayText(), equalTo( key1.getText() ) );
     }
 
     @Test
@@ -714,7 +803,7 @@ public class CalculatorFragmentTest
     {
         divideByZero();
         clear.performClick();
-        assertFalse( calculatorFragment.getNanState() );
+        assertFalse( calculatorFragment.getErrorState() );
     }
 
     private View getViewById( int id )
@@ -750,9 +839,9 @@ public class CalculatorFragmentTest
             this.storedValue = storedValue;
         }
 
-        public boolean getNanState()
+        public boolean getErrorState()
         {
-            return isInNanState;
+            return isInErrorState;
         }
     }
 }

@@ -60,10 +60,18 @@
     </style>
 
     <!--Result Display-->
+    <!--NOTE: TextView doesn't limit number of characters, so we're hacking
+              an EditText to look like a TextView-->
+    <!--TODO: Limit width to match the full width of the layout-->
     <style name="Result" parent="BaseText">
-        <item name="android:textStyle">bold</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/display_height</item>
         <item name="android:layout_margin">@dimen/button_margin</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:editable">false</item>
+        <item name="android:focusable">false</item>
+        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:background">@color/black</item>
     </style>
 </resources>

@@ -344,14 +344,23 @@ public class CalculatorFragmentTest
     @Test
     public void enteringLargerThanGreatestIntShouldResultInErrorState() throws Exception
     {
-        clear.performClick();
-        enterGreaterThanLargestInt();
+        enterNumberGreaterThanLargestInt();
         multiply.performClick();
         assertTrue( calculatorFragment.isInErrorState );
     }
 
-    private void enterGreaterThanLargestInt()
+    @Test
+    public void enteringLargerThanGreatestIntShouldDisplayError() throws Exception
     {
+        enterNumberGreaterThanLargestInt();
+        multiply.performClick();
+        assertThat( getDisplayText(),
+                    equalTo( getResourceString( R.string.ERROR ) ) );
+    }
+
+    private void enterNumberGreaterThanLargestInt()
+    {
+        clear.performClick();
         key2.performClick();
         key1.performClick();
         key4.performClick();
@@ -605,6 +614,30 @@ public class CalculatorFragmentTest
     }
 
     @Test
+    public void equalBeforeANumberShouldNotUpdateDisplay() throws Exception
+    {
+        clear.performClick();
+        equal.performClick();
+        assertThat( getDisplayText(), equalTo( EMPTY_STRING ) );
+    }
+
+    @Test
+    public void equalBeforeSecondOperandShouldWaitForNumber() throws Exception
+    {
+        plus.performClick();
+        equal.performClick();
+        assertThat( getDisplayText(), equalTo( plus.getText() ) );
+    }
+
+    @Test
+    public void equalWithBlankScreenShouldNotUpdateDisplay() throws Exception
+    {
+        display.setText( "" );
+        equal.performClick();
+        assertThat( getDisplayText(), equalTo( EMPTY_STRING ) );
+    }
+
+    @Test
     public void equalShouldGiveCorrectResultWhenAdding() throws Exception
     {
         addEightToStartingValue();
@@ -655,7 +688,7 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void whenDividingByZeroEqualShouldGiveNaNValue() throws Exception
+    public void whenDividingByZeroEqualShouldDisplayNaN() throws Exception
     {
         divideByZero();
         assertThat( getDisplayText(),
@@ -663,7 +696,7 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void whenDividingByZeroEqualShouldStartNaNState() throws Exception
+    public void whenDividingByZeroEqualShouldStartErrorState() throws Exception
     {
         divideByZero();
         assertTrue( calculatorFragment.isInErrorState );
@@ -677,7 +710,7 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void whenModuloingByZeroEqualShouldGiveNaNValue() throws Exception
+    public void whenModuloingByZeroEqualShouldDisplayNaN() throws Exception
     {
         moduloByZero();
         assertThat( getDisplayText(),
@@ -685,7 +718,7 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void whenModuloingByZeroEqualShouldStartNanState() throws Exception
+    public void whenModuloingByZeroEqualShouldStartErrorState() throws Exception
     {
         moduloByZero();
         assertTrue( calculatorFragment.isInErrorState );
@@ -707,7 +740,7 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void plusShouldNotClearNanState() throws Exception
+    public void plusShouldNotClearErrorState() throws Exception
     {
         divideByZero();
         plus.performClick();
@@ -715,7 +748,7 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void minusShouldNotClearNanState() throws Exception
+    public void minusShouldNotClearErrorState() throws Exception
     {
         divideByZero();
         minus.performClick();
@@ -723,7 +756,7 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void multiplyShouldNotClearNanState() throws Exception
+    public void multiplyShouldNotClearErrorState() throws Exception
     {
         divideByZero();
         multiply.performClick();
@@ -731,7 +764,7 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void divideShouldNotClearNanState() throws Exception
+    public void divideShouldNotClearErrorState() throws Exception
     {
         divideByZero();
         divide.performClick();
@@ -739,7 +772,7 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void moduloShouldNotClearNanState() throws Exception
+    public void moduloShouldNotClearErrorState() throws Exception
     {
         divideByZero();
         modulo.performClick();
@@ -747,7 +780,7 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void equalShouldNotClearNanState() throws Exception
+    public void equalShouldNotClearErrorState() throws Exception
     {
         divideByZero();
         equal.performClick();
@@ -755,7 +788,32 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void numberShouldClearNanStateAndUpdateDisplay() throws Exception
+    public void enteringLargeSecondOperandShouldDisplayError() throws Exception
+    {
+        startErrorStateFromCalculation();
+        assertThat( getDisplayText(),
+                    equalTo( getResourceString( R.string.ERROR ) ) );
+    }
+
+    @Test
+    public void enteringLargeSecondOperandShouldStartErrorState() throws Exception
+    {
+        startErrorStateFromCalculation();
+        assertTrue( calculatorFragment.isInErrorState );
+    }
+
+    private void startErrorStateFromCalculation()
+    {
+        multiply.performClick();
+        enterNumberGreaterThanLargestInt();
+        equal.performClick();
+    }
+
+    // Ignore equals when nothing or just an operation is entered
+
+
+    @Test
+    public void numberShouldClearErrorStateAndUpdateDisplay() throws Exception
     {
         divideByZero();
         key1.performClick();
@@ -799,7 +857,7 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void clearShouldClearNanState() throws Exception
+    public void clearShouldClearErrorState() throws Exception
     {
         divideByZero();
         clear.performClick();

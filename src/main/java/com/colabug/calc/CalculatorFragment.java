@@ -219,17 +219,21 @@ public class CalculatorFragment extends Fragment
         }
         catch ( NumberFormatException e )
         {
-            Log.d( TAG, "Can't format number = " + storedValue );
             startErrorState( R.string.ERROR );
-            e.printStackTrace();
         }
+    }
+
+    private void startErrorState( int stringId )
+    {
+        startErrorState( stringId, String.valueOf( storedValue ) );
     }
 
     // NOTE: Robolectric doesn't currently support the fragment getString()
     //       functionality. I submitted a pull request here:
     //       https://github.com/pivotal/robolectric/pull/300
-    private void startErrorState( int stringId )
+    private void startErrorState( int stringId, String number )
     {
+        Log.d( TAG, "Can't format number = " + number );
         setDisplay( getActivity().getString( stringId ) );
         isInErrorState = true;
     }
@@ -242,7 +246,8 @@ public class CalculatorFragment extends Fragment
             @Override
             public void onClick( View view )
             {
-                if ( !isInErrorState)
+                // They must have entered a number
+                if ( shouldPerformCalculation() )
                 {
                     performCalculation();
                 }
@@ -250,9 +255,29 @@ public class CalculatorFragment extends Fragment
         } );
     }
 
+    private boolean shouldPerformCalculation()
+    {
+        return !isInErrorState &&
+               !isDisplayingOperation() &&
+                operation != Operation.NONE &&
+               !TextUtils.isEmpty( getCurrentDisplayString() );
+    }
+
     private void performCalculation()
     {
-        int value = Integer.parseInt( getCurrentDisplayString() );
+        // Attempt to obtain integer from current display
+        int value;
+        try
+        {
+            value = Integer.parseInt( getCurrentDisplayString() );
+        }
+        catch ( NumberFormatException e )
+        {
+            startErrorState( R.string.ERROR, getCurrentDisplayString() );
+            return;
+        }
+
+        // Perform the operation
         switch ( operation )
         {
             case PLUS:

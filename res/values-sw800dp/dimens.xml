@@ -12,6 +12,7 @@
     <dimen name="equals_button_width">565dp</dimen>
 
     <!--Display-->
+    <dimen name="display_width">760dp</dimen>
     <dimen name="display_height">175dp</dimen>
     <dimen name="display_text_size">125sp</dimen>
 </resources>

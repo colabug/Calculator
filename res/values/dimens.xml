@@ -5,13 +5,14 @@
     <dimen name="button_dimensions">65dp</dimen>
 
     <!--Number keys-->
-    <dimen name="key_text_size">50sp</dimen>
+    <dimen name="key_text_size">30sp</dimen>
     <dimen name="zero_key_width">140dp</dimen>
 
     <!--Operators-->
     <dimen name="equals_button_width">215dp</dimen>
 
     <!--Display-->
-    <dimen name="display_height">65dp</dimen>
-    <dimen name="display_text_size">70sp</dimen>
+    <dimen name="display_width">293dp</dimen>
+    <dimen name="display_height">100dp</dimen>
+    <dimen name="display_text_size">50sp</dimen>
 </resources>

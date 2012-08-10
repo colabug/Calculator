@@ -6,7 +6,7 @@
     <!--Pressed-->
     <item
         android:state_pressed="true"
-        android:drawable="@color/selected_brown"/>
+        android:drawable="@color/selected_green"/>
 
     <!--Selected-->
     <item
@@ -15,5 +15,5 @@
 
     <!--Normal-->
     <item
-        android:drawable="@color/brown"/>
+        android:drawable="@color/green"/>
 </selector>

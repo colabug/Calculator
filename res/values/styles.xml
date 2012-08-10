@@ -51,18 +51,18 @@
 
     <!--Operator-->
     <style name="Operator" parent="BaseButton">
-        <item name="android:background">@color/green</item>
+        <item name="android:background">@drawable/operator_key</item>
     </style>
 
     <!--Equal button-->
     <style name="Equal" parent="BaseButton">
         <item name="android:layout_width">@dimen/equals_button_width</item>
-        <item name="android:background">@color/blue</item>
+        <item name="android:background">@drawable/equal_key</item>
     </style>
 
     <!--Clear button-->
     <style name="Clear" parent="BaseButton">
-        <item name="android:background">@color/red</item>
+        <item name="android:background">@drawable/clear_key</item>
     </style>
 
     <!--Result Display-->

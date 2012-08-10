@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
+    <!--Application theme-->
+    <style name="ApplicationTheme" parent="android:Theme.Black.NoTitleBar">
+        <item name="android:background">@color/nearly_black</item>
+    </style>
+
     <!--Wrap width & height-->
     <style name="Wrap">
         <item name="android:layout_width">wrap_content</item>

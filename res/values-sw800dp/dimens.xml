@@ -13,6 +13,6 @@
 
     <!--Display-->
     <dimen name="display_width">760dp</dimen>
-    <dimen name="display_height">175dp</dimen>
-    <dimen name="display_text_size">125sp</dimen>
+    <dimen name="display_height">220dp</dimen>
+    <dimen name="display_text_size">130sp</dimen>
 </resources>

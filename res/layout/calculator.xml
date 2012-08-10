@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
     style="@style/Match">
 
     <!--Display-->
@@ -143,4 +144,3 @@
         android:text="@string/equal"
         style="@style/Equal"/>
 </RelativeLayout>
-

@@ -120,11 +120,11 @@ public class CalculatorFragment extends Fragment
     private boolean isDisplayingOperation()
     {
         String currentDisplay = getCurrentDisplayString();
-        return currentDisplay.equals( OperationString.PLUS )     ||
-               currentDisplay.equals( OperationString.MINUS )    ||
-               currentDisplay.equals( OperationString.MULTIPLY ) ||
-               currentDisplay.equals( OperationString.DIVIDE )   ||
-               currentDisplay.equals( OperationString.MODULO );
+        return currentDisplay.equals( getActivity().getString( R.string.plus     ) ) ||
+               currentDisplay.equals( getActivity().getString( R.string.minus    ) ) ||
+               currentDisplay.equals( getActivity().getString( R.string.multiply ) ) ||
+               currentDisplay.equals( getActivity().getString( R.string.divide   ) ) ||
+               currentDisplay.equals( getActivity().getString( R.string.modulo   ) );
     }
 
     private void appendNumber( String number )

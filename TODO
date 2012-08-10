@@ -1,7 +1,3 @@
-TODO
-    * Center entire layout
-    * Kill OperationString class since we can use resources
-
 Class
     * Turn this into a case study
     * Convert this into a series of labs
@@ -9,7 +5,9 @@ Class
 Assignments
     * Allow negative signs at the beginning of the number
     * Add a backspace button
+    * Add a landscape view (requires design)
 
 Long term plans
     * Add pretty animations when clearing or doing operations
     * Support larger integer arithmetic, better overflow detection
+    * Centralize styles into the theme where appropriate

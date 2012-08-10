@@ -405,7 +405,8 @@ public class CalculatorFragmentTest
     public void plusShouldUpdateDisplayCharacter() throws Exception
     {
         plus.performClick();
-        assertThat( getDisplayText(), equalTo( OperationString.PLUS ) );
+        assertThat( getDisplayText(),
+                    equalTo( getResourceString( R.string.plus ) ) );
     }
 
     @Test
@@ -448,7 +449,8 @@ public class CalculatorFragmentTest
     public void minusShouldUpdateDisplayCharacter() throws Exception
     {
         minus.performClick();
-        assertThat( getDisplayText(), equalTo( OperationString.MINUS ) );
+        assertThat( getDisplayText(),
+                    equalTo( getResourceString( R.string.minus ) ) );
     }
 
     @Test
@@ -491,7 +493,8 @@ public class CalculatorFragmentTest
     public void multiplyShouldUpdateDisplayCharacter() throws Exception
     {
         multiply.performClick();
-        assertThat( getDisplayText(), equalTo( OperationString.MULTIPLY ) );
+        assertThat( getDisplayText(),
+                    equalTo( getResourceString( R.string.multiply ) ) );
     }
 
     @Test
@@ -534,7 +537,8 @@ public class CalculatorFragmentTest
     public void divideShouldUpdateDisplayCharacter() throws Exception
     {
         divide.performClick();
-        assertThat( getDisplayText(), equalTo( OperationString.DIVIDE ) );
+        assertThat( getDisplayText(),
+                    equalTo( getResourceString( R.string.divide ) ) );
     }
 
     @Test
@@ -577,7 +581,8 @@ public class CalculatorFragmentTest
     public void moduloShouldUpdateDisplayCharacter() throws Exception
     {
         modulo.performClick();
-        assertThat( getDisplayText(), equalTo( OperationString.MODULO ) );
+        assertThat( getDisplayText(),
+                    equalTo( getResourceString( R.string.modulo ) ) );
     }
 
     @Test

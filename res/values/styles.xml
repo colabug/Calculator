@@ -75,7 +75,7 @@
         <item name="android:gravity">center</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/display_text_size</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/nearly_black</item>
         <item name="android:editable">false</item>
         <item name="android:focusable">false</item>
         <item name="android:focusableInTouchMode">false</item>

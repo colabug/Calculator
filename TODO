@@ -1,10 +1,15 @@
 TODO
-    * Allow negative signs at the beginning of the number
-    * Set a state list drawable on the keys so it looks better when pressed
+    * Center entire layout
     * Kill OperationString class since we can use resources
-    * Detect overflow better
-    * Add pretty animations when clearing or doing operations?
 
 Class
     * Turn this into a case study
     * Convert this into a series of labs
+
+Assignments
+    * Allow negative signs at the beginning of the number
+    * Add a backspace button
+
+Long term plans
+    * Add pretty animations when clearing or doing operations
+    * Support larger integer arithmetic, better overflow detection

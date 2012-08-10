@@ -21,6 +21,7 @@
     <!--Base text-->
     <style name="BaseText" parent="android:TextAppearance.Large">
         <item name="android:textSize">@dimen/key_text_size</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <!--Base button style-->
@@ -35,7 +36,7 @@
         <item name="android:layout_width">@dimen/button_dimensions</item>
         <item name="android:layout_height">@dimen/button_dimensions</item>
         <item name="android:layout_margin">@dimen/button_margin</item>
-        <item name="android:background">@color/brown</item>
+        <item name="android:background">@drawable/number_key</item>
     </style>
 
     <!--Zero-->

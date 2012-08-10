@@ -6,5 +6,9 @@
     <color name="red">#B0281A</color>
     <color name="green">#668113</color>
     <color name="blue">#268474</color>
+
+    <!--Number keys-->
     <color name="brown">#876D13</color>
+    <color name="selected_brown">#ff604613</color>
+    <color name="focused_brown">#ff858722</color>
 </resources>

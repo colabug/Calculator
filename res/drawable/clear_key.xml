@@ -8,7 +8,7 @@
         android:state_pressed="true"
         android:drawable="@color/selected_red"/>
 
-    <!--Selected-->
+    <!--Focused-->
     <item
         android:state_focused="true"
         android:drawable="@color/focused_yellow"/>

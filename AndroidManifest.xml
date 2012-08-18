@@ -8,9 +8,7 @@
     <uses-sdk android:minSdkVersion="6" android:targetSdkVersion="16"/>
 
     <application
-        android:label="@string/app_name"
-        android:icon="@drawable/calc_icon"
-        android:theme="@style/ApplicationTheme">
+        android:label="@string/app_name">
 
         <activity
             android:name="CalculatorActivity"

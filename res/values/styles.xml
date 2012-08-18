@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <!--Application theme-->
-    <style name="ApplicationTheme" parent="android:Theme.Black.NoTitleBar">
-        <item name="android:background">@color/nearly_black</item>
-    </style>
-
     <!--Wrap width & height-->
     <style name="Wrap">
         <item name="android:layout_width">wrap_content</item>
@@ -23,62 +18,31 @@
         <item name="android:layout_width">match_parent</item>
     </style>
 
-    <!--Base text-->
-    <style name="BaseText" parent="android:TextAppearance.Large">
-        <item name="android:textSize">@dimen/key_text_size</item>
-        <item name="android:textColor">@color/white</item>
-    </style>
-
     <!--Base button style-->
-    <style name="BaseButton" parent="BaseText">
-        <item name="android:layout_width">@dimen/button_dimensions</item>
-        <item name="android:layout_height">@dimen/button_dimensions</item>
-        <item name="android:layout_margin">@dimen/button_margin</item>
+    <style name="BaseButton" parent="Wrap">
     </style>
 
     <!--Number-->
-    <style name="Number" parent="BaseText">
-        <item name="android:layout_width">@dimen/button_dimensions</item>
-        <item name="android:layout_height">@dimen/button_dimensions</item>
-        <item name="android:layout_margin">@dimen/button_margin</item>
-        <item name="android:background">@drawable/number_key</item>
+    <style name="Number" parent="Wrap">
     </style>
 
     <!--Zero-->
     <style name="ZeroKey" parent="Number">
-        <item name="android:layout_width">@dimen/zero_key_width</item>
     </style>
 
     <!--Operator-->
     <style name="Operator" parent="BaseButton">
-        <item name="android:background">@drawable/operator_key</item>
     </style>
 
     <!--Equal button-->
     <style name="Equal" parent="BaseButton">
-        <item name="android:layout_width">@dimen/equals_button_width</item>
-        <item name="android:background">@drawable/equal_key</item>
     </style>
 
     <!--Clear button-->
     <style name="Clear" parent="BaseButton">
-        <item name="android:background">@drawable/clear_key</item>
     </style>
 
     <!--Result Display-->
-    <!--NOTE: TextView doesn't limit number of characters, so we're hacking
-              an EditText to look like a TextView-->
-    <style name="Result" parent="BaseText">
-        <item name="android:layout_width">@dimen/display_width</item>
-        <item name="android:layout_height">@dimen/display_height</item>
-        <item name="android:layout_margin">@dimen/button_margin</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">@dimen/display_text_size</item>
-        <item name="android:textColor">@color/nearly_black</item>
-        <item name="android:editable">false</item>
-        <item name="android:focusable">false</item>
-        <item name="android:focusableInTouchMode">false</item>
-        <item name="android:background">@color/white</item>
+    <style name="Result" parent="Wrap">
     </style>
 </resources>

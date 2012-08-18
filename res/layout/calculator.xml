@@ -5,12 +5,8 @@
     style="@style/Match">
 
     <!--Display-->
-    <!--NOTE: Max length can't move to style if you want the test to pass.
-              Also, you can't make it a dimensions because robolectric
-              doesn't currently support it.-->
-    <EditText
+    <TextView
         android:id="@+id/display"
-        android:maxLength="10"
         style="@style/Result"/>
 
     <!--1-->

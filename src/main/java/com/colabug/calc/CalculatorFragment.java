@@ -9,13 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class CalculatorFragment extends Fragment
 {
     private static final String TAG = CalculatorFragment.class.getSimpleName();
 
     private View     layout;
-    private EditText display;
+    private TextView display;
 
     // Calculations
     protected int       storedValue = 0;
@@ -44,7 +45,7 @@ public class CalculatorFragment extends Fragment
 
     private void configureDisplay()
     {
-        display = (EditText) layout.findViewById( R.id.display );
+        display = (TextView) layout.findViewById( R.id.display );
         clearDisplayedValue();
     }
 

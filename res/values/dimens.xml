@@ -14,5 +14,5 @@
     <!--Display-->
     <dimen name="display_width">272dp</dimen>
     <dimen name="display_height">125dp</dimen>
-    <dimen name="display_text_size">50sp</dimen>
+    <dimen name="display_text_size">40sp</dimen>
 </resources>

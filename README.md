@@ -1,1 +1,1 @@
-![Calculator Screenshot](https://github.com/colabug/Calculator/blob/master/calculator.png "Calculator Screenshot")
+![Calculator Screenshot](https://raw.github.com/colabug/Calculator/master/calculator.png "Calculator Screenshot")

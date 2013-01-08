@@ -1,1 +1,1 @@
-![Calculator Screenshot](calculator.png "Calculator Screenshot")
+![Calculator Screenshot](/calculator.png "Calculator Screenshot")

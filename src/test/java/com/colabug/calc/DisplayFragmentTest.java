@@ -10,14 +10,12 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 import static com.colabug.calc.support.Assert.assertViewIsVisible;
-import static com.colabug.calc.support.ResourceLocator.getResourceString;
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.robolectric.util.FragmentTestUtil.startFragment;
 
 /**
- * {@link CalculatorFragment} test suite.
+ * {@link ButtonFragment} test suite.
  *
  * @since 1.0
  */

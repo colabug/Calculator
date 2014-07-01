@@ -1,6 +1,5 @@
 package com.colabug.calc;
 
-import android.view.View;
 import android.widget.Button;
 
 import org.junit.Before;
@@ -29,7 +28,7 @@ public class CalculatorActivityTest
 
     // Activity and Fragments
     private CalculatorActivity activity;
-    private CalculatorFragment calculator;
+    private ButtonFragment     buttons;
     private DisplayFragment    display;
 
     private Button clear;
@@ -43,7 +42,7 @@ public class CalculatorActivityTest
         .get();
 
         // Fragments
-        calculator = (CalculatorFragment) activity.getSupportFragmentManager().findFragmentById(
+        buttons = (ButtonFragment) activity.getSupportFragmentManager().findFragmentById(
         R.id.calculator_fragment );
         display = (DisplayFragment) activity.getSupportFragmentManager().findFragmentById(
         R.id.display_fragment );
@@ -61,7 +60,7 @@ public class CalculatorActivityTest
     @Test
     public void shouldHaveCalculatorFragment() throws Exception
     {
-        assertNotNull( calculator );
+        assertNotNull( buttons );
     }
 
     @Test

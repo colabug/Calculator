@@ -6,13 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class CalculatorFragment extends BaseFragment
+public class ButtonFragment extends BaseFragment
 {
     private View layout;
 
-    public static CalculatorFragment newInstance()
+    public static ButtonFragment newInstance()
     {
-        return new CalculatorFragment();
+        return new ButtonFragment();
     }
 
     @Override

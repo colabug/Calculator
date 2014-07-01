@@ -12,12 +12,11 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 import static com.colabug.calc.support.Assert.assertViewIsVisible;
-import static org.easymock.EasyMock.*;
 import static org.junit.Assert.*;
 import static org.robolectric.util.FragmentTestUtil.startFragment;
 
 /**
- * {@link CalculatorFragment} test suite.
+ * {@link ButtonFragment} test suite.
  * <p/>
  * TODO: Do I want to teach support fragments too?
  *
@@ -25,12 +24,12 @@ import static org.robolectric.util.FragmentTestUtil.startFragment;
  */
 @RunWith (RobolectricTestRunner.class)
 
-public class CalculatorFragmentTest
+public class ButtonFragmentTest
 {
     private static final String STARTING_VALUE = "123";
 
     // TODO: Rename
-    private CalculatorFragment calculatorFragment;
+    private ButtonFragment buttonFragment;
 
     Bus bus;
 
@@ -58,10 +57,10 @@ public class CalculatorFragmentTest
     public void setUp() throws Exception
     {
         // Start fragment
-        calculatorFragment = CalculatorFragment.newInstance();
-        startFragment( calculatorFragment );
+        buttonFragment = ButtonFragment.newInstance();
+        startFragment( buttonFragment );
 
-//        reset( bus );
+        //        reset( bus );
 
         // Number keys
         key1 = (Button) getViewById( R.id.key1 );
@@ -87,7 +86,7 @@ public class CalculatorFragmentTest
     @Test
     public void shouldNotBeNull() throws Exception
     {
-        assertNotNull( calculatorFragment );
+        assertNotNull( buttonFragment );
     }
 
     @Test
@@ -294,6 +293,6 @@ public class CalculatorFragmentTest
 
     private View getViewById( int id )
     {
-        return calculatorFragment.getView().findViewById( id );
+        return buttonFragment.getView().findViewById( id );
     }
 }

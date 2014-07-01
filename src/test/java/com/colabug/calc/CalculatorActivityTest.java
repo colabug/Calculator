@@ -1,32 +1,38 @@
 package com.colabug.calc;
 
-import com.colabug.calc.support.CalculatorTestRunner;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import org.robolectric.RobolectricTestRunner;
+
 import static org.junit.Assert.assertNotNull;
+import static org.robolectric.Robolectric.buildActivity;
 
-@RunWith(CalculatorTestRunner.class)
+@RunWith (RobolectricTestRunner.class)
 
-public class CalculatorActivityTest {
-
-    private CalculatorActivity calculatorActivity;
+public class CalculatorActivityTest
+{
+    private CalculatorActivity activity;
 
     @Before
-    public void setUp() throws Exception {
-        calculatorActivity = new CalculatorActivity();
-        calculatorActivity.onCreate(null);
+    public void setUp() throws Exception
+    {
+        activity = buildActivity( CalculatorActivity.class ).create()
+                                                            .start()
+                                                            .resume()
+                                                            .get();
     }
 
     @Test
-    public void shouldNotBeNull() throws Exception {
-        assertNotNull(calculatorActivity);
+    public void shouldNotBeNull() throws Exception
+    {
+        assertNotNull( activity );
     }
 
     @Test
-    public void shouldHaveCalculatorFragment() throws Exception {
-        assertNotNull(calculatorActivity.getSupportFragmentManager().findFragmentById(R.id.calculator_fragment));
+    public void shouldHaveCalculatorFragment() throws Exception
+    {
+        assertNotNull( activity.getSupportFragmentManager().findFragmentById( R.id.calculator_fragment ) );
     }
 }

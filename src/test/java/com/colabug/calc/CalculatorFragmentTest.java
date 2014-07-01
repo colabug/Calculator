@@ -3,25 +3,26 @@ package com.colabug.calc;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import com.colabug.calc.support.CalculatorTestRunner;
-import com.xtremelabs.robolectric.Robolectric;
-import com.xtremelabs.robolectric.shadows.ShadowView;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.shadows.ShadowView;
 
-import static com.colabug.calc.support.CalculatorTestRunner.assertViewIsVisible;
-import static com.colabug.calc.support.CalculatorTestRunner.getResourceString;
-import static com.colabug.calc.support.CalculatorTestRunner.startFragment;
+import static com.colabug.calc.support.Assert.assertViewIsVisible;
+import static com.colabug.calc.support.ResourceLocator.getResourceString;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
+import static org.robolectric.util.FragmentTestUtil.startFragment;
 
 /**
  * {@link CalculatorFragment} test suite.
  *
  * @since 1.0
  */
-@RunWith (CalculatorTestRunner.class)
+@RunWith (RobolectricTestRunner.class)
 
 public class CalculatorFragmentTest
 {

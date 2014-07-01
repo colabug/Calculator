@@ -28,6 +28,7 @@
             <scope>provided</scope>
         </dependency>
 
+        <!--Unit testing-->
         <dependency>
             <groupId>org.robolectric</groupId>
             <artifactId>robolectric</artifactId>
@@ -40,6 +41,21 @@
             <groupId>com.google.android</groupId>
             <artifactId>support-v4</artifactId>
             <version>r6</version>
+        </dependency>
+
+        <!--Event Bus-->
+        <dependency>
+            <groupId>com.squareup</groupId>
+            <artifactId>otto</artifactId>
+            <version>1.3.4</version>
+        </dependency>
+
+        <!--Mocking-->
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+            <version>3.0</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

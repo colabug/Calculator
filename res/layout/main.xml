@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/Match">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
+    <!--Display-->
+    <fragment
+        android:id="@+id/display_fragment"
+        android:name="com.colabug.calc.DisplayFragment"
+        android:layout_height="@dimen/display_height"
+        android:layout_width="match_parent"/>
+
+    <!--Buttons-->
     <fragment
         android:id="@+id/calculator_fragment"
         android:name="com.colabug.calc.CalculatorFragment"
-        style="@style/Match"/>
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
 </LinearLayout>
 

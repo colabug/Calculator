@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--NOTE: Max length can't move to style if you want the test to pass.
+          Also, you can't make it a dimension because robolectric
+          doesn't currently support it.-->
+<EditText
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/display"
+    android:maxLength="10"
+    android:layout_gravity="center_horizontal"
+    style="@style/Result"/>

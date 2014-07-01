@@ -10,7 +10,8 @@
     <application
         android:label="@string/app_name"
         android:icon="@drawable/calc_icon"
-        android:theme="@style/ApplicationTheme">
+        android:theme="@style/ApplicationTheme"
+        android:name=".CalculatorApplication">
 
         <activity
             android:name="CalculatorActivity"

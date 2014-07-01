@@ -4,19 +4,9 @@
     android:gravity="center"
     style="@style/Match">
 
-    <!--Display-->
-    <!--NOTE: Max length can't move to style if you want the test to pass.
-              Also, you can't make it a dimensions because robolectric
-              doesn't currently support it.-->
-    <EditText
-        android:id="@+id/display"
-        android:maxLength="10"
-        style="@style/Result"/>
-
     <!--1-->
     <Button
         android:id="@+id/key1"
-        android:layout_below="@id/display"
         android:text="@string/key1"
         style="@style/Number"/>
 

@@ -7,9 +7,8 @@ import android.widget.EditText;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
+
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.shadows.ShadowView;
 
 import static com.colabug.calc.support.Assert.assertViewIsVisible;
 import static com.colabug.calc.support.ResourceLocator.getResourceString;
@@ -19,6 +18,11 @@ import static org.robolectric.util.FragmentTestUtil.startFragment;
 
 /**
  * {@link CalculatorFragment} test suite.
+ *
+ * TODO:
+ *   - Move some of these tests to the Activity
+ *   - Break out the display as a second fragment
+ *   - Do I want to teach support fragments too?
  *
  * @since 1.0
  */
@@ -38,6 +42,7 @@ public class CalculatorFragmentTest
 
     private TestCalculatorFragment calculatorFragment;
 
+    // Buttons
     private Button key1;
     private Button key2;
     private Button key3;
@@ -149,12 +154,6 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void oneShouldHaveClickListener() throws Exception
-    {
-        assertNotNull( getViewOnClickListener( key1 ) );
-    }
-
-    @Test
     public void oneShouldUpdateDisplay() throws Exception
     {
         key1.performClick();
@@ -166,12 +165,6 @@ public class CalculatorFragmentTest
     public void shouldHave2Key() throws Exception
     {
         assertViewIsVisible( key2 );
-    }
-
-    @Test
-    public void twoShouldHaveClickListener() throws Exception
-    {
-        assertNotNull( getViewOnClickListener( key2 ) );
     }
 
     @Test
@@ -189,12 +182,6 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void threeShouldHaveClickListener() throws Exception
-    {
-        assertNotNull( getViewOnClickListener( key3 ) );
-    }
-
-    @Test
     public void threeShouldUpdateDisplay() throws Exception
     {
         key3.performClick();
@@ -206,12 +193,6 @@ public class CalculatorFragmentTest
     public void shouldHave4Key() throws Exception
     {
         assertViewIsVisible( key4 );
-    }
-
-    @Test
-    public void fourShouldHaveClickListener() throws Exception
-    {
-        assertNotNull( getViewOnClickListener( key4 ) );
     }
 
     @Test
@@ -229,12 +210,6 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void fiveShouldHaveClickListener() throws Exception
-    {
-        assertNotNull( getViewOnClickListener( key5 ) );
-    }
-
-    @Test
     public void fiveShouldUpdateDisplay() throws Exception
     {
         key5.performClick();
@@ -246,12 +221,6 @@ public class CalculatorFragmentTest
     public void shouldHave6Key() throws Exception
     {
         assertViewIsVisible( key6 );
-    }
-
-    @Test
-    public void sixShouldHaveClickListener() throws Exception
-    {
-        assertNotNull( getViewOnClickListener( key6 ) );
     }
 
     @Test
@@ -269,12 +238,6 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void sevenShouldHaveClickListener() throws Exception
-    {
-        assertNotNull( getViewOnClickListener( key7 ) );
-    }
-
-    @Test
     public void sevenShouldUpdateDisplay() throws Exception
     {
         key7.performClick();
@@ -286,12 +249,6 @@ public class CalculatorFragmentTest
     public void shouldHave8Key() throws Exception
     {
         assertViewIsVisible( key8 );
-    }
-
-    @Test
-    public void eightShouldHaveClickListener() throws Exception
-    {
-        assertNotNull( getViewOnClickListener( key8 ) );
     }
 
     @Test
@@ -309,12 +266,6 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void nineShouldHaveClickListener() throws Exception
-    {
-        assertNotNull( getViewOnClickListener( key9 ) );
-    }
-
-    @Test
     public void nineShouldUpdateDisplay() throws Exception
     {
         key9.performClick();
@@ -326,12 +277,6 @@ public class CalculatorFragmentTest
     public void shouldHave0Key() throws Exception
     {
         assertViewIsVisible( key0 );
-    }
-
-    @Test
-    public void zeroShouldHaveClickListener() throws Exception
-    {
-        assertNotNull( getViewOnClickListener( key0 ) );
     }
 
     @Test
@@ -381,12 +326,6 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void plusShouldHaveClickListener() throws Exception
-    {
-        assertNotNull( getViewOnClickListener( plus ) );
-    }
-
-    @Test
     public void plusShouldStoreTheDisplayedValue() throws Exception
     {
         plus.performClick();
@@ -422,12 +361,6 @@ public class CalculatorFragmentTest
     public void shouldHaveMinusKey() throws Exception
     {
         assertViewIsVisible( minus );
-    }
-
-    @Test
-    public void minusShouldHaveClickListener() throws Exception
-    {
-        assertNotNull( getViewOnClickListener( minus ) );
     }
 
     @Test
@@ -469,12 +402,6 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void multiplyShouldHaveClickListener() throws Exception
-    {
-        assertNotNull( getViewOnClickListener( multiply ) );
-    }
-
-    @Test
     public void multiplyShouldStoreTheDisplayedValue() throws Exception
     {
         multiply.performClick();
@@ -510,12 +437,6 @@ public class CalculatorFragmentTest
     public void shouldHaveDivideKey() throws Exception
     {
         assertViewIsVisible( divide );
-    }
-
-    @Test
-    public void divideShouldHaveClickListener() throws Exception
-    {
-        assertNotNull( getViewOnClickListener( divide ) );
     }
 
     @Test
@@ -557,12 +478,6 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void moduloShouldHaveClickListener() throws Exception
-    {
-        assertNotNull( getViewOnClickListener( modulo ) );
-    }
-
-    @Test
     public void moduloShouldStoreTheDisplayedValue() throws Exception
     {
         modulo.performClick();
@@ -601,12 +516,6 @@ public class CalculatorFragmentTest
     public void shouldHaveEqualKey() throws Exception
     {
         assertViewIsVisible( equal );
-    }
-
-    @Test
-    public void equalShouldHaveClickListener() throws Exception
-    {
-        assertNotNull( getViewOnClickListener( equal ) );
     }
 
     @Test
@@ -834,12 +743,6 @@ public class CalculatorFragmentTest
     }
 
     @Test
-    public void clearShouldHaveClickListener() throws Exception
-    {
-        assertNotNull( getViewOnClickListener( clear ) );
-    }
-
-    @Test
     public void clearShouldClearDisplay() throws Exception
     {
         clear.performClick();
@@ -878,12 +781,6 @@ public class CalculatorFragmentTest
     private String getDisplayText()
     {
         return display.getText().toString();
-    }
-
-    private View.OnClickListener getViewOnClickListener( View view )
-    {
-        ShadowView shadowView = Robolectric.shadowOf( view );
-        return shadowView.getOnClickListener();
     }
 
     class TestCalculatorFragment extends CalculatorFragment

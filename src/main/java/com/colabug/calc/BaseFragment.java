@@ -1,6 +1,5 @@
 package com.colabug.calc;
 
-
 import android.support.v4.app.Fragment;
 
 /**
@@ -15,7 +14,7 @@ public class BaseFragment extends Fragment
         getApp().getBus().post( event );
     }
 
-    private CalculatorApplication getApp()
+    protected CalculatorApplication getApp()
     {
         return (CalculatorApplication) getActivity().getApplication();
     }

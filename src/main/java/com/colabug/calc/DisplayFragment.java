@@ -53,9 +53,9 @@ public class DisplayFragment extends BaseFragment
         setDisplay( getResources().getString( R.string.EMPTY_STRING ) );
     }
 
-    public void setDisplay( Object result )
+    public void setDisplay( String result )
     {
-        display.setText( String.valueOf( result ) );
+        display.setText( result );
     }
 
     public String getValue()
@@ -91,9 +91,6 @@ public class DisplayFragment extends BaseFragment
      * Handles the selection of a number.
      *
      * @param number - number entered
-     *
-     * TODO: Most, if not all, of this responsibility should live in
-     *       the display fragment.
      */
     @Subscribe
     public void onNumberSelected( NumberEnteredEvent number )
@@ -107,16 +104,17 @@ public class DisplayFragment extends BaseFragment
         if ( operation == Operation.NONE ||
              operation == Operation.EQUAL )
         {
-            setDisplay( number );
+            setDisplay( number.getNumber() );
             operation = Operation.NUMBER;
         }
         else if ( isDisplayingOperation() )
         {
-            setDisplay( number );
+            setDisplay( number.getNumber() );
         }
         else
         {
             appendNumber( number.getNumber() );
+            operation = Operation.NUMBER;
         }
     }
 
@@ -170,15 +168,15 @@ public class DisplayFragment extends BaseFragment
         switch ( operation )
         {
             case PLUS:
-                setDisplay( storedValue + value );
+                setDisplay( String.valueOf( storedValue + value ) );
                 break;
 
             case MINUS:
-                setDisplay( storedValue - value );
+                setDisplay( String.valueOf( storedValue - value ) );
                 break;
 
             case MULTIPLY:
-                setDisplay( storedValue * value );
+                setDisplay( String.valueOf( storedValue * value ) );
                 break;
 
             case DIVIDE:
@@ -188,7 +186,7 @@ public class DisplayFragment extends BaseFragment
                 }
                 else
                 {
-                    setDisplay( storedValue / value );
+                    setDisplay( String.valueOf( storedValue / value ) );
                 }
                 break;
 
@@ -199,7 +197,7 @@ public class DisplayFragment extends BaseFragment
                 }
                 else
                 {
-                    setDisplay( storedValue % value );
+                    setDisplay( String.valueOf( storedValue % value ) );
                 }
 
                 break;
@@ -277,12 +275,10 @@ public class DisplayFragment extends BaseFragment
         // update outside of the above condition means that
         // the user can change their mind.
         // NOTE: Can enter error state when storing the value
+        this.operation = operationEvent.getOperator();
         if ( !isInErrorState )
         {
-            operation = operationEvent.getOperator();
-            // TODO: May need to pass in the string for the operator?
-            //       Is this already attached to the enum?
-            setDisplay( operationEvent );
+            setDisplay( operation.getOperationString() );
         }
     }
 

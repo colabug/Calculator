@@ -3,8 +3,6 @@ package com.colabug.calc;
 import android.view.View;
 import android.widget.Button;
 
-import com.squareup.otto.Bus;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +10,11 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 import static com.colabug.calc.support.Assert.assertViewIsVisible;
-import static org.junit.Assert.*;
+import static com.colabug.calc.support.ResourceLocator.getResourceString;
+import static junit.framework.Assert.assertNotNull;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.robolectric.util.FragmentTestUtil.startFragment;
 
 /**
@@ -26,12 +28,7 @@ import static org.robolectric.util.FragmentTestUtil.startFragment;
 
 public class ButtonFragmentTest
 {
-    private static final String STARTING_VALUE = "123";
-
-    // TODO: Rename
-    private ButtonFragment buttonFragment;
-
-    Bus bus;
+    private TestButtonFragment buttonFragment;
 
     // Buttons
     private Button key1;
@@ -52,15 +49,14 @@ public class ButtonFragmentTest
     private Button divide;
     private Button modulo;
     private Button equal;
+    private Button clear;
 
     @Before
     public void setUp() throws Exception
     {
         // Start fragment
-        buttonFragment = ButtonFragment.newInstance();
+        buttonFragment = new TestButtonFragment();
         startFragment( buttonFragment );
-
-        //        reset( bus );
 
         // Number keys
         key1 = (Button) getViewById( R.id.key1 );
@@ -81,6 +77,7 @@ public class ButtonFragmentTest
         divide = (Button) getViewById( R.id.divide );
         modulo = (Button) getViewById( R.id.modulo );
         equal = (Button) getViewById( R.id.equal );
+        clear = (Button) getViewById( R.id.clear );
     }
 
     @Test
@@ -95,20 +92,19 @@ public class ButtonFragmentTest
         assertViewIsVisible( key1 );
     }
 
-    // TODO: Check that this invoked the bus, not that they updated the
-    //       display. This belongs more at the integration level.
     @Test
-    public void oneShouldFireEvent() throws Exception
+    public void oneShouldPostEvent() throws Exception
     {
-        String expected = STARTING_VALUE + key1.getText();
-//        assertThat( getDisplayText(), equalTo( expected ) );
+        key1.performClick();
+        verifyNumberButtonEvent( R.string.key1 );
+    }
 
-
-//        key1.performClick();
-//        Capture<BaseViewEvent> event = new Capture<BaseViewEvent>();
-//        bus.post(and(capture(event), isA(NumberEnteredEvent.class)));
-//        replay(bus);
-//        verify(bus);
+    private void verifyNumberButtonEvent( int id )
+    {
+        BaseViewEvent event = buttonFragment.getEvent();
+        assertTrue( event instanceof NumberEnteredEvent );
+        assertThat( ( (NumberEnteredEvent) event ).getNumber(),
+                    equalTo( getResourceString( id ) ) );
     }
 
     @Test
@@ -117,14 +113,11 @@ public class ButtonFragmentTest
         assertViewIsVisible( key2 );
     }
 
-    // TODO: Check that this invoked the bus, not that they updated the
-    //       display. This belongs more at the integration leve.
     @Test
-    public void twoShouldFireEvent() throws Exception
+    public void twoShouldPostEvent() throws Exception
     {
         key2.performClick();
-        String expected = STARTING_VALUE + key2.getText();
-//        assertThat( getDisplayText(), equalTo( expected ) );
+        verifyNumberButtonEvent( R.string.key2 );
     }
 
     @Test
@@ -133,14 +126,11 @@ public class ButtonFragmentTest
         assertViewIsVisible( key3 );
     }
 
-    // TODO: Check that this invoked the bus, not that they updated the
-    //       display. This belongs more at the integration leve.
     @Test
-    public void threeShouldUpdateDisplay() throws Exception
+    public void threeShouldPostEvent() throws Exception
     {
         key3.performClick();
-        String expected = STARTING_VALUE + key3.getText();
-//        assertThat( getDisplayText(), equalTo( expected ) );
+        verifyNumberButtonEvent( R.string.key3 );
     }
 
     @Test
@@ -149,14 +139,11 @@ public class ButtonFragmentTest
         assertViewIsVisible( key4 );
     }
 
-    // TODO: Check that this invoked the bus, not that they updated the
-    //       display. This belongs more at the integration leve.
     @Test
-    public void fourShouldUpdateDisplay() throws Exception
+    public void fourShouldPostEvent() throws Exception
     {
         key4.performClick();
-        String expected = STARTING_VALUE + key4.getText();
-//        assertThat( getDisplayText(), equalTo( expected ) );
+        verifyNumberButtonEvent( R.string.key4 );
     }
 
     @Test
@@ -165,14 +152,11 @@ public class ButtonFragmentTest
         assertViewIsVisible( key5 );
     }
 
-    // TODO: Check that this invoked the bus, not that they updated the
-    //       display. This belongs more at the integration leve.
     @Test
-    public void fiveShouldUpdateDisplay() throws Exception
+    public void fiveShouldPostEvent() throws Exception
     {
         key5.performClick();
-        String expected = STARTING_VALUE + key5.getText();
-//        assertThat( getDisplayText(), equalTo( expected ) );
+        verifyNumberButtonEvent( R.string.key5 );
     }
 
     @Test
@@ -181,14 +165,11 @@ public class ButtonFragmentTest
         assertViewIsVisible( key6 );
     }
 
-    // TODO: Check that this invoked the bus, not that they updated the
-    //       display. This belongs more at the integration leve.
     @Test
-    public void sixShouldUpdateDisplay() throws Exception
+    public void sixShouldPostEvent() throws Exception
     {
         key6.performClick();
-        String expected = STARTING_VALUE + key6.getText();
-//        assertThat( getDisplayText(), equalTo( expected ) );
+        verifyNumberButtonEvent( R.string.key6 );
     }
 
     @Test
@@ -197,14 +178,11 @@ public class ButtonFragmentTest
         assertViewIsVisible( key7 );
     }
 
-    // TODO: Check that this invoked the bus, not that they updated the
-    //       display. This belongs more at the integration leve.
     @Test
-    public void sevenShouldUpdateDisplay() throws Exception
+    public void sevenShouldPostEvent() throws Exception
     {
         key7.performClick();
-        String expected = STARTING_VALUE + key7.getText();
-//        assertThat( getDisplayText(), equalTo( expected ) );
+        verifyNumberButtonEvent( R.string.key7 );
     }
 
     @Test
@@ -213,14 +191,11 @@ public class ButtonFragmentTest
         assertViewIsVisible( key8 );
     }
 
-    // TODO: Check that this invoked the bus, not that they updated the
-    //       display. This belongs more at the integration leve.
     @Test
-    public void eightShouldUpdateDisplay() throws Exception
+    public void eightShouldPostEvent() throws Exception
     {
         key8.performClick();
-        String expected = STARTING_VALUE + key8.getText();
-//        assertThat( getDisplayText(), equalTo( expected ) );
+        verifyNumberButtonEvent( R.string.key8 );
     }
 
     @Test
@@ -229,14 +204,11 @@ public class ButtonFragmentTest
         assertViewIsVisible( key9 );
     }
 
-    // TODO: Check that this invoked the bus, not that they updated the
-    //       display. This belongs more at the integration leve.
     @Test
-    public void nineShouldUpdateDisplay() throws Exception
+    public void nineShouldPostEvent() throws Exception
     {
         key9.performClick();
-        String expected = STARTING_VALUE + key9.getText();
-//        assertThat( getDisplayText(), equalTo( expected ) );
+        verifyNumberButtonEvent( R.string.key9 );
     }
 
     @Test
@@ -245,14 +217,11 @@ public class ButtonFragmentTest
         assertViewIsVisible( key0 );
     }
 
-    // TODO: Check that this invoked the bus, not that they updated the
-    //       display. This belongs more at the integration leve.
     @Test
-    public void zeroShouldUpdateDisplay() throws Exception
+    public void zeroShouldPostEvent() throws Exception
     {
         key0.performClick();
-        String expected = STARTING_VALUE + key0.getText();
-//        assertThat( getDisplayText(), equalTo( expected ) );
+        verifyNumberButtonEvent( R.string.key0 );
     }
 
     @Test
@@ -262,9 +231,31 @@ public class ButtonFragmentTest
     }
 
     @Test
+    public void plusShouldPostEvent() throws Exception
+    {
+        plus.performClick();
+        verifyOperatorEvent( Operation.PLUS );
+    }
+
+    private void verifyOperatorEvent( Operation operation )
+    {
+        BaseViewEvent event = buttonFragment.getEvent();
+        assertTrue( event instanceof OperationSelectedEvent );
+        assertThat( ( (OperationSelectedEvent) event ).getOperator(),
+                    equalTo( operation ) );
+    }
+
+    @Test
     public void shouldHaveMinusKey() throws Exception
     {
         assertViewIsVisible( minus );
+    }
+
+    @Test
+    public void minusShouldPostEvent() throws Exception
+    {
+        minus.performClick();
+        verifyOperatorEvent( Operation.MINUS );
     }
 
     @Test
@@ -274,9 +265,23 @@ public class ButtonFragmentTest
     }
 
     @Test
+    public void multiplyShouldPostEvent() throws Exception
+    {
+        multiply.performClick();
+        verifyOperatorEvent( Operation.MULTIPLY );
+    }
+
+    @Test
     public void shouldHaveDivideKey() throws Exception
     {
         assertViewIsVisible( divide );
+    }
+
+    @Test
+    public void divideShouldPostEvent() throws Exception
+    {
+        divide.performClick();
+        verifyOperatorEvent( Operation.DIVIDE );
     }
 
     @Test
@@ -286,13 +291,56 @@ public class ButtonFragmentTest
     }
 
     @Test
+    public void moduloShouldPostEvent() throws Exception
+    {
+        modulo.performClick();
+        verifyOperatorEvent( Operation.MODULO );
+    }
+
+    @Test
     public void shouldHaveEqualKey() throws Exception
     {
         assertViewIsVisible( equal );
     }
 
+    @Test
+    public void equalsShouldPostEvent() throws Exception
+    {
+        equal.performClick();
+        assertTrue( buttonFragment.getEvent() instanceof EqualsEvent );
+    }
+
+    @Test
+    public void shouldHaveClearKey() throws Exception
+    {
+        assertViewIsVisible( clear );
+    }
+
+    @Test
+    public void clearShouldPostEvent() throws Exception
+    {
+        clear.performClick();
+        assertTrue( buttonFragment.getEvent() instanceof ClearEvent );
+    }
+
     private View getViewById( int id )
     {
         return buttonFragment.getView().findViewById( id );
+    }
+
+    class TestButtonFragment extends ButtonFragment
+    {
+        private BaseViewEvent event;
+
+        @Override
+        public void postToBus( BaseViewEvent event )
+        {
+            this.event = event;
+        }
+
+        BaseViewEvent getEvent()
+        {
+            return event;
+        }
     }
 }

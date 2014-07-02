@@ -22,7 +22,7 @@ public class DisplayFragment extends Fragment
     {
         super.onCreateView( inflater, container, savedInstanceState );
 
-        layout = inflater.inflate( R.layout.calculator, container, false );
+        layout = inflater.inflate( R.layout.display, container, false );
 
         configureDisplay();
 

@@ -15,7 +15,7 @@
     <!--Buttons-->
     <fragment
         android:id="@+id/calculator_fragment"
-        android:name="com.colabug.calc.CalculatorFragment"
+        android:name="com.colabug.calc.ButtonFragment"
         android:layout_height="match_parent"
         android:layout_width="match_parent"/>
 </LinearLayout>

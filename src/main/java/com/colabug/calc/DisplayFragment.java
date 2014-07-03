@@ -6,11 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.colabug.calc.events.AppendDisplayEvent;
-import com.colabug.calc.events.ErrorDisplayEvent;
-import com.colabug.calc.events.ResetDisplayEvent;
-import com.colabug.calc.events.SetDisplayValueEvent;
+import com.colabug.calc.events.*;
 
+import com.colabug.calc.events.display.DisplayAppendEvent;
+import com.colabug.calc.events.display.DisplayErrorEvent;
+import com.colabug.calc.events.display.DisplayResetEvent;
+import com.colabug.calc.events.display.DisplaySetValueEvent;
 import com.squareup.otto.Subscribe;
 
 /**
@@ -57,7 +58,7 @@ public class DisplayFragment extends BaseFragment
      * @param event - holds data to change view value
      */
     @Subscribe
-    public void onSetDisplayValue( SetDisplayValueEvent event )
+    public void onSetDisplayValue( DisplaySetValueEvent event )
     {
         setDisplay( event.getValue() );
     }
@@ -74,7 +75,7 @@ public class DisplayFragment extends BaseFragment
      * @param event - holds data to append
      */
     @Subscribe
-    public void onAppendDisplayEvent( AppendDisplayEvent event )
+    public void onAppendDisplayEvent( DisplayAppendEvent event )
     {
         appendValue( event.getTextToAppend() );
     }
@@ -95,7 +96,7 @@ public class DisplayFragment extends BaseFragment
      * @param event - clear display
      */
     @Subscribe
-    public void onResetDisplay( ResetDisplayEvent event )
+    public void onResetDisplay( DisplayResetEvent event )
     {
         clearDisplayedValue();
     }
@@ -117,7 +118,7 @@ public class DisplayFragment extends BaseFragment
      * @param event - clear display
      */
     @Subscribe
-    public void onErrorDisplay( ErrorDisplayEvent event )
+    public void onErrorDisplay( DisplayErrorEvent event )
     {
         showError( event.getError() );
         postEmptyValue();

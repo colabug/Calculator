@@ -1,15 +1,13 @@
-package com.colabug.calc.events;
-
-import com.colabug.calc.BaseViewEvent;
+package com.colabug.calc.events.display;
 
 /**
  * @since 1.0
  */
-public class ErrorDisplayEvent extends BaseViewEvent
+public class DisplayErrorEvent extends DisplayEvent
 {
     protected String errorToDisplay;
 
-    public ErrorDisplayEvent( String string )
+    public DisplayErrorEvent( String string )
     {
         errorToDisplay = string;
     }

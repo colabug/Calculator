@@ -1,6 +1,7 @@
 package com.colabug.calc;
 
 import android.support.v4.app.Fragment;
+import com.colabug.calc.events.BaseEvent;
 
 /**
  * Base fragment
@@ -9,7 +10,7 @@ import android.support.v4.app.Fragment;
  */
 public class BaseFragment extends Fragment
 {
-    public void postToBus( BaseViewEvent event )
+    public void postToBus( BaseEvent event )
     {
         getApp().getBus().post( event );
     }

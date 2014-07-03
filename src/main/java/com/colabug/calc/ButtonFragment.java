@@ -5,6 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import com.colabug.calc.events.button.ClearButtonEvent;
+import com.colabug.calc.events.button.EqualsButtonEvent;
+import com.colabug.calc.events.button.NumberButtonEvent;
+import com.colabug.calc.events.button.OperatorButtonEvent;
 
 public class ButtonFragment extends BaseFragment
 {
@@ -55,7 +59,7 @@ public class ButtonFragment extends BaseFragment
             public void onClick( View view )
             {
                 String number = ( (Button) view ).getText().toString();
-                postToBus( new NumberEnteredEvent( number ) );
+                postToBus( new NumberButtonEvent( number ) );
             }
         };
     }
@@ -83,7 +87,7 @@ public class ButtonFragment extends BaseFragment
             @Override
             public void onClick( View view )
             {
-                postToBus( new OperationSelectedEvent( operation ) );
+                postToBus( new OperatorButtonEvent( operation ) );
             }
         };
     }
@@ -95,7 +99,7 @@ public class ButtonFragment extends BaseFragment
             @Override
             public void onClick( View view )
             {
-                postToBus( new EqualsEvent() );
+                postToBus( new EqualsButtonEvent() );
             }
         } );
     }
@@ -108,7 +112,7 @@ public class ButtonFragment extends BaseFragment
             @Override
             public void onClick( View view )
             {
-                postToBus( new ClearEvent() );
+                postToBus( new ClearButtonEvent() );
             }
         } );
     }

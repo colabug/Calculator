@@ -1,13 +1,15 @@
-package com.colabug.calc;
+package com.colabug.calc.events.button;
+
+import com.colabug.calc.Operation;
 
 /**
  * @since 1.0
  */
-public class OperationSelectedEvent extends BaseViewEvent
+public class OperatorButtonEvent extends ButtonEvent
 {
     private final Operation operator;
 
-    public OperationSelectedEvent( Operation operator )
+    public OperatorButtonEvent( Operation operator )
     {
         this.operator = operator;
     }

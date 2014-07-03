@@ -5,11 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.colabug.calc.events.AppendDisplayEvent;
-import com.colabug.calc.events.ErrorDisplayEvent;
-import com.colabug.calc.events.ResetDisplayEvent;
-import com.colabug.calc.events.SetDisplayValueEvent;
-
+import com.colabug.calc.events.button.ClearButtonEvent;
+import com.colabug.calc.events.button.EqualsButtonEvent;
+import com.colabug.calc.events.button.NumberButtonEvent;
+import com.colabug.calc.events.button.OperatorButtonEvent;
+import com.colabug.calc.events.display.DisplayAppendEvent;
+import com.colabug.calc.events.display.DisplayErrorEvent;
+import com.colabug.calc.events.display.DisplayResetEvent;
+import com.colabug.calc.events.display.DisplaySetValueEvent;
 import com.squareup.otto.Subscribe;
 
 import java.math.BigInteger;
@@ -57,7 +60,7 @@ public class CalculatorStateFragment extends BaseFragment
      * @param event - number entered
      */
     @Subscribe
-    public void onNumberSelected( NumberEnteredEvent event )
+    public void onNumberSelected( NumberButtonEvent event )
     {
         processNumberEvent( event.getNumber() );
         lastKeyEvent = KeyEvent.NUMBER;
@@ -81,7 +84,7 @@ public class CalculatorStateFragment extends BaseFragment
     {
         if ( isInErrorState )
         {
-            postToBus( new ResetDisplayEvent() );
+            postToBus( new DisplayResetEvent() );
             isInErrorState = false;
         }
     }
@@ -95,12 +98,12 @@ public class CalculatorStateFragment extends BaseFragment
 
     private void appendDisplayedNumber( String number )
     {
-        postToBus( new AppendDisplayEvent( number ) );
+        postToBus( new DisplayAppendEvent( number ) );
     }
 
     private void setDisplayToNumber( String number )
     {
-        postToBus( new SetDisplayValueEvent( number ) );
+        postToBus( new DisplaySetValueEvent( number ) );
     }
 
     /**
@@ -109,7 +112,7 @@ public class CalculatorStateFragment extends BaseFragment
      * @param operationEvent - operation selected
      */
     @Subscribe
-    public void onOperatorSelected( OperationSelectedEvent operationEvent )
+    public void onOperatorSelected( OperatorButtonEvent operationEvent )
     {
         // Ignore clicks when in an error state, when no number
         // entered, or when no operation has been set
@@ -136,7 +139,7 @@ public class CalculatorStateFragment extends BaseFragment
         this.operation = operationEvent.getOperator();
         if ( !isInErrorState )
         {
-            postToBus( new SetDisplayValueEvent( operation.getOperationString() ) );
+            postToBus( new DisplaySetValueEvent( operation.getOperationString() ) );
         }
     }
 
@@ -161,7 +164,7 @@ public class CalculatorStateFragment extends BaseFragment
      * Handles the selection of the equals key.
      */
     @Subscribe
-    public void onEqualSelected( EqualsEvent equals )
+    public void onEqualSelected( EqualsButtonEvent equals )
     {
         // They must have entered a number
         if ( shouldPerformCalculation() )
@@ -257,7 +260,7 @@ public class CalculatorStateFragment extends BaseFragment
 
     private void startErrorState( int stringId )
     {
-        postToBus( new ErrorDisplayEvent( getString( stringId ) ) );
+        postToBus( new DisplayErrorEvent( getString( stringId ) ) );
         isInErrorState = true;
         operation = Operation.NONE;
         lastKeyEvent = KeyEvent.NONE;
@@ -277,7 +280,7 @@ public class CalculatorStateFragment extends BaseFragment
 
     private void postCalculatedValue( String value )
     {
-        postToBus( new SetDisplayValueEvent( value ) );
+        postToBus( new DisplaySetValueEvent( value ) );
     }
 
     private boolean willEquateToNan( int value )
@@ -287,21 +290,21 @@ public class CalculatorStateFragment extends BaseFragment
 
     private void startNanState()
     {
-        postToBus( new ErrorDisplayEvent( getString( R.string.NAN ) ) );
+        postToBus( new DisplayErrorEvent( getString( R.string.NAN ) ) );
     }
 
     /**
      * Handles the selection of the clear button.
      *
-     * @param clearEvent - clear selected
+     * @param clearButtonEvent - clear selected
      */
     @Subscribe
-    public void onClearSelected( ClearEvent clearEvent )
+    public void onClearSelected( ClearButtonEvent clearButtonEvent )
     {
         lastKeyEvent = KeyEvent.NONE;
         operation = Operation.NONE;
 
-        postToBus( new ResetDisplayEvent() );
+        postToBus( new DisplayResetEvent() );
         storedValue = 0;
         isInErrorState = false;
     }

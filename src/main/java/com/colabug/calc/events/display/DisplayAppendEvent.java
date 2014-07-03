@@ -1,15 +1,13 @@
-package com.colabug.calc.events;
-
-import com.colabug.calc.BaseViewEvent;
+package com.colabug.calc.events.display;
 
 /**
  * @since 1.0
  */
-public class AppendDisplayEvent extends BaseViewEvent
+public class DisplayAppendEvent extends DisplayEvent
 {
     private String textToAppend;
 
-    public AppendDisplayEvent( String textToAppend )
+    public DisplayAppendEvent( String textToAppend )
     {
         this.textToAppend = textToAppend;
     }

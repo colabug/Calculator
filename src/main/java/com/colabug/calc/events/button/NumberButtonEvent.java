@@ -1,13 +1,13 @@
-package com.colabug.calc;
+package com.colabug.calc.events.button;
 
 /**
  * @since 1.0
  */
-public class NumberEnteredEvent extends BaseViewEvent
+public class NumberButtonEvent extends ButtonEvent
 {
     String number;
 
-    public NumberEnteredEvent( String number )
+    public NumberButtonEvent( String number )
     {
         this.number = number;
     }

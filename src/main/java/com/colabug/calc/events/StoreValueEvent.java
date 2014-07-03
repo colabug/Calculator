@@ -1,16 +1,13 @@
 package com.colabug.calc.events;
 
-
-import com.colabug.calc.BaseViewEvent;
-
 /**
  * @since 1.0
  */
-public class SetDisplayValueEvent extends BaseViewEvent
+public class StoreValueEvent extends BaseEvent
 {
     private String value;
 
-    public SetDisplayValueEvent( String value )
+    public StoreValueEvent( String value )
     {
         this.value = value;
     }

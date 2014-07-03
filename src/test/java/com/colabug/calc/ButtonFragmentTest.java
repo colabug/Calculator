@@ -3,6 +3,11 @@ package com.colabug.calc;
 import android.view.View;
 import android.widget.Button;
 
+import com.colabug.calc.events.*;
+import com.colabug.calc.events.button.ClearButtonEvent;
+import com.colabug.calc.events.button.EqualsButtonEvent;
+import com.colabug.calc.events.button.NumberButtonEvent;
+import com.colabug.calc.events.button.OperatorButtonEvent;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -101,9 +106,9 @@ public class ButtonFragmentTest
 
     private void verifyNumberButtonEvent( int id )
     {
-        BaseViewEvent event = buttonFragment.getEvent();
-        assertTrue( event instanceof NumberEnteredEvent );
-        assertThat( ( (NumberEnteredEvent) event ).getNumber(),
+        BaseEvent event = buttonFragment.getEvent();
+        assertTrue( event instanceof NumberButtonEvent );
+        assertThat( ( (NumberButtonEvent) event ).getNumber(),
                     equalTo( getResourceString( id ) ) );
     }
 
@@ -239,9 +244,9 @@ public class ButtonFragmentTest
 
     private void verifyOperatorEvent( Operation operation )
     {
-        BaseViewEvent event = buttonFragment.getEvent();
-        assertTrue( event instanceof OperationSelectedEvent );
-        assertThat( ( (OperationSelectedEvent) event ).getOperator(),
+        BaseEvent event = buttonFragment.getEvent();
+        assertTrue( event instanceof OperatorButtonEvent );
+        assertThat( ( (OperatorButtonEvent) event ).getOperator(),
                     equalTo( operation ) );
     }
 
@@ -307,7 +312,7 @@ public class ButtonFragmentTest
     public void equalsShouldPostEvent() throws Exception
     {
         equal.performClick();
-        assertTrue( buttonFragment.getEvent() instanceof EqualsEvent );
+        assertTrue( buttonFragment.getEvent() instanceof EqualsButtonEvent );
     }
 
     @Test
@@ -320,7 +325,7 @@ public class ButtonFragmentTest
     public void clearShouldPostEvent() throws Exception
     {
         clear.performClick();
-        assertTrue( buttonFragment.getEvent() instanceof ClearEvent );
+        assertTrue( buttonFragment.getEvent() instanceof ClearButtonEvent );
     }
 
     private View getViewById( int id )
@@ -330,15 +335,15 @@ public class ButtonFragmentTest
 
     class TestButtonFragment extends ButtonFragment
     {
-        private BaseViewEvent event;
+        private BaseEvent event;
 
         @Override
-        public void postToBus( BaseViewEvent event )
+        public void postToBus( BaseEvent event )
         {
             this.event = event;
         }
 
-        BaseViewEvent getEvent()
+        BaseEvent getEvent()
         {
             return event;
         }

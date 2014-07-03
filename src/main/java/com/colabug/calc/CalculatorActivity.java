@@ -3,6 +3,7 @@ package com.colabug.calc;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+import com.colabug.calc.events.StoreValueEvent;
 import com.squareup.otto.Subscribe;
 
 public class CalculatorActivity extends FragmentActivity

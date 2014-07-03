@@ -2,10 +2,11 @@ package com.colabug.calc;
 
 import android.widget.Button;
 
-import com.colabug.calc.events.AppendDisplayEvent;
-import com.colabug.calc.events.ResetDisplayEvent;
-import com.colabug.calc.events.SetDisplayValueEvent;
+import com.colabug.calc.events.*;
 
+import com.colabug.calc.events.display.DisplayAppendEvent;
+import com.colabug.calc.events.display.DisplayResetEvent;
+import com.colabug.calc.events.display.DisplaySetValueEvent;
 import org.hamcrest.CoreMatchers;
 
 import org.junit.Before;
@@ -63,13 +64,13 @@ public class CalculatorStateFragmentTest
         enterNumber();
 
         // Verify size of events list
-        ArrayList<BaseViewEvent> events = calculatorState.getEvents();
+        ArrayList<BaseEvent> events = calculatorState.getEvents();
         assertThat( events.size(), equalTo( 1 ) );
 
         // Verify correct event
-        BaseViewEvent lastEvent = calculatorState.getLastEvent();
-        assertTrue( lastEvent instanceof SetDisplayValueEvent );
-        assertThat( ( (SetDisplayValueEvent) lastEvent ).getValue(),
+        BaseEvent lastEvent = calculatorState.getLastEvent();
+        assertTrue( lastEvent instanceof DisplaySetValueEvent );
+        assertThat( ( (DisplaySetValueEvent) lastEvent ).getValue(),
                     equalTo( NUMBER_ENTERED ) );
     }
 
@@ -81,13 +82,13 @@ public class CalculatorStateFragmentTest
         enterNumber();
 
         // Verify size of events list
-        ArrayList<BaseViewEvent> events = calculatorState.getEvents();
+        ArrayList<BaseEvent> events = calculatorState.getEvents();
         assertThat( events.size(), equalTo( 1 ) );
 
         // Verify correct event
-        BaseViewEvent lastEvent = calculatorState.getLastEvent();
-        assertTrue( lastEvent instanceof AppendDisplayEvent );
-        assertThat( ( (AppendDisplayEvent) lastEvent ).getTextToAppend(),
+        BaseEvent lastEvent = calculatorState.getLastEvent();
+        assertTrue( lastEvent instanceof DisplayAppendEvent );
+        assertThat( ( (DisplayAppendEvent) lastEvent ).getTextToAppend(),
                     equalTo( NUMBER_ENTERED ) );
     }
 
@@ -102,14 +103,14 @@ public class CalculatorStateFragmentTest
         assertFalse( calculatorState.isInErrorState() );
 
         // Verify size of events list
-        ArrayList<BaseViewEvent> events = calculatorState.getEvents();
+        ArrayList<BaseEvent> events = calculatorState.getEvents();
         assertThat( events.size(), equalTo( 2 ) );
 
         // Verify events
-        assertTrue( calculatorState.getFirstEvent() instanceof ResetDisplayEvent );
-        BaseViewEvent lastEvent = calculatorState.getLastEvent();
-        assertTrue( lastEvent instanceof SetDisplayValueEvent );
-        assertThat( ( (SetDisplayValueEvent) lastEvent ).getValue(),
+        assertTrue( calculatorState.getFirstEvent() instanceof DisplayResetEvent );
+        BaseEvent lastEvent = calculatorState.getLastEvent();
+        assertTrue( lastEvent instanceof DisplaySetValueEvent );
+        assertThat( ( (DisplaySetValueEvent) lastEvent ).getValue(),
                     equalTo( NUMBER_ENTERED ) );
     }
 
@@ -586,7 +587,7 @@ public class CalculatorStateFragmentTest
 
     class TestCalculatorStateFragment extends CalculatorStateFragment
     {
-        private ArrayList<BaseViewEvent> events = new ArrayList<BaseViewEvent>();
+        private ArrayList<BaseEvent> events = new ArrayList<BaseEvent>();
 
         public void setLastKeyEvent( KeyEvent key )
         {
@@ -594,22 +595,22 @@ public class CalculatorStateFragmentTest
         }
 
         @Override
-        public void postToBus( BaseViewEvent event )
+        public void postToBus( BaseEvent event )
         {
             events.add( event );
         }
 
-        ArrayList<BaseViewEvent> getEvents()
+        ArrayList<BaseEvent> getEvents()
         {
             return events;
         }
 
-        BaseViewEvent getFirstEvent()
+        BaseEvent getFirstEvent()
         {
             return events.get( 0 );
         }
 
-        BaseViewEvent getLastEvent()
+        BaseEvent getLastEvent()
         {
             return events.get( events.size() - 1 );
         }

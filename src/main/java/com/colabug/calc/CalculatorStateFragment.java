@@ -12,6 +12,8 @@ import com.colabug.calc.events.SetDisplayValueEvent;
 
 import com.squareup.otto.Subscribe;
 
+import java.math.BigInteger;
+
 /**
  * Logic engine to track the state of the calculator and it's operations.
  *
@@ -19,9 +21,12 @@ import com.squareup.otto.Subscribe;
  */
 public class CalculatorStateFragment extends BaseFragment
 {
+    // Key state tracking
+    protected KeyEvent lastKeyEvent = KeyEvent.NONE;
+
     // Calculations
-    protected Operation operation   = Operation.NONE;
-    protected int       storedValue = 0;
+    protected int storedValue = 0;
+    protected Operation operation = Operation.NONE;
 
     // Error state tracking
     protected boolean isInErrorState = false;
@@ -49,51 +54,107 @@ public class CalculatorStateFragment extends BaseFragment
     /**
      * Handles the selection of a number.
      *
-     * @param number - number entered
+     * @param event - number entered
      */
     @Subscribe
-    public void onNumberSelected( NumberEnteredEvent number )
+    public void onNumberSelected( NumberEnteredEvent event )
+    {
+        processNumberEvent( event.getNumber() );
+        lastKeyEvent = KeyEvent.NUMBER;
+    }
+
+    protected void processNumberEvent( String number )
+    {
+        clearErrorIfExists();
+
+        if ( shouldSetDisplayToNumber() )
+        {
+            setDisplayToNumber( number );
+        }
+        else
+        {
+            appendDisplayedNumber( number );
+        }
+    }
+
+    private void clearErrorIfExists()
     {
         if ( isInErrorState )
         {
             postToBus( new ResetDisplayEvent() );
             isInErrorState = false;
         }
+    }
 
-        if ( operation == Operation.NONE ||
-             operation == Operation.EQUAL )
+    private boolean shouldSetDisplayToNumber()
+    {
+        return lastKeyEvent == KeyEvent.NONE ||
+               lastKeyEvent == KeyEvent.OPERATION ||
+               lastKeyEvent == KeyEvent.EQUAL;
+    }
+
+    private void appendDisplayedNumber( String number )
+    {
+        postToBus( new AppendDisplayEvent( number ) );
+    }
+
+    private void setDisplayToNumber( String number )
+    {
+        postToBus( new SetDisplayValueEvent( number ) );
+    }
+
+    /**
+     * Handles the selection of an operator.
+     *
+     * @param operationEvent - operation selected
+     */
+    @Subscribe
+    public void onOperatorSelected( OperationSelectedEvent operationEvent )
+    {
+        // Ignore clicks when in an error state, when no number
+        // entered, or when no operation has been set
+        // TODO: Do I still need to track the state of the display here?
+        //       Or will Operation.NON take care of that?
+        //       TextUtils.isEmpty( getValueString() ) )
+        if ( isInErrorState || lastKeyEvent == KeyEvent.NONE )
         {
-            postToBus( new SetDisplayValueEvent( number.getNumber() ) );
-            operation = Operation.NUMBER;
+            return;
         }
-        // TODO: I shouldn't know about the display fragment, so this
-        // logic needs to be distributed somewhere.
-        else if ( isDisplayingOperation() )
+
+        // Store value
+        // TODO: How will I break out the logic of fetching display value?
+        //        if ( !operationSelectedLast() )
+        // If the last operation was a number, then store it for the calculation
+        if ( lastKeyEvent == KeyEvent.NUMBER )
         {
-            postToBus( new SetDisplayValueEvent( number.getNumber() ) );
+            storeDisplayedValue();
         }
-        else
+
+        // Store operation & update display. Having the operator
+        // update outside of the above condition means that
+        // the user can change their mind.
+        // NOTE: Can enter error state when storing the value
+        lastKeyEvent = KeyEvent.OPERATION;
+        this.operation = operationEvent.getOperator();
+        if ( !isInErrorState )
         {
-            postToBus( new AppendDisplayEvent( number.getNumber() ) );
-            operation = Operation.NUMBER;
+            postToBus( new SetDisplayValueEvent( operation.getOperationString() ) );
         }
     }
 
-        // TODO: Shouldn't rely on the string, should instead
-    //       rely on the current operation? Do I need another state to track this?
-    public boolean isDisplayingOperation()
+    // TODO: How do I get this value? I'm currently using a fire and
+    // forget model.
+    private void storeDisplayedValue()
     {
-        //            String value = getValue();
-        //            return value.equals( getString( R.string.plus ) ) ||
-        //                   value.equals( getString( R.string.minus ) ) ||
-        //                   value.equals( getString( R.string.multiply ) ) ||
-        //                   value.equals( getString( R.string.divide ) ) ||
-        //                   value.equals( getString( R.string.modulo ) );
-        return operation == Operation.PLUS     ||
-               operation == Operation.MINUS    ||
-               operation == Operation.DIVIDE   ||
-               operation == Operation.MULTIPLY ||
-               operation == Operation.MODULO;
+        try
+        {
+            // storedValue = Integer.parseInt( getValueString() );
+            storedValue = 2147483647;
+        }
+        catch ( NumberFormatException e )
+        {
+            startErrorState( R.string.ERROR );
+        }
     }
 
     /**
@@ -107,16 +168,14 @@ public class CalculatorStateFragment extends BaseFragment
         {
             performCalculation();
         }
+
+        lastKeyEvent = KeyEvent.EQUAL;
     }
 
     private boolean shouldPerformCalculation()
     {
-        //        return !isInErrorState &&
-        //               !isDisplayingOperation() &&
-        //               operation != Operation.NONE &&
-        //               !TextUtils.isEmpty( getValueString() );
         return !isInErrorState &&
-               !isDisplayingOperation() &&
+               lastKeyEvent != KeyEvent.OPERATION &&
                operation != Operation.NONE;
     }
 
@@ -127,7 +186,7 @@ public class CalculatorStateFragment extends BaseFragment
         try
         {
             // TODO: Fix this
-            //            value = Integer.parseInt( getValueString() );
+            // value = Integer.parseInt( getValueString() );
             value = 25;
         }
         catch ( NumberFormatException e )
@@ -139,6 +198,15 @@ public class CalculatorStateFragment extends BaseFragment
         }
 
         // Perform the operation
+        calculateAndUpdateDisplay( value );
+
+        storedValue = 0;
+        operation = Operation.NONE;
+    }
+
+    // TODO: Have this return a value and update the display separately?
+    private void calculateAndUpdateDisplay( int value )
+    {
         switch ( operation )
         {
             case PLUS:
@@ -150,7 +218,18 @@ public class CalculatorStateFragment extends BaseFragment
                 break;
 
             case MULTIPLY:
-                postCalculatedValue( String.valueOf( storedValue * value ) );
+                int result;
+                try
+                {
+                    result = safeMultiply( storedValue, value );
+                }
+                catch ( CalculatorOverflowException e )
+                {
+                    startErrorState( R.string.OVERFLOW );
+                    return;
+                }
+
+                postCalculatedValue( String.valueOf( result ) );
                 break;
 
             case DIVIDE:
@@ -178,26 +257,31 @@ public class CalculatorStateFragment extends BaseFragment
 
                 break;
         }
+    }
 
-        storedValue = 0;
-        operation = Operation.EQUAL;
+    private void startErrorState( int stringId )
+    {
+        postToBus( new ErrorDisplayEvent( getString( stringId ) ) );
+        isInErrorState = true;
+        operation = Operation.NONE;
+        lastKeyEvent = KeyEvent.NONE;
+    }
+
+    private int safeMultiply( int left, int right ) throws CalculatorOverflowException
+    {
+        BigInteger bigC = BigInteger.valueOf( left )
+                                    .multiply( BigInteger.valueOf( right ) );
+        if ( bigC.compareTo( BigInteger.valueOf( Integer.MAX_VALUE ) ) > 0 )
+        {
+            throw new CalculatorOverflowException();
+        }
+
+        return bigC.intValue();
     }
 
     private void postCalculatedValue( String value )
     {
         postToBus( new SetDisplayValueEvent( value ) );
-    }
-
-    // NOTE: Robolectric doesn't currently support the fragment getString()
-    //       functionality. I submitted a pull request here:
-    //       https://github.com/pivotal/robolectric/pull/300
-    // TODO: Maybe a lie now, try it!
-    private void startErrorState( int stringId )
-    {
-        //        startErrorState( stringId, String.valueOf( storedValue ) );
-        //        Log.d( TAG, "Can't format number = " + number );
-        postToBus( new ErrorDisplayEvent( getString( stringId ) ) );
-        isInErrorState = true;
     }
 
     private boolean willEquateToNan( int value )
@@ -218,63 +302,12 @@ public class CalculatorStateFragment extends BaseFragment
     @Subscribe
     public void onClearSelected( ClearEvent clearEvent )
     {
+        lastKeyEvent = KeyEvent.NONE;
+        operation = Operation.NONE;
+
         postToBus( new ResetDisplayEvent() );
         storedValue = 0;
-        operation = Operation.NONE;
         isInErrorState = false;
-    }
-
-    /**
-     * Handles the selection of an operator.
-     *
-     * @param operationEvent - operation selected
-     */
-    @Subscribe
-    public void onOperatorSelected( OperationSelectedEvent operationEvent )
-    {
-        // Ignore clicks when in an error state, when no number
-        // entered, or when no operation has been set
-        //        if ( isInErrorState ||
-        //             operation == Operation.NONE ||
-        //             TextUtils.isEmpty( getValueString() ) )
-        if ( isInErrorState ||
-             operation == Operation.NONE )
-        {
-            return;
-        }
-
-        // Store value
-        // TODO: How will I break out the logic of fetching display value?
-//        if ( !isDisplayingOperation() )
-        // If the last operation was a number, then store it for the calculation
-        if ( operation == Operation.NUMBER )
-        {
-            storeDisplayedValue();
-        }
-
-        // Store operation & update display. Having the operator
-        // update outside of the above condition means that
-        // the user can change their mind.
-        // NOTE: Can enter error state when storing the value
-        this.operation = operationEvent.getOperator();
-        if ( !isInErrorState )
-        {
-            postToBus( new SetDisplayValueEvent( operation.getOperationString() ) );
-        }
-    }
-
-    // TODO: Would I use the produce model here?
-    private void storeDisplayedValue()
-    {
-        try
-        {
-            //            storedValue = Integer.parseInt( getValueString() );
-            storedValue = 25;
-        }
-        catch ( NumberFormatException e )
-        {
-            startErrorState( R.string.ERROR );
-        }
     }
 
     @Override

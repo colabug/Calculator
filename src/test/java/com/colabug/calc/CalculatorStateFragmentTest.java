@@ -1,6 +1,11 @@
 package com.colabug.calc;
 
 import android.widget.Button;
+
+import com.colabug.calc.events.AppendDisplayEvent;
+import com.colabug.calc.events.ResetDisplayEvent;
+import com.colabug.calc.events.SetDisplayValueEvent;
+
 import org.hamcrest.CoreMatchers;
 
 import org.junit.Before;
@@ -9,10 +14,11 @@ import org.junit.runner.RunWith;
 
 import org.robolectric.RobolectricTestRunner;
 
+import java.util.ArrayList;
+
 import static com.colabug.calc.support.ResourceLocator.getResourceString;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 import static org.robolectric.util.FragmentTestUtil.startFragment;
 
 /**
@@ -22,7 +28,8 @@ import static org.robolectric.util.FragmentTestUtil.startFragment;
 
 public class CalculatorStateFragmentTest
 {
-    private static final String EMPTY_STRING = "";
+    private static final String EMPTY_STRING   = "";
+    private static final String NUMBER_ENTERED = "1";
 
     private static final String STARTING_VALUE             = "123";
     private static final String ADDITION_FINAL_VALUE       = "131";
@@ -31,14 +38,16 @@ public class CalculatorStateFragmentTest
     private static final String DIVISION_FINAL_VALUE       = "15";
     private static final String MODULO_FINAL_VALUE         = "3";
 
-    private CalculatorStateFragment calculatorState;
-    private Button                  clear;
+
+    private TestCalculatorStateFragment calculatorState;
+
+    private Button clear;
 
     @Before
     public void setUp() throws Exception
     {
         // Start fragment
-        calculatorState = new CalculatorStateFragment();
+        calculatorState = new TestCalculatorStateFragment();
         startFragment( calculatorState );
     }
 
@@ -47,6 +56,75 @@ public class CalculatorStateFragmentTest
     {
         assertNotNull( calculatorState );
     }
+
+    @Test
+    public void soloNumberShouldPostSetDisplayEvent() throws Exception
+    {
+        enterNumber();
+
+        // Verify size of events list
+        ArrayList<BaseViewEvent> events = calculatorState.getEvents();
+        assertThat( events.size(), equalTo( 1 ) );
+
+        // Verify correct event
+        BaseViewEvent lastEvent = calculatorState.getLastEvent();
+        assertTrue( lastEvent instanceof SetDisplayValueEvent );
+        assertThat( ( (SetDisplayValueEvent) lastEvent ).getValue(),
+                    equalTo( NUMBER_ENTERED ) );
+    }
+
+    @Test
+    public void existingNumberShouldPostAppendDisplayEvent() throws Exception
+    {
+        // Set initial state
+        calculatorState.setLastKeyEvent( KeyEvent.NUMBER );
+        enterNumber();
+
+        // Verify size of events list
+        ArrayList<BaseViewEvent> events = calculatorState.getEvents();
+        assertThat( events.size(), equalTo( 1 ) );
+
+        // Verify correct event
+        BaseViewEvent lastEvent = calculatorState.getLastEvent();
+        assertTrue( lastEvent instanceof AppendDisplayEvent );
+        assertThat( ( (AppendDisplayEvent) lastEvent ).getTextToAppend(),
+                    equalTo( NUMBER_ENTERED ) );
+    }
+
+    @Test
+    public void numberShouldClearErrorState() throws Exception
+    {
+        // Set up conditions
+        calculatorState.setError();
+        enterNumber();
+
+        // Verify error state
+        assertFalse( calculatorState.isInErrorState() );
+
+        // Verify size of events list
+        ArrayList<BaseViewEvent> events = calculatorState.getEvents();
+        assertThat( events.size(), equalTo( 2 ) );
+
+        // Verify events
+        assertTrue( calculatorState.getFirstEvent() instanceof ResetDisplayEvent );
+        BaseViewEvent lastEvent = calculatorState.getLastEvent();
+        assertTrue( lastEvent instanceof SetDisplayValueEvent );
+        assertThat( ( (SetDisplayValueEvent) lastEvent ).getValue(),
+                    equalTo( NUMBER_ENTERED ) );
+    }
+
+    private void enterNumber()
+    {
+        calculatorState.processNumberEvent( NUMBER_ENTERED );
+    }
+
+    //    @Test
+    //    public void operationShouldStoreValue() throws Exception
+    //    {
+    //
+    //        calculatorState.setOperation( Operation.NUMBER );
+    //
+    //    }
 
     @Test
     public void plusShouldStoreTheDisplayedValue() throws Exception
@@ -486,7 +564,7 @@ public class CalculatorStateFragmentTest
 
     private String getDisplayValue()
     {
-//        return calculatorState.getValueString();
+        //        return calculatorState.getValueString();
         return "";
     }
 
@@ -501,8 +579,49 @@ public class CalculatorStateFragmentTest
     @Test
     public void clearShouldClearStoredValue() throws Exception
     {
-//        calculatorState.setValue( 123 );
-//        clear.performClick();
-//        assertThat( calculatorState.getValueString(), equalTo( "0" ) );
+        //        calculatorState.setValue( 123 );
+        //        clear.performClick();
+        //        assertThat( calculatorState.getValueString(), equalTo( "0" ) );
+    }
+
+    class TestCalculatorStateFragment extends CalculatorStateFragment
+    {
+        private ArrayList<BaseViewEvent> events = new ArrayList<BaseViewEvent>();
+
+        public void setLastKeyEvent( KeyEvent key )
+        {
+            this.lastKeyEvent = lastKeyEvent;
+        }
+
+        @Override
+        public void postToBus( BaseViewEvent event )
+        {
+            events.add( event );
+        }
+
+        ArrayList<BaseViewEvent> getEvents()
+        {
+            return events;
+        }
+
+        BaseViewEvent getFirstEvent()
+        {
+            return events.get( 0 );
+        }
+
+        BaseViewEvent getLastEvent()
+        {
+            return events.get( events.size() - 1 );
+        }
+
+        public void setError()
+        {
+            isInErrorState = true;
+        }
+
+        public boolean isInErrorState()
+        {
+            return isInErrorState;
+        }
     }
 }

@@ -10,11 +10,6 @@ public class ButtonFragment extends BaseFragment
 {
     private View layout;
 
-    public static ButtonFragment newInstance()
-    {
-        return new ButtonFragment();
-    }
-
     @Override
     public View onCreateView( LayoutInflater inflater,
                               ViewGroup container,

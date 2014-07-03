@@ -25,8 +25,8 @@ public class CalculatorStateFragment extends BaseFragment
     protected KeyEvent lastKeyEvent = KeyEvent.NONE;
 
     // Calculations
-    protected int storedValue = 0;
-    protected Operation operation = Operation.NONE;
+    protected int       storedValue = 0;
+    protected Operation operation   = Operation.NONE;
 
     // Error state tracking
     protected boolean isInErrorState = false;
@@ -121,18 +121,16 @@ public class CalculatorStateFragment extends BaseFragment
             return;
         }
 
-        // Store value
-        // TODO: How will I break out the logic of fetching display value?
-        //        if ( !operationSelectedLast() )
-        // If the last operation was a number, then store it for the calculation
+        // If the last operation was a number, then store it for the
+        // calculation
         if ( lastKeyEvent == KeyEvent.NUMBER )
         {
             storeDisplayedValue();
         }
 
-        // Store operation & update display. Having the operator
-        // update outside of the above condition means that
-        // the user can change their mind.
+        // Store operation & update display. Having the operator update
+        // outside of the above condition means that the user can change
+        // their mind.
         // NOTE: Can enter error state when storing the value
         lastKeyEvent = KeyEvent.OPERATION;
         this.operation = operationEvent.getOperator();
@@ -142,19 +140,21 @@ public class CalculatorStateFragment extends BaseFragment
         }
     }
 
-    // TODO: How do I get this value? I'm currently using a fire and
-    // forget model.
     private void storeDisplayedValue()
     {
         try
         {
-            // storedValue = Integer.parseInt( getValueString() );
-            storedValue = 2147483647;
+            storedValue = Integer.parseInt( getDisplayValueFromActivity() );
         }
         catch ( NumberFormatException e )
         {
             startErrorState( R.string.ERROR );
         }
+    }
+
+    private String getDisplayValueFromActivity()
+    {
+        return ( (CalculatorActivity) getActivity() ).getDisplayValue();
     }
 
     /**
@@ -185,14 +185,10 @@ public class CalculatorStateFragment extends BaseFragment
         int value;
         try
         {
-            // TODO: Fix this
-            // value = Integer.parseInt( getValueString() );
-            value = 25;
+            value = Integer.parseInt( getDisplayValueFromActivity() );
         }
         catch ( NumberFormatException e )
         {
-            // TODO: What was the old break down in states for?
-            //            startErrorState( R.string.ERROR, getValueString() );
             startErrorState( R.string.ERROR );
             return;
         }

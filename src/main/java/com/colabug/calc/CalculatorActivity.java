@@ -3,9 +3,11 @@ package com.colabug.calc;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+import com.squareup.otto.Subscribe;
+
 public class CalculatorActivity extends FragmentActivity
 {
-    private CalculatorStateFragment calculatorStateFragment;
+    private String displayValue;
 
     @Override
     public void onCreate( Bundle savedInstanceState )
@@ -19,9 +21,43 @@ public class CalculatorActivity extends FragmentActivity
 
     private void addCalculatorStateFragment()
     {
-        calculatorStateFragment = CalculatorStateFragment.newInstance();
         getSupportFragmentManager().beginTransaction()
-                                   .add( calculatorStateFragment, "state" )
+                                   .add( CalculatorStateFragment.newInstance(), "state" )
                                    .commit();
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        getApp().getBus().register( this );
+    }
+
+    /**
+     * Display should be updated.
+     *
+     * @param event - holds data to change view value
+     */
+    @Subscribe
+    public void onSetDisplayValue( StoreValueEvent event )
+    {
+        this.displayValue = event.getValue();
+    }
+
+    public String getDisplayValue()
+    {
+        return displayValue;
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        getApp().getBus().unregister( this );
+    }
+
+    protected CalculatorApplication getApp()
+    {
+        return (CalculatorApplication) getApplication();
     }
 }

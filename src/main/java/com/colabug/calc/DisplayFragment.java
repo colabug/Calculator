@@ -44,11 +44,6 @@ public class DisplayFragment extends BaseFragment
         clearDisplayedValue();
     }
 
-    protected void clearDisplayedValue()
-    {
-        setDisplay( getResources().getString( R.string.EMPTY_STRING ) );
-    }
-
     @Override
     public void onResume()
     {
@@ -70,6 +65,7 @@ public class DisplayFragment extends BaseFragment
     protected void setDisplay( String result )
     {
         display.setText( result );
+        postEmptyValue();
     }
 
     /**
@@ -104,6 +100,17 @@ public class DisplayFragment extends BaseFragment
         clearDisplayedValue();
     }
 
+    protected void clearDisplayedValue()
+    {
+        setDisplay( getResources().getString( R.string.EMPTY_STRING ) );
+        postEmptyValue();
+    }
+
+    private void postEmptyValue()
+    {
+        postToBus( new StoreValueEvent( getValueString() ) );
+    }
+
     /**
      * Display should show error.
      *
@@ -113,6 +120,7 @@ public class DisplayFragment extends BaseFragment
     public void onErrorDisplay( ErrorDisplayEvent event )
     {
         showError( event.getError() );
+        postEmptyValue();
     }
 
     protected void showError( String error )

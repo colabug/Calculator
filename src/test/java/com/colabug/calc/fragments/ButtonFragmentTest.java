@@ -1,13 +1,16 @@
-package com.colabug.calc;
+package com.colabug.calc.fragments;
 
 import android.view.View;
 import android.widget.Button;
 
+import com.colabug.calc.R;
 import com.colabug.calc.events.*;
 import com.colabug.calc.events.button.ClearButtonEvent;
 import com.colabug.calc.events.button.EqualsButtonEvent;
 import com.colabug.calc.events.button.NumberButtonEvent;
 import com.colabug.calc.events.button.OperatorButtonEvent;
+import com.colabug.calc.fragments.ButtonFragment;
+import com.colabug.calc.model.Operation;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +26,7 @@ import static org.junit.Assert.assertTrue;
 import static org.robolectric.util.FragmentTestUtil.startFragment;
 
 /**
- * {@link ButtonFragment} test suite.
+ * {@link com.colabug.calc.fragments.ButtonFragment} test suite.
  * <p/>
  * TODO: Do I want to teach support fragments too?
  *

@@ -1,4 +1,4 @@
-package com.colabug.calc;
+package com.colabug.calc.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.colabug.calc.R;
 import com.colabug.calc.events.*;
 
 import com.colabug.calc.events.display.DisplayAppendEvent;

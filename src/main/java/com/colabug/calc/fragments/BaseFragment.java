@@ -1,6 +1,7 @@
-package com.colabug.calc;
+package com.colabug.calc.fragments;
 
 import android.support.v4.app.Fragment;
+import com.colabug.calc.CalculatorApplication;
 import com.colabug.calc.events.BaseEvent;
 
 /**

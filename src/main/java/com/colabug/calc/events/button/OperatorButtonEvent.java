@@ -1,6 +1,6 @@
 package com.colabug.calc.events.button;
 
-import com.colabug.calc.Operation;
+import com.colabug.calc.model.Operation;
 
 /**
  * @since 1.0

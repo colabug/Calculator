@@ -8,14 +8,14 @@
     <!--Display-->
     <fragment
         android:id="@+id/display_fragment"
-        android:name="com.colabug.calc.DisplayFragment"
+        android:name="com.colabug.calc.fragments.DisplayFragment"
         android:layout_height="@dimen/display_height"
         android:layout_width="match_parent"/>
 
     <!--Buttons-->
     <fragment
         android:id="@+id/calculator_fragment"
-        android:name="com.colabug.calc.ButtonFragment"
+        android:name="com.colabug.calc.fragments.ButtonFragment"
         android:layout_height="match_parent"
         android:layout_width="match_parent"/>
 </LinearLayout>

@@ -1,12 +1,14 @@
-package com.colabug.calc;
+package com.colabug.calc.fragments;
 
 import android.widget.Button;
 
+import com.colabug.calc.R;
 import com.colabug.calc.events.*;
-
 import com.colabug.calc.events.display.DisplayAppendEvent;
 import com.colabug.calc.events.display.DisplayResetEvent;
 import com.colabug.calc.events.display.DisplaySetValueEvent;
+import com.colabug.calc.model.KeyEvent;
+
 import org.hamcrest.CoreMatchers;
 
 import org.junit.Before;
@@ -38,7 +40,6 @@ public class CalculatorStateFragmentTest
     private static final String MULTIPLICATION_FINAL_VALUE = "984";
     private static final String DIVISION_FINAL_VALUE       = "15";
     private static final String MODULO_FINAL_VALUE         = "3";
-
 
     private TestCalculatorStateFragment calculatorState;
 

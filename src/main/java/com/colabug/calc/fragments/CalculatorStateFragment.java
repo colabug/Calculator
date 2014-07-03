@@ -1,10 +1,13 @@
-package com.colabug.calc;
+package com.colabug.calc.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.colabug.calc.CalculatorActivity;
+import com.colabug.calc.exceptions.CalculatorOverflowException;
+import com.colabug.calc.R;
 import com.colabug.calc.events.button.ClearButtonEvent;
 import com.colabug.calc.events.button.EqualsButtonEvent;
 import com.colabug.calc.events.button.NumberButtonEvent;
@@ -13,6 +16,8 @@ import com.colabug.calc.events.display.DisplayAppendEvent;
 import com.colabug.calc.events.display.DisplayErrorEvent;
 import com.colabug.calc.events.display.DisplayResetEvent;
 import com.colabug.calc.events.display.DisplaySetValueEvent;
+import com.colabug.calc.model.KeyEvent;
+import com.colabug.calc.model.Operation;
 import com.squareup.otto.Subscribe;
 
 import java.math.BigInteger;

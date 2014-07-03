@@ -1,4 +1,4 @@
-package com.colabug.calc;
+package com.colabug.calc.exceptions;
 
 /**
  * @since 1.0

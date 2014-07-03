@@ -2,6 +2,8 @@ package com.colabug.calc;
 
 import android.support.v4.app.Fragment;
 
+import com.colabug.calc.fragments.ButtonFragment;
+import com.colabug.calc.fragments.DisplayFragment;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

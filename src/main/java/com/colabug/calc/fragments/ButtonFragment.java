@@ -1,14 +1,16 @@
-package com.colabug.calc;
+package com.colabug.calc.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import com.colabug.calc.R;
 import com.colabug.calc.events.button.ClearButtonEvent;
 import com.colabug.calc.events.button.EqualsButtonEvent;
 import com.colabug.calc.events.button.NumberButtonEvent;
 import com.colabug.calc.events.button.OperatorButtonEvent;
+import com.colabug.calc.model.Operation;
 
 public class ButtonFragment extends BaseFragment
 {

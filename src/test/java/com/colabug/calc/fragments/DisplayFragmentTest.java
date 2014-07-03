@@ -1,8 +1,10 @@
-package com.colabug.calc;
+package com.colabug.calc.fragments;
 
 import android.view.View;
 import android.widget.EditText;
 
+import com.colabug.calc.R;
+import com.colabug.calc.fragments.DisplayFragment;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +19,7 @@ import static org.junit.Assert.assertThat;
 import static org.robolectric.util.FragmentTestUtil.startFragment;
 
 /**
- * {@link ButtonFragment} test suite.
+ * {@link com.colabug.calc.fragments.ButtonFragment} test suite.
  *
  * @since 1.0
  */

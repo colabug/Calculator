@@ -1,4 +1,4 @@
-package com.colabug.calc;
+package com.colabug.calc.model;
 
 public enum Operation
 {

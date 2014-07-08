@@ -18,6 +18,7 @@ import com.colabug.calc.events.display.DisplayResetEvent;
 import com.colabug.calc.events.display.DisplaySetValueEvent;
 import com.colabug.calc.model.KeyEvent;
 import com.colabug.calc.model.Operation;
+
 import com.squareup.otto.Subscribe;
 
 import java.math.BigInteger;
@@ -68,7 +69,6 @@ public class CalculatorStateFragment extends BaseFragment
     public void onNumberSelected( NumberButtonEvent event )
     {
         processNumberEvent( event.getNumber() );
-        lastKeyEvent = KeyEvent.NUMBER;
     }
 
     protected void processNumberEvent( String number )
@@ -83,6 +83,8 @@ public class CalculatorStateFragment extends BaseFragment
         {
             appendDisplayedNumber( number );
         }
+
+        lastKeyEvent = KeyEvent.NUMBER;
     }
 
     private void clearErrorIfExists()
@@ -119,6 +121,11 @@ public class CalculatorStateFragment extends BaseFragment
     @Subscribe
     public void onOperatorSelected( OperatorButtonEvent operationEvent )
     {
+        processOperation( operationEvent.getOperator() );
+    }
+
+    protected void processOperation( Operation operation )
+    {
         // Ignore clicks when in an error state, when no number
         // entered, or when no operation has been set
         // TODO: Do I still need to track the state of the display here?
@@ -141,14 +148,14 @@ public class CalculatorStateFragment extends BaseFragment
         // their mind.
         // NOTE: Can enter error state when storing the value
         lastKeyEvent = KeyEvent.OPERATION;
-        this.operation = operationEvent.getOperator();
+        this.operation = operation;
         if ( !isInErrorState )
         {
-            postToBus( new DisplaySetValueEvent( operation.getOperationString() ) );
+            postToBus( new DisplaySetValueEvent( this.operation.getOperationString() ) );
         }
     }
 
-    private void storeDisplayedValue()
+    protected void storeDisplayedValue()
     {
         try
         {
@@ -160,7 +167,7 @@ public class CalculatorStateFragment extends BaseFragment
         }
     }
 
-    private String getDisplayValueFromActivity()
+    protected String getDisplayValueFromActivity()
     {
         return ( (CalculatorActivity) getActivity() ).getDisplayValue();
     }
@@ -170,6 +177,11 @@ public class CalculatorStateFragment extends BaseFragment
      */
     @Subscribe
     public void onEqualSelected( EqualsButtonEvent equals )
+    {
+        processEqual();
+    }
+
+    protected void processEqual()
     {
         // They must have entered a number
         if ( shouldPerformCalculation() )
@@ -263,7 +275,7 @@ public class CalculatorStateFragment extends BaseFragment
         }
     }
 
-    private void startErrorState( int stringId )
+    protected void startErrorState( int stringId )
     {
         postToBus( new DisplayErrorEvent( getString( stringId ) ) );
         isInErrorState = true;
@@ -305,6 +317,11 @@ public class CalculatorStateFragment extends BaseFragment
      */
     @Subscribe
     public void onClearSelected( ClearButtonEvent clearButtonEvent )
+    {
+        clearCalculatorState();
+    }
+
+    protected void clearCalculatorState()
     {
         lastKeyEvent = KeyEvent.NONE;
         operation = Operation.NONE;

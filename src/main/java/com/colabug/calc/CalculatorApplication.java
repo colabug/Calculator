@@ -1,6 +1,8 @@
 package com.colabug.calc;
 
 import android.app.Application;
+
+import com.colabug.calc.events.BaseEvent;
 import com.squareup.otto.Bus;
 
 /**
@@ -22,10 +24,15 @@ public class CalculatorApplication extends Application
         return bus;
     }
 
+    public static void postToBus( BaseEvent event)
+    {
+        getInstance().getBus().post( event );
+    }
+
     @Override
     public void onCreate()
     {
         super.onCreate();
-        bus = new Bus();
+        instance.bus = new Bus();
     }
 }

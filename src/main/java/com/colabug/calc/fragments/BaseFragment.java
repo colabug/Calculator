@@ -1,8 +1,10 @@
 package com.colabug.calc.fragments;
 
 import android.support.v4.app.Fragment;
+
 import com.colabug.calc.CalculatorApplication;
 import com.colabug.calc.events.BaseEvent;
+import com.squareup.otto.Bus;
 
 /**
  * Base fragment
@@ -13,11 +15,35 @@ public class BaseFragment extends Fragment
 {
     public void postToBus( BaseEvent event )
     {
-        getApp().getBus().post( event );
+        CalculatorApplication.postToBus( event );
     }
 
-    protected CalculatorApplication getApp()
+    @Override
+    public void onResume()
     {
-        return (CalculatorApplication) getActivity().getApplication();
+        super.onResume();
+        registerWithBus();
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        unRegisterFromBus();
+    }
+
+    private void registerWithBus()
+    {
+        getBus().register( this );
+    }
+
+    private void unRegisterFromBus()
+    {
+        getBus().unregister( this );
+    }
+
+    protected Bus getBus()
+    {
+        return CalculatorApplication.getInstance().getBus();
     }
 }

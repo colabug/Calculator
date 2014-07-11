@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.colabug.calc.R;
-import com.colabug.calc.fragments.DisplayFragment;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

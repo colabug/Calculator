@@ -53,13 +53,6 @@ public class CalculatorStateFragment extends BaseFragment
         return null; // No view provided
     }
 
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-        getApp().getBus().register( this );
-    }
-
     /**
      * Handles the selection of a number.
      *
@@ -329,12 +322,5 @@ public class CalculatorStateFragment extends BaseFragment
         postToBus( new DisplayResetEvent() );
         storedValue = 0;
         isInErrorState = false;
-    }
-
-    @Override
-    public void onPause()
-    {
-        super.onPause();
-        getApp().getBus().unregister( this );
     }
 }

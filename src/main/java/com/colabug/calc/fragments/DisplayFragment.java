@@ -46,13 +46,6 @@ public class DisplayFragment extends BaseFragment
         clearDisplayedValue();
     }
 
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-        getApp().getBus().register( this );
-    }
-
     /**
      * Display should be updated.
      *
@@ -128,12 +121,5 @@ public class DisplayFragment extends BaseFragment
     protected void showError( String error )
     {
         setDisplay( error );
-    }
-
-    @Override
-    public void onPause()
-    {
-        super.onPause();
-        getApp().getBus().unregister( this );
     }
 }

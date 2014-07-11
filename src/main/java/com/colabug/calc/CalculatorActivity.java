@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import com.colabug.calc.events.StoreValueEvent;
 import com.colabug.calc.fragments.CalculatorStateFragment;
 
+import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
 public class CalculatorActivity extends FragmentActivity
@@ -33,7 +34,7 @@ public class CalculatorActivity extends FragmentActivity
     public void onResume()
     {
         super.onResume();
-        getApp().getBus().register( this );
+        registerWithBus();
     }
 
     /**
@@ -56,11 +57,21 @@ public class CalculatorActivity extends FragmentActivity
     public void onPause()
     {
         super.onPause();
-        getApp().getBus().unregister( this );
+        unRegisterFromBus();
     }
 
-    protected CalculatorApplication getApp()
+    private void registerWithBus()
     {
-        return (CalculatorApplication) getApplication();
+        getBus().register( this );
+    }
+
+    private void unRegisterFromBus()
+    {
+        getBus().unregister( this );
+    }
+
+    protected Bus getBus()
+    {
+        return CalculatorApplication.getInstance().getBus();
     }
 }

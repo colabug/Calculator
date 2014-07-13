@@ -65,7 +65,7 @@
     <!--Result Display-->
     <!--NOTE: TextView doesn't limit number of characters, so we're hacking
               an EditText to look like a TextView-->
-    <style name="Result" parent="BaseText">
+    <style name="Result" parent="android:TextAppearance.Large">
         <item name="android:layout_width">@dimen/display_width</item>
         <item name="android:layout_height">@dimen/display_height</item>
         <item name="android:layout_margin">@dimen/button_margin</item>

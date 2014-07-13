@@ -33,6 +33,6 @@ public class CalculatorApplicationTest
     @Test
     public void shouldHaveBus() throws Exception
     {
-        Assert.assertNotNull( application.getBus() );
+        assertNotNull( application.getBus() );
     }
 }

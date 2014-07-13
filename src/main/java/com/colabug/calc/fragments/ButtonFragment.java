@@ -22,8 +22,6 @@ public class ButtonFragment extends BaseFragment
                               ViewGroup container,
                               Bundle savedInstanceState )
     {
-        super.onCreateView( inflater, container, savedInstanceState );
-
         layout = inflater.inflate( R.layout.calculator, container, false );
 
         configureNumberKeys();

@@ -1,6 +1,7 @@
 package com.colabug.calc.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,10 @@ import com.squareup.otto.Subscribe;
  */
 public class DisplayFragment extends BaseFragment
 {
+    private static final String TAG = DisplayFragment.class.getSimpleName();
+
+    private static final String ARG_DISPLAY_VALUE = "displayed value";
+
     // View
     private   View     layout;
     protected EditText display;
@@ -31,7 +36,7 @@ public class DisplayFragment extends BaseFragment
                               ViewGroup container,
                               Bundle savedInstanceState )
     {
-        super.onCreateView( inflater, container, savedInstanceState );
+        setRetainInstance( true );
 
         layout = inflater.inflate( R.layout.display, container, false );
 
@@ -121,5 +126,23 @@ public class DisplayFragment extends BaseFragment
     protected void showError( String error )
     {
         setDisplay( error );
+    }
+
+    @Override
+    public void onSaveInstanceState( Bundle outState )
+    {
+        Log.d( TAG, "Displaying: " + getValueString() );
+        outState.putString( ARG_DISPLAY_VALUE, getValueString() );
+    }
+
+    public void onActivityCreated( Bundle savedInstanceState )
+    {
+        super.onActivityCreated( savedInstanceState );
+        if ( savedInstanceState != null )
+        {
+            String string = savedInstanceState.getString( ARG_DISPLAY_VALUE );
+            Log.d( TAG, "Restoring Display: " + string );
+            display.setText( string );
+        }
     }
 }

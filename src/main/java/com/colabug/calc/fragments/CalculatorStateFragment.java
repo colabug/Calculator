@@ -1,6 +1,7 @@
 package com.colabug.calc.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,13 @@ import java.math.BigInteger;
  */
 public class CalculatorStateFragment extends BaseFragment
 {
+    private static final String TAG = CalculatorStateFragment.class.getSimpleName();
+
+    private static final String ARG_STORED_VALUE   = "stored value";
+    private static final String ARG_LAST_KEY_EVENT = "last key event";
+    private static final String ARG_LAST_OPERATION = "last operation";
+    private static final String ARG_ERROR_STATE    = "error state";
+
     // Key state tracking
     protected KeyEvent lastKeyEvent = KeyEvent.NONE;
 
@@ -50,6 +58,7 @@ public class CalculatorStateFragment extends BaseFragment
                               ViewGroup container,
                               Bundle savedInstanceState )
     {
+        setRetainInstance( true );
         return null; // No view provided
     }
 
@@ -322,5 +331,36 @@ public class CalculatorStateFragment extends BaseFragment
         postToBus( new DisplayResetEvent() );
         storedValue = 0;
         isInErrorState = false;
+    }
+
+    @Override
+    public void onSaveInstanceState( Bundle outState )
+    {
+        Log.d( TAG, "Display value being saved: " + storedValue );
+        Log.d( TAG, "Key event being saved: " + lastKeyEvent );
+        Log.d( TAG, "Operation value being saved: " + operation );
+        Log.d( TAG, "Error value being saved: " + isInErrorState );
+
+        outState.putInt( ARG_STORED_VALUE, storedValue );
+        outState.putSerializable( ARG_LAST_KEY_EVENT, lastKeyEvent );
+        outState.putSerializable( ARG_LAST_OPERATION, operation);
+        outState.putBoolean( ARG_ERROR_STATE, isInErrorState );
+    }
+
+    public void onActivityCreated( Bundle savedInstanceState )
+    {
+        super.onActivityCreated( savedInstanceState );
+        if ( savedInstanceState != null )
+        {
+            storedValue = savedInstanceState.getInt( ARG_STORED_VALUE );
+            lastKeyEvent = (KeyEvent) savedInstanceState.getSerializable( ARG_LAST_KEY_EVENT );
+            operation = (Operation) savedInstanceState.getSerializable( ARG_LAST_OPERATION );
+            isInErrorState = savedInstanceState.getBoolean( ARG_ERROR_STATE );
+
+            Log.d( TAG, "Display value being restored: " + storedValue );
+            Log.d( TAG, "Key event being restored: " + lastKeyEvent );
+            Log.d( TAG, "Operation value being restored: " + operation );
+            Log.d( TAG, "Error value being restored: " + isInErrorState );
+        }
     }
 }

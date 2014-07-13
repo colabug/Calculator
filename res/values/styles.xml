@@ -37,10 +37,7 @@
     </style>
 
     <!--Number-->
-    <style name="Number" parent="BaseText">
-        <item name="android:layout_width">@dimen/button_dimensions</item>
-        <item name="android:layout_height">@dimen/button_dimensions</item>
-        <item name="android:layout_margin">@dimen/button_margin</item>
+    <style name="Number" parent="BaseButton">
         <item name="android:background">@drawable/number_key</item>
     </style>
 

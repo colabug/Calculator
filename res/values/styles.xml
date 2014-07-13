@@ -26,7 +26,7 @@
     <!--Base text-->
     <style name="BaseText" parent="android:TextAppearance.Large">
         <item name="android:textSize">@dimen/key_text_size</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <!--Base button style-->
@@ -76,6 +76,6 @@
         <item name="android:editable">false</item>
         <item name="android:focusable">false</item>
         <item name="android:focusableInTouchMode">false</item>
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@android:color/white</item>
     </style>
 </resources>

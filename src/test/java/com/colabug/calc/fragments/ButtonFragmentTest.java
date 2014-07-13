@@ -9,8 +9,8 @@ import com.colabug.calc.events.button.ClearButtonEvent;
 import com.colabug.calc.events.button.EqualsButtonEvent;
 import com.colabug.calc.events.button.NumberButtonEvent;
 import com.colabug.calc.events.button.OperatorButtonEvent;
-import com.colabug.calc.fragments.ButtonFragment;
 import com.colabug.calc.model.Operation;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -98,7 +98,10 @@ public class ButtonFragmentTest
     public void shouldHave1Key() throws Exception
     {
         assertViewIsVisible( key1 );
+        assertThat( key1.getText().toString(),
+                    equalTo( getResourceString( R.string.key1 ) ) );
     }
+
 
     @Test
     public void oneShouldPostEvent() throws Exception
@@ -119,6 +122,8 @@ public class ButtonFragmentTest
     public void shouldHave2Key() throws Exception
     {
         assertViewIsVisible( key2 );
+        assertThat( key2.getText().toString(),
+                    equalTo( getResourceString( R.string.key2 ) ) );
     }
 
     @Test
@@ -132,6 +137,8 @@ public class ButtonFragmentTest
     public void shouldHave3Key() throws Exception
     {
         assertViewIsVisible( key3 );
+        assertThat( key3.getText().toString(),
+                    equalTo( getResourceString( R.string.key3 ) ) );
     }
 
     @Test
@@ -145,6 +152,8 @@ public class ButtonFragmentTest
     public void shouldHave4Key() throws Exception
     {
         assertViewIsVisible( key4 );
+        assertThat( key4.getText().toString(),
+                    equalTo( getResourceString( R.string.key4 ) ) );
     }
 
     @Test
@@ -158,6 +167,8 @@ public class ButtonFragmentTest
     public void shouldHave5Key() throws Exception
     {
         assertViewIsVisible( key5 );
+        assertThat( key5.getText().toString(),
+                    equalTo( getResourceString( R.string.key5 ) ) );
     }
 
     @Test
@@ -171,6 +182,8 @@ public class ButtonFragmentTest
     public void shouldHave6Key() throws Exception
     {
         assertViewIsVisible( key6 );
+        assertThat( key6.getText().toString(),
+                    equalTo( getResourceString( R.string.key6 ) ) );
     }
 
     @Test
@@ -184,6 +197,8 @@ public class ButtonFragmentTest
     public void shouldHave7Key() throws Exception
     {
         assertViewIsVisible( key7 );
+        assertThat( key7.getText().toString(),
+                    equalTo( getResourceString( R.string.key7 ) ) );
     }
 
     @Test
@@ -197,6 +212,8 @@ public class ButtonFragmentTest
     public void shouldHave8Key() throws Exception
     {
         assertViewIsVisible( key8 );
+        assertThat( key8.getText().toString(),
+                    equalTo( getResourceString( R.string.key8 ) ) );
     }
 
     @Test
@@ -210,6 +227,8 @@ public class ButtonFragmentTest
     public void shouldHave9Key() throws Exception
     {
         assertViewIsVisible( key9 );
+        assertThat( key9.getText().toString(),
+                    equalTo( getResourceString( R.string.key9 ) ) );
     }
 
     @Test
@@ -223,6 +242,8 @@ public class ButtonFragmentTest
     public void shouldHave0Key() throws Exception
     {
         assertViewIsVisible( key0 );
+        assertThat( key0.getText().toString(),
+                    equalTo( getResourceString( R.string.key0 ) ) );
     }
 
     @Test
@@ -236,6 +257,8 @@ public class ButtonFragmentTest
     public void shouldHavePlusKey() throws Exception
     {
         assertViewIsVisible( plus );
+        assertThat( plus.getText().toString(),
+                    equalTo( getResourceString( R.string.plus ) ) );
     }
 
     @Test
@@ -257,6 +280,8 @@ public class ButtonFragmentTest
     public void shouldHaveMinusKey() throws Exception
     {
         assertViewIsVisible( minus );
+        assertThat( minus.getText().toString(),
+                    equalTo( getResourceString( R.string.minus ) ) );
     }
 
     @Test
@@ -270,6 +295,8 @@ public class ButtonFragmentTest
     public void shouldHaveMultiplyKey() throws Exception
     {
         assertViewIsVisible( multiply );
+        assertThat( multiply.getText().toString(),
+                    equalTo( getResourceString( R.string.multiply ) ) );
     }
 
     @Test
@@ -283,6 +310,8 @@ public class ButtonFragmentTest
     public void shouldHaveDivideKey() throws Exception
     {
         assertViewIsVisible( divide );
+        assertThat( divide.getText().toString(),
+                    equalTo( getResourceString( R.string.divide ) ) );
     }
 
     @Test
@@ -296,6 +325,8 @@ public class ButtonFragmentTest
     public void shouldHaveModuloKey() throws Exception
     {
         assertViewIsVisible( modulo );
+        assertThat( modulo.getText().toString(),
+                    equalTo( getResourceString( R.string.modulo ) ) );
     }
 
     @Test
@@ -309,6 +340,8 @@ public class ButtonFragmentTest
     public void shouldHaveEqualKey() throws Exception
     {
         assertViewIsVisible( equal );
+        assertThat( equal.getText().toString(),
+                    equalTo( getResourceString( R.string.equal ) ) );
     }
 
     @Test
@@ -322,6 +355,8 @@ public class ButtonFragmentTest
     public void shouldHaveClearKey() throws Exception
     {
         assertViewIsVisible( clear );
+        assertThat( clear.getText().toString(),
+                    equalTo( getResourceString( R.string.clear ) ) );
     }
 
     @Test
